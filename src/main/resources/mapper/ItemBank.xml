@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.groupsix.examsystem.dao.teacher.QuestionManageDao">
+
+    <!--添加题库-->
+    <insert id="itembank">
+       insert into tbl_questionbank values(testban_seq.nextval,#{qname},0,#{qstate},#{emailName})
+    </insert>
+
+    <!-- 获取题库列表 -->
+    <select id="getQuestionList" resultType="map">
+      select * from tbl_questionbank
+    </select>
+    <!--删除题库-->
+    <delete id="deleteQuestion" parameterType="int">
+          delete from tbl_questionbank where bank_id=#{id}
+    </delete>
+    <!--查询指定id题库-->
+    <select id="SelectByidQuestion" parameterType="int"  resultType="map">
+          select * from tbl_questionbank where bank_id=#{id}
+    </select>
+    <!--添加单选题-->
+    <insert id="addSingleExam"  parameterType="map">
+       insert into tbl_exam_singlechoice(single_id,single_type,single_diff,single_bank,single_state,single_main,single_a,single_b,single_c,single_d,single_result) values(testban_seq.nextval,#{qutype},#{qudiff},#{qubank},#{qustate},#{qutext},#{radio1},#{radio2},#{radio3},#{radio4},#{radio5})
+    </insert>
+    <!--添加多选题-->
+    <insert id="addmultipleExam"  parameterType="map">
+       insert into tbl_exam_multiplechoice(mul_id,mul_type,mul_diff,mul_bank,mul_state,mul_main,mul_a,mul_b,mul_c,mul_d,mul_result) values(testban_seq.nextval,#{qutype},#{qudiff},#{qubank},#{qustate},#{qutext},#{checkbox1},#{checkbox2},#{checkbox3},#{checkbox4},#{checkbox5})
+    </insert>
+    <!--添加判断选题-->
+    <insert id="addjudgeExam"  parameterType="map">
+       insert into tbl_exam_judge(judge_id,judge_type,judge_diff,judge_bank,judge_state,judge_main,judge_result) values(testban_seq.nextval,#{qutype},#{qudiff},#{qubank},#{qustate},#{qutext},#{jun1})
+    </insert>
+
+
+</mapper>

@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+
+    <script type="text/javascript">
+        function test(Names){
+            var Name
+            for (var i=0;i<3;i++){	//  更改数字4可以改变选择的内容数量，在下拉总数值的基础上+1.比如：下拉菜单有5个值，则4变成6
+                var tempname="mune_x"+i
+                var NewsHot="x"+i	//  “X”是ID名称，比如：ID命名为“case1”，这里的“X”即为“case”
+                if (Names==tempname){
+                    Nnews=document.getElementById(NewsHot)
+                    Nnews.style.display='';
+                }else{
+                    Nnews=document.getElementById(NewsHot)
+                    Nnews.style.display='none';
+                }
+            }
+        }
+    </script>
+    <title>角色管理</title>
+</head>
+<body>
+<div class="page-container">
+    <h3>新增试题</h3>
+    <p style="color: gray">填写下面的表单，创建新的试题。选择不同的试题类型，需要填写的表单也各不相同。</p>
+
+    <form class="form form-horizontal" id="form-article-add" method="post" action="/examsystem/question/addexamination">
+        <div id="tab-system" class="HuiTab">
+            <div class="tabCon">
+
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2">试题类型: </label>
+                    <div class="formControls col-xs-8 col-sm-9" style="width: 150px;">
+                        <select name="qutype" class="select" style="width: 150px;"  onChange="javascript:test('mune_x'+this.value)">
+                            <option value="0">单选</option>
+                            <option value="1">多选</option>
+                            <option value="2">判断</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row cl" style="margin-left: 400px;margin-top: -50px;position: relative;">
+                    <label class="form-label col-xs-4 col-sm-2">试题难度: </label>
+                    <div class="formControls col-xs-8 col-sm-9" style="width: 150px;">
+                        <select name="qudiff" class="select" style="width: 150px;">
+                            <option value="常规">常规</option>
+                            <option value="容易">容易</option>
+                            <option value="难">难</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2">所属题库: </label>
+                    <div class="formControls col-xs-8 col-sm-9" style="width: 150px;">
+                        <select name="qubank" class="select" style="width: 150px;">
+                            <option value="java">java</option>
+                            <option value="python">python</option>
+                            <option value="php">php</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row cl"  style="margin-left: 250px;margin-top: -30px;position: relative;">
+                    <label class="form-label col-xs-4 col-sm-2">试题状态: </label>
+                    <div class="formControls col-xs-8 col-sm-9" style="width: 150px;">
+                        <select name="qustate" class="select" style="width: 150px;">
+                            <option value="开放">开放</option>
+                            <option value="关闭">关闭</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row cl"  style="margin-top: 30px;position: relative;">
+                    <label class="form-label col-xs-4 col-sm-2">试题题干：</label>
+                    <div class="formControls col-xs-8 col-sm-9" style="width: 700px;">
+                        <textarea name="qutext" class="textarea"></textarea>
+                    </div>
+                </div>
+
+                <!--单选题-->
+                <div id="x0" class="row cl">
+                    <div style="width: 550px;margin-left: 100px;">
+                        <form action="" method="get" >
+                            <h4>选项设置</h4><br/>
+                            <div style="margin-left: 80px;">
+                                <div style="margin-top: 0px;">
+                                    A:  <input type="text" id="ad1" name="radio1" value="" class="input-text" style="height: 50px;position: relative;margin-left: 30px;margin-top: -30px;">
+                                </div>
+                                <div style="margin-top: 40px;">
+                                    B: <input type="text" id="ad2" name="radio2" value="" class="input-text" style="height: 50px;position: relative;margin-left: 30px;margin-top: -30px;">
+                                </div>
+                                <div style="margin-top: 40px;">
+                                    C: <input type="text" id="ad3" name="radio3" value="" class="input-text" style="height: 50px;position: relative;margin-left: 30px;margin-top: -30px;">
+                                </div>
+                                <div style="margin-top: 40px;">
+                                    D: <input type="text" id="ad4" name="radio4" value="" class="input-text" style="height: 50px;position: relative;margin-left: 30px;margin-top: -30px;">
+                                </div>
+                                <div style="margin-top: 40px;">
+                                    正确答案: <input type="text" id="ad5" name="radio5" value="" class="input-text" style="width:100px; height: 40px;position: relative;margin-left: 20px;margin-top: -10px;">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--多选题-->
+                <div id="x1" style="margin-left: 150px;display: none">
+                    <h4>选项设置</h4><br/>
+                    <div style="margin-left: 100px;">
+                        <div style="margin-top: 0px;">
+                            <tr class="text-c">
+                                <td>A:<input type="text" id="c1" name="checkbox1" value="" class="input-text" style=" width:500px;height: 50px;position: relative;margin-left: 30px;margin-top: -30px;"></td>
+                            </tr>
+                        </div>
+                        <div style="margin-top: 60px;">
+                            <tr class="text-c" style="padding-top: 100px;">
+                                <td>B:<input type="text" id="c2" name="checkbox2" value="" class="input-text" style=" width:500px;height: 50px;position: relative;margin-left: 30px;margin-top: -30px;"></td>
+                            </tr>
+                        </div>
+                        <div style="margin-top: 60px;">
+                            <tr class="text-c" style="padding-top: 100px;">
+                                <td>C:<input type="text" id="c3" name="checkbox3" value="" class="input-text" style=" width:500px;height: 50px;position: relative;margin-left: 30px;margin-top: -30px;"></td>
+                            </tr>
+                        </div>
+                        <div style="margin-top: 60px;">
+                            <tr class="text-c" style="padding-top: 100px;">
+                                <td>D:<input type="text" id="c4" name="checkbox4" value="" class="input-text" style=" width:500px;height: 50px;position: relative;margin-left: 30px;margin-top: -30px;"></td>
+                            </tr>
+                        </div>
+                        <div style="margin-top: 40px;">
+                            正确答案: <input type="text" id="c5" name="checkbox5" value="" class="input-text" style="width:100px; height: 40px;position: relative;margin-left: 20px;margin-top: -10px;">
+                        </div>
+                    </div>
+                </div>
+                <!--判断题-->
+                <div id="x2" style="margin-left: 150px;display: none">
+                    <h4>答案设置</h4><br/>
+                    <div style="margin-left: 100px;">
+                        Y/N<input type="text" id="jun" name="jun1" value="" class="input-text" style="width:100px; height: 30px;position: relative;margin-left: 20px;margin-top: -10px;">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row cl"  style="margin-top: 30px;position: relative;">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                    <input class="btn btn-primary radius" type="submit" value="保存">
+                    <input class="btn btn-default radius" type="reset" value="取消">
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+        $("#tab-system").Huitab({
+            index:0
+        });
+
+    });
+
+</script>
+</body>
+</html>
