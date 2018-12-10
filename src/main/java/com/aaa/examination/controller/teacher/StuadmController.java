@@ -44,7 +44,7 @@ public class StuadmController {
         rmap.put("total",stuadmService.getPageCount(map));
         // System.out.println(map+"......abc.....");
         // System.out.println(map.get("start")+","+map.get("end"));
-        System.out.println(rmap);
+        //System.out.println(rmap);
         return rmap;
     }
 
