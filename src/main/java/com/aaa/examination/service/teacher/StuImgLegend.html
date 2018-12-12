@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+option = {
+title : {
+text: '新峰学员入学概览',
+subtext: '2018年'
+},
+tooltip : {
+trigger: 'axis'
+},
+legend: {
+data:['降水量']
+},
+toolbox: {
+show : true,
+feature : {
+dataView : {show: true, readOnly: false},
+magicType : {show: true, type: ['line', 'bar']},
+restore : {show: true},
+saveAsImage : {show: true}
+}
+},
+calculable : true,
+xAxis : [
+{
+type : 'category',
+data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
+}
+],
+yAxis : [
+{
+type : 'value'
+}
+],
+series : [
+
+{
+name:'降水量',
+type:'bar',
+data:[2.0, 5.0, 9.0, 26.0, 28.0, 70.0, 175.0, 182.0, 48.0, 18.0, 6.0, 2.0],
+markPoint : {
+data : [
+{name : '年最高', value : 182.0, xAxis: 7, yAxis: 183},
+{name : '年最低', value : 2.0, xAxis: 11, yAxis: 3}
+]
+},
+markLine : {
+data : [
+{type : 'average', name : '平均值'}
+]
+}
+}
+]
+};
+
+</body>
+</html>

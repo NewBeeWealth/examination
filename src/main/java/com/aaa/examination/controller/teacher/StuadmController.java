@@ -68,7 +68,7 @@ public class StuadmController {
     @RequestMapping("/batchDel/{ids}")
     public Object batchDel(@PathVariable String ids){
         //1,2,3,
-        return null;
+        return stuadmService.batchDelete(ids);
     }
     /**
      * 添加
