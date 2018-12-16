@@ -21,5 +21,6 @@ public class ExaminationMainApp {
      */
     public static void main(String[] args) {
         SpringApplication.run(ExaminationMainApp.class);
+        System.out.println("炎龙铠甲合体！！！");
     }
 }

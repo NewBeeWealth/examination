@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.examination.dao.teacher.StuadmDao">
+    <!--获取学生列表-->
+    <select id="getStuList" resultType="map">
+/*
+      select STUDENT_ID,STUDENT_NAME,STUDENT_USERNAME,STUDENT_PWD,STU_IDNO,STU_PHONE,b.CLASSNAME from TBL_STUDENT a,TBL_CLASS b where a.CLASSID=b.CLASSID
+*/
+       <!-- select * from (select rownum rn,t.* from TBL_STUDENT  t where  rownum &lt; #{end}
+        <if test="STUDENT_ID!=null and STUDENT_ID!=''"> and STUDENT_ID=#{STUDENT_ID} </if>
+          <if test="STUDENT_NAME!=STUDENT_NAME and STUDENT_NAME!=''"> and STUDENT_NAME like '%'||#{STUDENT_NAME}||'%' </if>
+          <if test="CLASSID!=null and CLASSID!=0"> and CLASSID=#{CLASSID} </if>
+        )  a where a.rn &gt; #{start}-->
+        select * from (
+        select b.classname,a.*,rownum rn  from tbl_student a
+        join tbl_class b on a.classid=b.classid AND  rownum &lt; #{end}
+        <if test="STUDENT_ID!=null and STUDENT_ID!=''"> and STUDENT_ID=#{STUDENT_ID} </if>
+        <if test="STUDENT_NAME!=null and STUDENT_NAME!=''"> and STUDENT_NAME like '%'||#{STUDENT_NAME}||'%' </if>
+        <if test="CLASSID!=null and CLASSID!=0"> and a.CLASSID=#{CLASSID} </if>
+        )c where c.rn  &gt; #{start}
+
+    </select>
+    <!--单个添加学生-->
+    <insert id="addStu" parameterType="map">
+     insert into TBL_STUDENT(STUDENT_ID,STUDENT_NAME,STUDENT_USERNAME,STUDENT_PWD,STU_IDNO,STU_PHONE,CLASSID) VALUES (#{STUDENT_ID},#{STUDENT_NAME},#{STUDENT_USERNAME},#{STUDENT_PWD},#{STU_IDNO},#{STU_PHONE},#{CLASSID})
+    </insert>
+    <!--修改学生-->
+    <update id="updateStu" parameterType="map">
+      update TBL_STUDENT set STUDENT_NAME=#{STUDENT_NAME},STUDENT_USERNAME=#{STUDENT_USERNAME},STUDENT_PWD=#{STUDENT_PWD},STU_IDNO=#{STU_IDNO},STU_PHONE=#{STU_PHONE},CLASSID=#{CLASSID} where STUDENT_ID=#{STUDENT_ID}
+    </update>
+    <!--删除学生-->
+    <delete id="deleteStu" parameterType="int">
+        DELETE from TBL_STUDENT where STUDENT_ID=#{STUDENT_ID}
+    </delete>
+    <!--分页总数量-->
+    <select id="getPageCount" resultType="int">
+        <!--select count(*) from TBL_STUDENT where 1=1
+        <if test="STUDENT_ID!=null and id!=''"> and STUDENT_ID=#{STUDENT_ID} </if>
+        <if test="STUDENT_NAME!=null and STUDENT_NAME!=''"> and STUDENT_NAME like '%'||#{STUDENT_NAME}||'%' </if>
+    <if test="CLASSID!=null and CLASSID!=0"> and CLASSID=#{CLASSID} </if>-->
+        select count(*) from TBL_STUDENT where 1=1
+        <if test="STUDENT_ID!=null and STUDENT_ID!=''"> and STUDENT_ID=#{STUDENT_ID} </if>
+        <if test="STUDENT_NAME!=null and STUDENT_NAME!=''"> and STUDENT_NAME like '%'||#{STUDENT_NAME}||'%' </if>
+        <if test="CLASSID!=null and CLASSID!=0"> and CLASSID=#{CLASSID} </if>
+    </select>
+    <select id="getClassList" resultType="map">
+        select * from tbl_class
+    </select>
+</mapper>
