@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>添加试题</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/fileinput.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <link href="../form_builder/animate.min.css" rel="stylesheet">
+    <link href="../form_builder/summernote.css" rel="stylesheet">
+    <link href="../form_builder/style.min862f.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <script src="../javascript/jquery.min.js"></script>
+    <script src="../javascript/bootstrap.min.js"></script>
+    <script src="../javascript/fileinput.min.js"></script>
+    <script src="../javascript/bootstrap-datetimepicker.min.js"></script>
+    <script src="../javascript/distpicker.data.min.js"></script>
+    <script src="../javascript/distpicker.min.js"></script>
+    <script src="../javascript/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="../javascript/zh.js"></script>
+    <script src="../javascript/jquery-ui.min.js"></script>
+    <script src="../form_builder/beautifyhtml.js"></script>
+    <style>
+        .ibox-content{
+            min-height:430px;overflow-y:auto;max-height:580px;
+        }
+    </style>
+</head>
+<body style="background-color:#f7f5f6;">
+
+<div class="container-fluid" style="padding:0px; margin:0px;">
+    <div class="row-fluid clearfix">
+        <div class="col-md-12 column">
+            <div style="width:1080px; margin:0 auto; margin-top:20px;">
+                <div class="conference-cont" style=" margin-top:20px;">
+                    <!--<div class="set-til">第一步<span style="padding-left:10px;">报名表单设置</span></div>-->
+                    <div class="wrapper wrapper-content" style="margin-top: 55px;">
+                        <div class="row" style="border-left: 2px dashed rgba(0,0,0,0.12);border-right: 2px dashed rgba(0,0,0,0.12);border-bottom: 2px dashed rgba(0,0,0,0.12);">
+
+                            <div style="border:0px solid #999;margin-left: 10px;margin-top: -50px;">
+                                <h4><strong>配置试卷</strong></h4>
+                                <p>试卷详情配置，您可以在当前页面创建章节，并向章节中添加试题并设置分值。</p>
+                                <div style="border:0px solid #999;width: 1050px;height: 80px;position: relative;">
+
+                                    <div class="form-inline">
+                                        <label for="firstname" class="col-sm-2 control-label">卷面总分</label>
+                                        <input type="text" class="form-control" id="firstname" placeholder="0" style="width: 100px;position: relative;">
+                                    </div>
+
+                                    <div class="form-inline">
+                                        <label for="firstname" class="col-sm-2 control-label">及格分数</label>
+                                        <input type="text" class="form-control" id="firstname1" placeholder="0" style="width: 100px;position: relative;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="colzuo" class="col-sm-9" style="border-right: 2px dashed rgba(0,0,0,0.12);">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>拖拽/点击右侧表单项到此区域</h5>
+                                    </div>
+                                    <!--主界面-->
+                                    <div class="ibox-content">
+                                        <div class="row form-body form-horizontal m-t">
+                                            <form class="col-md-12 droppable sortable ui-droppable ui-sortable" action="/exam/submitexamination" method="post">
+                                                <div>
+                                                    <input name="examid" type="hidden" th:value="${tempid}"/>
+                                                </div>
+                                                <div class="row cl">
+                                                    <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2" >
+                                                        <button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                                                        <button class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="colyou" class="col-sm-3">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>自定义表单项</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <form role="form" class="form-horizontal m-t">
+                                      <!--      <div id="text" class="form-group draggable ui-draggable btntext">
+                                                <label class="col-sm-12"><i class="fa fa-arrows"></i> 文本框</label>
+                                            </div>-->
+                                            <p><b>单选</b></p>
+                                         <div th:each="mapS:${singleList}">
+                                            <div th:id="${mapS.SINGLE_ID}" th:value="${mapS.SINGLE_MAIN}" class="form-group draggable ui-draggable btntext">
+                                                <div class="col-sm-12" th:text="${mapS.SINGLE_MAIN}"><i class="fa fa-arrows"></i></div>
+                                            </div>
+                                         </div>
+                                            <p><b>多选</b></p>
+                                            <div th:each="map1:${multipleList}">
+                                                <div th:id="${map1.MUL_ID}" th:value="${map1.MUL_MAIN}" class="form-group draggable ui-draggable btntext">
+                                                    <div class="col-sm-12" th:text="${map1.MUL_MAIN}"><i class="fa fa-arrows"></i></div>
+                                                </div>
+                                            </div>
+                                            <p><b>判断</b></p>
+                                            <div th:each="map2:${judgeList}">
+                                                <div th:id="${map2.JUDGE_ID}" th:value="${map2.JUDGE_MAIN}" class="form-group draggable ui-draggable btntext">
+                                                    <div class="col-sm-12" th:text="${map2.JUDGE_MAIN}"><i class="fa fa-arrows"></i></div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <div class="clearfix">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    //自定义表单开始
+    $(document).ready(function() {
+
+        setup_draggable();
+        $(".btntext,.btntexts").click(function() {
+            //var temp = document.getElementById("text").value;
+            $(tableList($(this).attr("value"),$(this).attr("id"))).appendTo($(".ui-sortable"));//点击添加
+        });
+    });
+
+    var setup_draggable = function() {
+
+        $(".draggable").draggable({
+            appendTo: "body",
+            helper: "clone"
+        });
+        $(".droppable").droppable({
+            accept: ".draggable",
+            helper: "clone",
+            hoverClass: "droppable-active",
+            drop: function(event, ui) {
+                $(".empty-form").remove();
+                var $orig = $(ui.draggable);
+
+                if (!$(ui.draggable).hasClass("dropped")) {
+                    $(tableList($orig.attr("id"))).appendTo(this);
+                } else {
+                    if ($(this)[0] != $orig.parent()[0]) {
+                        var $el = $orig.clone().appendTo(this);
+                        $orig.remove()
+                    }
+                }
+            }
+        }).sortable()
+    };
+    //分数
+    function chkvalue(txt) {
+        if(txt.value!=""){
+            var last=document.getElementById("firstname").value;
+            var temp = document.getElementById("firstname").value=Number(txt.value)+Number(last);
+            var temp1 = document.getElementById("firstname1").value=temp*0.6;
+        }
+    }
+    //删除标签
+    $(document).on("click", ".remove-link", function(ev) {
+        var r = confirm("是否删除？")
+        if (r == true) {
+            $(this).parent().parent().remove();
+        }
+    });
+
+    //表单自定义
+    function tableList(id,value) {
+        var content = "";
+       // alert(id+"--"+value)
+        if(id!=0){
+            var text = '<div>'+id+'</div>';
+            content = '<div class="form-group draggable ui-draggable dropped" name="'+value+'"><label class="col-sm-2 control-label">试题内容：</label><div class="col-sm-7">' + text + '</div>' +
+                '<p class="tools col-sm-3"><a class="edit-link" name="text" title="设置"><i class="fa fa-cog fa-fw"></i></a>' +
+                '<a class="remove-link"><i class="fa fa-trash-o"></i></a><label class="labcheck"><input type="text" style="width:50px" name="'+value+'" onblur="chkvalue(this)"> 分数</label></p></div>';
+        }
+        return content;
+    }
+// ---------------------------------------------
+
+    //表单自定义设置
+    function tabUp(tabL, $el) {
+        var content = "";
+        //弹出层数据数据
+        //alert($el.find("label:eq(0)").html().substring(0, $el.find("label:eq(0)").html().length - 1))
+        //alert( $el.find("input:eq(0)").attr("placeholder"));
+        switch (tabL) {
+            case "text":
+                //文本框
+                content = '<div class="row tabup"><div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">标题：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("label:eq(0)").html().substring(0, $el.find("label:eq(0)").html().length - 1) + '" placeholder="请输入标题"></div></div><div class="col-sm-12" style="margin-bottom:10px"><label class="col-sm-3 control-label">提示信息：</label><div class="col-sm-9"><input type="text" class="form-control" value="' + $el.find("input:eq(0)").attr("placeholder") + '" placeholder="请输入提示信息"></div></div></div>';
+                break;
+        }
+        return content;
+    }
+    //提示信息
+    var get_modal = function(content, tabL, $el) {
+        var modal = "";
+        if (tabL == "cont") {
+            modal = $('<div class="modal" style="overflow: auto;" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><a type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</a><h4 class="modal-title">表单信息设置</h4></div><div class="modal-body ui-front"><xmp class="form-control"  style="min-height: 200px; overflow-y: auto; margin-bottom: 10px;font-family: Monaco, Fixed">' + content + '</xmp><button class="btn btn-success">确认</button></div></div></div></div>').appendTo(document.body);
+        } else {
+            modal = $('<div class="modal" style="overflow: auto;" tabindex="-1"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><a type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</a><h4 class="modal-title">表单信息设置</h4></div><div class="modal-body ui-front">' + tabUp(tabL, $el) + '<xmp class="form-control"  style="min-height: 200px; display:none; overflow-y: auto; margin-bottom: 10px;font-family: Monaco, Fixed">' + content + '</xmp><button class="btn btn-success">确认</button></div></div></div></div>').appendTo(document.body);
+        }
+        return modal;
+    };
+
+    $(document).on("click", ".edit-link", function(ev) {
+        var tabname = $(this).attr('name');
+        var $el = $(this).parent().parent();
+        var $el_copy = $el.clone();
+        alert(tabname+"-----"+$el+"----"+$el_copy);
+
+        var $modal = get_modal(html_beautify($el_copy.html()), tabname, $el).modal("show");
+
+        $modal.find(".btn-success").click(function(ev2) {
+            //表单自定义js
+            switch (tabname) {
+                case "text":
+                    //文本框
+                    $el.find("label:eq(0)").html($(this).parent().find("input:eq(0)").val() + "：");
+                    $el.find("input:eq(0)").attr("placeholder", $(this).parent().find("input:eq(1)").val());
+                    $modal.modal("hide");
+                    return false;
+                    break;
+            }
+        })
+    });
+
+</script>
+</body>
+</html>

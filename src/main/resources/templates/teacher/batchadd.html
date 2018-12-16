@@ -1,6 +1,5 @@
-<!--_meta 作为公共模版分离出去-->
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE HTML >
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
@@ -30,34 +29,38 @@
     <p style="color: gray">请确保EXCEL文件版本为97-2003，并请勿删除（或新增）模板文件中的列，确保文件能顺利解析。</p>
     <p style="color: gray">请核对EXCEL文件中的填写日期单元格，其属性为“文本”。</p>
     <div class="page-container">
-        <form class="form form-horizontal" id="form-article-add">
-            <div class="row cl">
-                <label class="form-label col-xs-4 col-sm-2">所属题库: </label>
+       <form class="form form-horizontal" id="form-article-add" action="/exam/batchAdd" method="post" enctype="multipart/form-data">
+           <div class="row cl">
+               <label class="form-label col-xs-4 col-sm-2">题库名称: </label>
+               <div class="formControls col-xs-8 col-sm-9">
+                   <input type="text" name="qname" value="" class="input-text">
+               </div>
+           </div>
+
+<!--           <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">下载模板</label>
                 <div class="formControls col-xs-8 col-sm-9" style="width: 150px;">
-                    <select name="" class="select" style="width: 150px;">
-                        <option value="0">java</option>
-                        <option value="1">php</option>
-                    </select>
+                    <a href="/single.xls">单选模板</a><br>
+                    <a href="/multiple.xls">多选模板</a><br>
+                    <a href="/judge.xls">判断模板</a>
                 </div>
-            </div>
+            </div>-->
 
             <div class="row cl" style="margin-top: 30px;">
-                <label class="form-label col-xs-4 col-sm-2">数据文件 : </label>
+                <label class="form-label col-xs-4 col-sm-2">选择文件 </label>
                 <div class="formControls col-xs-8 col-sm-9">
-                    <form action="demo_form.asp">
-                        <input type="file" name="pic" accept="image/*">
-                        <input type="submit" style="width: 100px;">
-                    </form>
+                    <input type="file" name="excelFile">
                 </div>
             </div>
 
             <div class="row cl" style="margin-top: 30px;">
                 <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
-                    <button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
-                    <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                    <!--<input type="submit" value="批量导入">-->
+                    <button  class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 批量导入</button>
                 </div>
             </div>
         </form>
+
     </div>
 </div>
 </body>

@@ -16,4 +16,6 @@ public interface UserLoginService {
      * @return
      */
     List<Map> userLogin(Map map);
+
+    List<Map> selectIndexList(String userName);
 }

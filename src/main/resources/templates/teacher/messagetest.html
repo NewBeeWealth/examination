@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
     <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
 
-    <title>角色管理</title>
+    <title>题库列表</title>
 </head>
 <body>
 <div class="page-container">
@@ -35,13 +35,15 @@
        <tr th:each="bank : ${maps}">
             <td th:text="${bank.BANK_ID}"></td>
             <td th:text="${bank.BANK_NAME}"></td>
-            <td th:text="${bank.BANK_STATE}"></td>
+            <td th:text="${bank.BANK_STATE}==0?'开放':'关闭'"></td>
             <td th:text="${bank.BANK_NUM}"></td>
             <td th:text="${bank.BANK_DETAIL}"></td>
 
             <td>
-                <a th:href="'/examsystem/question/questionupdate?id='+${bank.BANK_ID}" >修改</a>&nbsp;
-                <a th:href="'/examsystem/question/questiondelete?id='+${bank.BANK_ID}" >删除</a>
+                <a class="btn btn-primary" th:href="'/question/questionupdate?id='+${bank.BANK_ID}" >修改</a>&nbsp;
+                <a class="btn btn-primary" th:href="'/question/questiondelete?id='+${bank.BANK_ID}" >删除</a>
+               <a class="btn btn-primary" onclick="system_category_add('修改','/question/questionupdate')" href="javascript:;">修改</a>
+            <!--    <a class="btn btn-primary" onclick="system_category_add('删除','/question/questiondelete?id=${bank.BANK_ID}')" href="javascript:;">删除</a>-->
             </td>
         </tr>
         </tbody>
@@ -61,8 +63,12 @@
     function admin_role_edit(title,url,id,w,h){
         layer_show(title,url,w,h);
     }
+    /*系统-栏目-添加*/
+    function system_category_add(title,url,w,h){
+        layer_show(title,url,550,400);
+    }
     /*管理员-角色-删除*/
-    function admin_role_del(obj,id){
+    /*function admin_role_del(obj,id){
         layer.confirm('角色删除须谨慎，确认要删除吗？',function(index){
             $.ajax({
                 type: 'POST',
@@ -77,7 +83,7 @@
                 },
             });
         });
-    }
+    }*/
 </script>
 </body>
 </html>

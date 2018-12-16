@@ -33,6 +33,42 @@
     <insert id="addjudgeExam"  parameterType="map">
        insert into tbl_exam_judge(judge_id,judge_type,judge_diff,judge_bank,judge_state,judge_main,judge_result) values(testban_seq.nextval,#{qutype},#{qudiff},#{qubank},#{qustate},#{qutext},#{jun1})
     </insert>
+    <!-- 获取学生列表 -->
+    <select id="selecetclass" resultType="map">
+      select a.*,b.stunum from tbl_class a,(select classid ,count(*) as stunum from tbl_student group by classid) b
+      where a.classid=b.classid
+    </select>
 
+    <select id="selectclname" parameterType="int" resultType="map">
+        select * from tbl_class where classid=#{id}
+    </select>
+
+    <select id="selectpername" parameterType="int" resultType="map">
+        select * from tbl_student where student_id=#{id}
+    </select>
+    <!--查询学生-->
+    <select id="selecetPerson" parameterType="int" resultType="map">
+       select * from tbl_student where classid=#{classid}
+    </select>
+
+    <!--添加试卷返回主键-->
+    <insert id="addexam"  parameterType="map">
+        <selectKey keyProperty="EXAM_ID" order="BEFORE" resultType="int">
+            select exam_exam.nextval as exam_id from DUAL
+        </selectKey>
+       insert into tbl_exam(EXAM_ID,EXAM_NAME,EXAM_CLASSIFY,EXAM_STATE,EXAM_STARTTIME,EXAM_ENDTIME,EXAM_SCORETIME,EXAM_TIME,EXAM_SCORE_RESULT,EXAM_OTHER,EXAM_DESCROBE) values(exam_exam.nextval,#{examinatename},#{examinatetype},#{examinatestate},to_date(#{examinatestart},'yyyy-mm-dd hh24:mi:ss'),to_date(#{examinateend},'yyyy-mm-dd hh24:mi:ss'),to_date(#{examinateopen},'yyyy-mm-dd hh24:mi:ss'),#{examinatetime},#{examinateisopen},#{examinateother},#{examinatemain})
+    </insert>
+    <!--添加试卷班级-->
+    <insert id="insertexam" parameterType="map" >
+       insert into tbl_exam_class(EXAMCLASS_CLASS,EXAMCLASS_EXAM,EXAMCLASS_ID) values(exam_exam.nextval,#{examid},#{classid})
+    </insert>
+    <!--添加试卷学生-->
+    <insert id="insertstude" parameterType="map">
+       insert into tbl_exam_student(STUDENTEXAM_ID,STUDENTEXAM_STUDENT,STUDENTEXAM_EXAM,STUDENTEXAM_STATE) values(exam_exam.nextval,#{studentIdid},#{examid},#{studentexamstate})
+    </insert>
+
+    <select id="getFtpList" resultType="map">
+       select * from tbl_addexcel
+    </select>
 
 </mapper>

@@ -154,9 +154,9 @@
                 var time = new Date();
                 return time.getTime();
             }
-            function changeImage() {
+            $("#changeVerifImageRegister").click(function() {
                 $('#verifyCodeImage').attr('src',  '/login/getVerifyCode?timestamp=' + genTimestamp());
-            }
+            })
             //提交
             $("#subm").click(function () {
                 $("#subform").submit();
@@ -193,7 +193,7 @@
                 <img  src="/login/getVerifyCode"  width="90px" height="30px">
             </span>
             <span>
-                <a id="changeVerifImageRegister" style="cursor: pointer" onclick="javascript:changeImage();">看不清，换一张</a>
+                <a id="changeVerifImageRegister" style="cursor: pointer">看不清，换一张</a>
             </span>
         </p>
         <span th:text="${error}"></span>

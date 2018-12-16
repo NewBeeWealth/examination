@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.examination.dao.teacher.UserDao">
+    <!--查询列表-->
+    <select id="getUser" parameterType="String" resultType="user">
+       select ADMIN_ID as adminid,ADMIN_NAME as adminname,ADMIN_USERNAME as adminusername,ADMIN_PWD as adminpwd ,ADMIN_state as adminstate from tbl_admin where admin_username=#{value1}
+    </select>
+
+    <!--查询列表-->
+    <select id="getUserTeacher" parameterType="String" resultType="userTeacher">
+       select TEACHER_ID as teacherid,TEACHER_NAME as teachername,TEACHER_USERNAME as teacherusername,TEACHER_PWD as teacherpwd ,TEACHER_STATE as teacherstate from tbl_teacher where TEACHER_USERNAME=#{value1}
+    </select>
+
+    <!--查询列表-->
+    <select id="getUserStudent" parameterType="String" resultType="userStudent">
+       select STUDENT_ID as studentid,STUDENT_NAME as studentname,STUDENT_USERNAME as studentusername,STUDENT_PWD as studentpwd ,STUDENT_STATE as studentstate from tbl_student where STUDENT_USERNAME=#{value1}
+    </select>
+
+    <select id="findByid" parameterType="int" resultType="userOccupation">
+       select OCCUPATION_ID as occid,OCCUPATION_NAME as occname,OCCUPATION_STATE as occstate from tbl_occupation where OCCUPATION_ID =#{value}
+    </select>
+
+</mapper>
