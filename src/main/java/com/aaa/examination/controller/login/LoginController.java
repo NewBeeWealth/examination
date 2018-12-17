@@ -145,21 +145,19 @@ public class LoginController {
      */
     @RequestMapping("/login")
     public String login(HttpSession session, @RequestParam Map map,Model model) {
-        //String inputVerifyCode=request.getParameter("verifyCode");
         String inputVerifyCode = map.get("VerifyCode")+"";
-        System.out.println("用户输入的验证码值------>"
-            + inputVerifyCode);
+        //System.out.println("用户输入的验证码值------>"+ inputVerifyCode);
         String verifyCodeValue=(String) session.getAttribute("verifyCodeValue");
-        System.out.println("Session中的验证码值------>"
-            + verifyCodeValue);
+        //System.out.println("Session中的验证码值------>"+verifyCodeValue);
         if(verifyCodeValue.equals(inputVerifyCode.toUpperCase())){
-            System.out.println("用户输入的验证码和图片生成的验证码相等，登陆成功");
-            System.out.println("------------"+map.get("userName"));
-            System.out.println("------------"+map.get("role"));
+            //System.out.println("用户输入的验证码和图片生成的验证码相等，登陆成功");
+            //System.out.println("------------"+map.get("userName"));
+            //System.out.println("------------"+map.get("role"));
             List<Map> userList = userLoginService.userLogin(map);
             if (userList!=null&&userList.size()>0){
                 session.setAttribute("userName", map.get("userName"));
                 session.setAttribute("passWord", map.get("passWord"));
+                session.setAttribute("studentId", userList.get(0).get("studentId"));
                 session.setMaxInactiveInterval(600000);
                 return "login/indexA";
             }else {

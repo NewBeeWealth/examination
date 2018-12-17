@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查找试卷</title>
+    <script src="../jquery.js"></script>
+    <style>
+        .ht:hover{
+            background-color: silver;
+        }
+    </style>
+    <script>
+        $(function () {
+            $(".getQuestion").on("click",function () {
+                var examId=$(this).parent().prev().html();
+                //console.log(examName);
+                if (examId!=null&&examId!='') {
+                    location.href = '/exam/question/'+examId;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <h3>我的试卷</h3>
+    <span style="color: #aaa;line-height: 50px" >我的试卷，请选择以下列表中我需要参加的考试。</span>
+    <table style="width: 100%;text-align: center">
+        <thead>
+            <form>
+                <tr style="text-align: left;height: 50px">
+                    <td colspan="8">
+                        试卷名称：<input type="text" name="examName" placeholder="请输入试卷名称" style="border: 1px solid #cccccc;height: 27px;width: 200px;border-radius: 4px">
+                        <input type="submit" value="查询" style="background-color: #0064cc;border-radius: 5px;width: 50px;height: 30px;border: 0px;color: #fff">
+                    </td>
+                </tr>
+            </form>
+            <tr style="background-color: silver; height: 40px"><td>试卷名称</td><td>时间设定</td><td>考试时长</td><td>试卷分类</td><td>卷面总分</td><td>及格分数</td><td>创建人</td><td>操作</td></tr>
+        </thead>
+        <tbody>
+        <tr th:each="exam:${examList}" class="ht">
+            <td th:text="${exam.EXAM_NAME}"></td>
+            <td><p th:text="${exam.EXAM_STARTTIME}"></p><p th:text="${exam.EXAM_ENDTIME}"></p></td>
+            <td th:text="${exam.EXAM_TIME}"></td>
+            <td th:text="${exam.EXAM_CLASSIFY}"></td>
+            <td th:text="${exam.EXAM_TOTLESCORE}"></td>
+            <td th:text="${exam.EXAM_TOTLESCORE}"></td>
+            <td th:text="${exam.TEACHER_NAME}"></td>
+            <td th:text="${exam.EXAM_ID}" style="display: none"></td>
+            <td><a style="cursor: pointer;color: #195f91;" class="getQuestion">开始考试</a></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

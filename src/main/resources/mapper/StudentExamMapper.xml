@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.examination.dao.studentexam.StudentExamDao">
+    <cache type="org.mybatis.caches.redis.RedisCache" blocking="false"
+           flushInterval="0" readOnly="true" size="1024" eviction="FIFO"/>
+    <!--查询所有试卷-->
+    <select id="chooseExam" resultType="map">
+      select exam_id,exam_name,exam_starttime,exam_endtime,exam_time,exam_classify,EXAM_TOTLESCORE,teacher_name from tbl_exam join tbl_teacher
+        on exam_teacher=teacher_id
+        where exam_id=#{examId}
+        and #{nowDate} between exam_starttime and exam_endtime
+        <if test="examName!=null and examName!=''">
+            and exam_name like '%'||#{examName}||'%'
+        </if>
+    </select>
+    <!--查询用户是否有试卷权限-->
+    <select id="getPerson" resultType="map">
+        select studentexam_exam from TBL_EXAM_STUDENT where studentexam_student=#{studentId} and studentexam_state=#{state}
+    </select>
+    <!--通过试卷id查询试卷信息-->
+    <select id="examTop" resultType="map">
+        select exam_id,exam_name,exam_starttime,exam_endtime,exam_time,exam_totlescore from tbl_exam where exam_id=#{examId}
+    </select>
+    <!--通过试卷id查询单选试题-->
+    <select id="getSingleQuestion" resultType="map">
+        select single_id,EXQU_SCORE,single_main,single_A,single_B,single_C,single_D
+        from tbl_exam join (select exqu_exam,exqu_score,t.* from tbl_exam_singlechoice t join tbl_exam_question on single_id = exqu_single) b on exam_id=b.exqu_exam
+        where exam_id=#{examId}
+    </select>
+    <!--通过试卷id查询多选试题-->
+    <select id="getMulQuestion" resultType="map">
+        select mul_id,EXQU_SCORE,mul_main,mul_A,mul_B,mul_C,mul_D
+        from tbl_exam join (select exqu_exam,exqu_score,t.* from tbl_exam_multiplechoice t join tbl_exam_question on mul_id = EXQU_MULTIPLE) b on exam_id=b.exqu_exam
+        where exam_id=#{examId}
+    </select>
+    <!--通过试卷id查询判断题-->
+    <select id="getJudgeQuestion" resultType="map">
+        select judge_id,EXQU_SCORE,judge_main
+        from tbl_exam join (select exqu_exam,exqu_score,t.* from tbl_exam_judge t join tbl_exam_question on judge_id = EXQU_JUDGE) b on exam_id=b.exqu_exam
+        where exam_id=#{examId}
+    </select>
+    <!--查询是否答过题-->
+    <select id="getMsg" resultType="map">
+        select totalscore from TBL_TOTALSCORE where totalscore_student=#{studentId} and totalscore_exam=#{examId}
+    </select>
+    <!--查询单选题正确答案-->
+    <select id="getSingleResult" resultType="map">
+        select single_result from TBL_EXAM_SINGLECHOICE where single_id=#{singleId}
+    </select>
+    <!--查询多选题正确答案-->
+    <select id="getMulResult" resultType="map">
+        select mul_result from TBL_EXAM_MULTIPLECHOICE where mul_id=#{mulId}
+    </select>
+    <!--查询判断题正确答案-->
+    <select id="getJudgeResult" resultType="map">
+        select judge_result from TBL_EXAM_JUDGE where judge_id=#{judgeId}
+    </select>
+    <!--保存选择题答案-->
+    <insert id="saveSingleAnswer">
+        insert into tbl_answer(answer_id,answer_student,answer_single,answer,answer_examid,answer_score) values (seq_tblanswer_id.nextval,#{studentId},#{singleId},#{singleAnswer},#{examId},#{singleScores})
+    </insert>
+    <!--保存多选题答案-->
+    <insert id="saveMulAnswer">
+        insert into tbl_answer(answer_id,answer_student,answer_multiple,answer,answer_examid,answer_score) values (seq_tblanswer_id.nextval,#{studentId},#{mulId},#{mulAnswer},#{examId},#{mulScores})
+    </insert>
+    <!--保存判断题答案-->
+    <insert id="saveJudgeAnswer">
+        insert into tbl_answer(answer_id,answer_student,answer_judge,answer,answer_examid,answer_score) values (seq_tblanswer_id.nextval,#{studentId},#{judgeId},#{judgeAnswer},#{examId},#{judgeScores})
+    </insert>
+    <!--保存总分-->
+    <insert id="saveTotalScore">
+        insert into TBL_TOTALSCORE values (seq_totalscore_id.nextval,#{studentId},#{examId},#{totalScore})
+    </insert>
+    <!--改变试卷状态-->
+    <update id="changeState">
+        update TBL_EXAM_STUDENT set studentexam_state=2 where studentexam_student=#{studentId} and studentexam_exam=#{examId}
+    </update>
+</mapper>

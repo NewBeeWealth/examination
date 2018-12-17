@@ -29,6 +29,8 @@ public class UserLoginServiceImpl implements UserLoginService{
                 userList = userLoginDao.teacherLogin(map);
             }else {
                 userList = userLoginDao.studentLogin(map);
+                Object student_id = userList.get(0).get("STUDENT_ID");
+                userList.get(0).put("studentId",student_id);
             }
         }
         return userList;
