@@ -1,13 +1,12 @@
 package com.aaa.examination.entity;
 
 /**
- * className:user
+ * className:userAdmin
  * discriptoin:
  * author:llw
- * createTime:2018-12-11 20:47
+ * createTime:2018-12-17 08:49
  */
-public class user {
-
+public class userAdmin {
     private int adminid;
     private String adminname;
     private String adminusername;

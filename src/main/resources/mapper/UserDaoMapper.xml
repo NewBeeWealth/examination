@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.examination.dao.teacher.UserDao">
     <!--查询列表-->
-    <select id="getUser" parameterType="String" resultType="user">
+    <select id="getUser" parameterType="String" resultType="userAdmin">
        select ADMIN_ID as adminid,ADMIN_NAME as adminname,ADMIN_USERNAME as adminusername,ADMIN_PWD as adminpwd ,ADMIN_state as adminstate from tbl_admin where admin_username=#{value1}
     </select>
 

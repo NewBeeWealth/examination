@@ -15,7 +15,6 @@
       select * from tbl_student where student_username=#{userName} and student_pwd=#{passWord}
     </select>
 
-
     <select id="selectTeacherList" parameterType="String" resultType="map">
         select * from tbl_function where function_id in(
           select FUN_OCC_FUNCTION from tbl_function_occupation where FUN_OCC_OCCUPATION in (
@@ -38,7 +37,10 @@
               select student_state from tbl_student where student_username=#{userName}
           )
         )
+    </select>
 
+    <select id="getChildrensByPid" parameterType="int" resultType="map">
+        select * from tbl_function where FUNCTION_CODING=#{functionid}
     </select>
 
 </mapper>

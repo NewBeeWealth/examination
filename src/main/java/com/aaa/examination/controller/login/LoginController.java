@@ -57,8 +57,9 @@ public class LoginController {
     @RequestMapping("toIndex")
     public String toIndex(HttpSession session,Model model) {
         String userName = (String) session.getAttribute("userName");
-        List<Map> maps = userLoginService.selectIndexList(userName);
-        model.addAttribute("maps",maps);
+        List<Map> powerList = userLoginService.selectIndexList(userName);
+        System.out.println(powerList);
+        model.addAttribute("powerList",powerList);
         return "login/indexA";
     }
 
