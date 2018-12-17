@@ -45,6 +45,7 @@ public class ShiroConfig {
         //授权过滤器
         filterMap.put("/login/indexA","perms[user:admin]");
         filterMap.put("/login/indexA","perms[user:teacher]");
+        filterMap.put("/login/indexA","perms[user:userStudent]");
         //filterMap.put("/sb/user/update","perms[user:update]");
         filterMap.put("/login/*","authc");
         filterMap.put("/question/*","authc");

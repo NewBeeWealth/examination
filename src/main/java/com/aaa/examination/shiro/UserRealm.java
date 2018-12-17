@@ -1,9 +1,6 @@
 package com.aaa.examination.shiro;
 
-import com.aaa.examination.entity.user;
-import com.aaa.examination.entity.userOccupation;
-import com.aaa.examination.entity.userStudent;
-import com.aaa.examination.entity.userTeacher;
+import com.aaa.examination.entity.*;
 import com.aaa.examination.service.teacher.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -37,18 +34,32 @@ public class UserRealm extends AuthorizingRealm {
         //到数据库查询当前登录用户的授权字符串
         //获取当前登录用户
         Subject subject = SecurityUtils.getSubject();
-
-       /* user user=(user) subject.getPrincipal();
-        userOccupation dbUser=userService.findByid(Integer.valueOf(user.getAdminstate()));*/
-
-        userTeacher userTeacher=(userTeacher) subject.getPrincipal();
-        userOccupation dbUser1=userService.findByid(Integer.valueOf(userTeacher.getTeacherstate()));
-
-        System.out.println(dbUser1+"--------------");
-        //dbUser.getPerms();
-        // info.addRole("userA");
-        info.addStringPermission(dbUser1.getOccstate());
-        return info;
+        Object value= null;
+        try {
+            value = subject.getPrincipal();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(value);
+        if(String.valueOf(value+"").indexOf("userAdmin")!=-1){
+            userAdmin userAdmin=(userAdmin) subject.getPrincipal();
+            userOccupation dbUser=userService.findByid(Integer.valueOf(userAdmin.getAdminstate()));
+            info.addStringPermission(dbUser.getOccstate());
+            return info;
+        }
+        if(String.valueOf(value+"").indexOf("userTeacher")!=-1){
+               userTeacher userTeacher=(userTeacher) subject.getPrincipal();
+            userOccupation dbUser1=userService.findByid(Integer.valueOf(userTeacher.getTeacherstate()));
+            info.addStringPermission(dbUser1.getOccstate());
+            return info;
+        }
+        if(String.valueOf(value+"").indexOf("userStudent")!=-1){
+            userStudent userStudent=(userStudent) subject.getPrincipal();
+            userOccupation dbUser2=userService.findByid(Integer.valueOf(userStudent.getStudentstate()));
+            info.addStringPermission(dbUser2.getOccstate());
+            return info;
+        }
+        return null;
     }
 
     @Autowired
@@ -66,7 +77,7 @@ public class UserRealm extends AuthorizingRealm {
         UsernamePasswordToken token=(UsernamePasswordToken)authenticationToken;
         System.out.println(token.getUsername());
         String value1=token.getUsername();
-        user user=userService.getUser(value1);
+        userAdmin user=userService.getUser(value1);
         if(user!=null){
             //管理员
             return  new SimpleAuthenticationInfo(user,user.getAdminpwd(),"");
