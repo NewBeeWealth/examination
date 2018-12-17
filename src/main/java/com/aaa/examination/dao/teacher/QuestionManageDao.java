@@ -58,4 +58,58 @@ public interface QuestionManageDao {
      */
     int addjudgeExam(Map map);
 
+    /**
+     * 获取试题列表
+     * @return
+     */
+    List<Map> getSmjlist();
+
+    /**
+     * 查询学生列表
+     * @return
+     */
+    List<Map> selecetclass();
+
+    /**
+     * 查询班级名称
+     * @return
+     */
+    List<Map> selectclname(int id);
+
+    /**
+     * 查询学生名称
+     * @param id
+     * @return
+     */
+    List<Map> selectpername(int id);
+    /**
+     * 查询学生
+     * @param id
+     * @return
+     */
+    List<Map> selecetPerson(int id);
+
+    /**
+     * 添加试卷
+     * @return
+     */
+    int addexam(Map userMap);
+
+    /**
+     * 添加试卷班级
+     * @return
+     */
+    int insertexam(Map selectclname);
+    /**
+     * 添加试卷学生
+     * @return
+     */
+    int insertstude(Map map);
+
+    /**
+     * 获取文件列表
+     * @return
+     */
+    List<Map> getFtpList();
+
 }

@@ -40,4 +40,43 @@ public interface QuestionManageService {
      * @return
      */
     int addExamination(Map map);
+    /**
+     * 获取试题列表
+     * @return
+     */
+    List<Map> getSmjlist();
+    /**
+     * 查询学生列表
+     * @return
+     */
+    List<Map> selecetclass();
+    /**
+     * 查询班级名称
+     * @return
+     */
+    List<Map> selectclname(String id);
+
+    /**
+     * 查询学生信息
+     * @param id
+     * @return
+     */
+    List<Map> selectpename(String id);
+    /**
+     * 查询学生
+     * @param id
+     * @return
+     */
+    List<Map> selecetPerson(int id);
+
+    /**
+     * 提交试卷
+     * @return
+     */
+    int submitPapers(Map userMap,List<Map> selectclname,List<Map> selectpername);
+    /**
+     * 获取文件列表
+     * @return
+     */
+    List<Map> getFtpList();
 }

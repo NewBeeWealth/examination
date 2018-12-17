@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE HTML>
-<html>
+<html xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
@@ -52,7 +52,7 @@
 
 <aside class="Hui-aside">
     <div class="menu_dropdown bk_2">
-
+        <shiro:hasPermission name="user:admin">
         <dl id="menu-article">
             <dt><i class="Hui-iconfont">&#xe616;</i>题库管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
@@ -60,21 +60,26 @@
                     <li><a data-href="/question/toQuestion" data-title="创建题库" href="javascript:void(0)">创建题库</a></li>
                     <li><a data-href="/question/messagetest" data-title="管理题库" href="javascript:void(0)">管理题库</a></li>
                     <li><a data-href="/question/toAddexamination" data-title="新增试题" href="javascript:void(0)">新增试题</a></li>
-                    <li><a data-href="/question/batchadd" data-title="批量导入试题" href="javascript:void(0)">批量导入试题</a></li>
+                    <li><a data-href="/question/uploadMessage" data-title="上传试题" href="javascript:void(0)">上传试题</a></li>
+                    <li><a data-href="/question/batchadd" data-title="下载试题" href="javascript:void(0)">下载试题</a></li>
+                    <li><a data-href="/question/excelbatchadd" data-title="批量添加试题" href="javascript:void(0)">批量添加试题</a></li>
                     <li><a data-href="/question/toExamManage" data-title="管理试题" href="javascript:void(0)">管理试题</a></li>
                 </ul>
             </dd>
         </dl>
+        </shiro:hasPermission>
+        <shiro:hasPermission name="user:teacher">
 
         <dl id="menu-picture">
             <dt><i class="Hui-iconfont">&#xe613;</i>试卷管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="picture-list.html" data-title="创建试卷" href="javascript:void(0)">创建试卷</a></li>
-                    <li><a data-href="product-brand.html" data-title="管理试卷" href="javascript:void(0)">管理试卷</a></li>
+                    <li><a data-href="/question/toTempchange" data-title="创建试卷" href="javascript:void(0)">创建试卷</a></li>
+                    <li><a data-href="/exam/messageexamination" data-title="管理试卷" href="javascript:void(0)">管理试卷</a></li>
                 </ul>
             </dd>
         </dl>
+
         <dl id="menu-student">
             <dt><i class="Hui-iconfont">&#xe616;</i>学员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
@@ -96,14 +101,16 @@
                 </ul>
             </dd>
         </dl>
+        </shiro:hasPermission>
         <dl id="menu-system">
             <dt><i class="Hui-iconfont">&#xe616;</i>系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="product-brand" -title="角色管理" href="javascript:void(0)">角色管理</a></li>
+                    <li><a data-href="/exammanage/toUserPower" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
                 </ul>
             </dd>
         </dl>
+
     </div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
@@ -155,6 +162,16 @@
                 },
             }
         });*/
+    $.ajax({
+        type:'post',
+        dataType:'json',
+        url:'login/toIndex',
+        success:function (data) {
+            console.log(data+"1111")
+        }
+    })
+
+
     });
     /*个人信息*/
     function myselfinfo(){
