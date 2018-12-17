@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.examination.dao.historyexam.HistoryExamDao">
+    <cache type="org.mybatis.caches.redis.RedisCache" blocking="false"
+           flushInterval="0" readOnly="true" size="1024" eviction="FIFO"/>
+    <!--查询已经考过的试卷的id-->
+    <select id="getExamId" resultType="map">
+        select studentexam_exam from TBL_EXAM_STUDENT where studentexam_student=#{studentId} and studentexam_state=#{state}
+    </select>
+    <!--分页查询所有历史考试-->
+    <select id="getList" resultType="map" parameterType="map">
+        select b.* from (select rownum rn,c.* from
+        (select a.totalscore,exam_id,exam_name,exam_classify,to_char(exam_starttime,'YYYY-MM-DD HH:mm:ss') as EXAM_STARTTIME,to_char(exam_endtime,'YYYY-MM-DD HH:mm:ss') as EXAM_ENDTIME,exam_time,EXAM_TOTLESCORE
+        from TBL_EXAM t join tbl_totalscore a on totalscore_exam=exam_id where totalscore_student=#{studentId} ) c
+        where rownum &lt; #{end} ) b where b.rn &gt; #{start}
+            <if test="examName!=null and examName!=''">
+                and exam_name like '%'||#{examName}||'%'
+            </if>
+    </select>
+    <!--查询分页总数量-->
+    <select id="getPageCount" resultType="int">
+        select count(*) from TBL_EXAM join tbl_totalscore on totalscore_exam=exam_id where totalscore_student=#{studentId}
+            <if test="examName!=null and examName!=''">
+                and exam_name like '%'||#{examName}||'%'
+            </if>
+    </select>
+    <!--通过试卷id查询试卷信息-->
+    <select id="examTop" resultType="map">
+        select exam_id,exam_name,exam_starttime,exam_endtime,exam_time,exam_totlescore from tbl_exam where exam_id=#{examId}
+    </select>
+    <!--获取单选题详情-->
+    <select id="getSingleDetail" resultType="map">
+        select * from  (select single_id,EXQU_SCORE,single_main,single_A,single_B,single_C,single_D,single_result
+        from tbl_exam join (select exqu_exam,exqu_score,t.* from tbl_exam_singlechoice t join tbl_exam_question on single_id = exqu_single) b
+         on exam_id=b.exqu_exam) e left join tbl_answer f on e.single_id=f.answer_single where answer_examid =#{examId} and answer_student=#{studentId}
+    </select>
+    <!--获取多选题详情-->
+    <select id="getMulDetail" resultType="map">
+        select * from  (select mul_id,EXQU_SCORE,mul_main,mul_A,mul_B,mul_C,mul_D,mul_result
+        from tbl_exam join (select exqu_exam,exqu_score,t.* from tbl_exam_multiplechoice t join tbl_exam_question on mul_id = exqu_multiple) b
+         on exam_id=b.exqu_exam) e left join tbl_answer f on e.mul_id=f.answer_multiple where answer_examid =#{examId} and answer_student=#{studentId}
+    </select>
+    <!--获取判断题详情-->
+    <select id="getJudgeDetail" resultType="map">
+        select * from  (select judge_id,EXQU_SCORE,judge_main,judge_result
+        from tbl_exam join (select exqu_exam,exqu_score,t.* from tbl_exam_judge t join tbl_exam_question on judge_id = exqu_judge where exqu_exam=#{examId}) b
+         on exam_id=b.exqu_exam) e left join tbl_answer f on e.judge_id=f.answer_judge where answer_examid =#{examId} and answer_student=#{studentId}
+    </select>
+</mapper>

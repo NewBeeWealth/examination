@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>考试试题</title>
+    <script src="../../jquery-3.3.1.min.js"></script>
+    <style>
+        .ul-select>*{
+            display: inline-block;
+            list-style: none;
+        }
+        .dis{
+            display: none;
+        }
+        #saveAnswer{
+            width: 80px;height: 40px;
+            border:0px;border-radius: 8px;
+            background-color: green;
+        }
+        #saveAnswer:hover{
+            background-color: #00CC99;
+        }
+        .space{
+            line-height: 50px;
+        }
+        .space:hover{
+            border-radius: 8px;
+            background-color: silver;
+        }
+        .fs{
+            font-size: 20px;font-family: 黑体;
+        }
+        .bc{
+            background-color: green;
+            color: #fff;
+            width: 20px;
+            text-align: center;
+        }
+        .ts{
+            line-height: 40px;
+            text-align:center;
+        }
+        #remainingTime{
+            background-color: #ee5f5b;
+            color: #ffff;
+            width: 250px;
+        }
+    </style>
+    <script>
+        var maxtime =null;
+        $(function () {
+            maxtime = $('#tim').html()*60; //按秒计算
+            setInterval("CountDown()", 1000);
+            $("#saveAnswer").click(function () {
+                if (confirm("确定提交吗？")) {
+                    sub();
+                }
+            });
+            /*单选题答题卡*/
+            $("#single input[type=radio]").each(function(){
+                $(this).on("click",function(){
+                   $("#"+$(this).attr("name")).attr("style","background-color:red;border:1px solid #000;");
+                });
+            });
+            /*多选题答题卡*/
+            $("#mul input[type=checkbox]").each(function(){
+                $(this).on("click",function(){
+                    if ($('input[type=checkbox]:checked').length>0) {
+                        $("#"+$(this).attr("name")).attr("style","background-color:red;border:1px solid #000;");
+                    }else {
+                        $("#"+$(this).attr("name")).attr("style","background-color:silver;border:1px solid #000;");
+                    }
+                });
+            });
+            /*判断题答题卡*/
+            $("#judge input[type=radio]").each(function(){
+                $(this).on("click",function(){
+                    $("#"+$(this).attr("name")).attr("style","background-color:red;border:1px solid #000;");
+                });
+            });
+        });
+
+        function sub() {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "/exam/subAnswer" ,
+                data: $('#save').serialize(),
+                success: function (result) {
+                    if (result==-2){
+                        alert("你已提交过答案！");
+                    } else {
+                        location.href='/login/toIndex'
+                    }
+                },
+                error : function() {
+                    alert("提交失败！");
+                }
+            });
+        }
+
+        function CountDown() {
+            if (maxtime >= 0) {
+                var minutes = Math.floor(maxtime / 60);
+                var seconds = Math.floor(maxtime % 60);
+                if (seconds<10){seconds="0"+seconds}
+                var msg = "距离考试结束还有" + minutes + "分" + seconds + "秒";
+                $('#remainingTime').html(msg);
+                if (maxtime == 5 * 60){
+                    alert("还剩5分钟");
+                }
+                --maxtime;
+            } else{
+                clearInterval(tim);
+                alert("时间到，结束!");
+                sub();
+            }
+        }
+    </script>
+</head>
+<body>
+    <h3 align="center" th:text="${examMap.EXAM_NAME}"></h3>
+    <div class="ts">时间设定：<span id="start" th:text="${examMap.EXAM_STARTTIME}"></span>--<span id="end" th:text="${examMap.EXAM_ENDTIME}"></span>&nbsp;&nbsp;&nbsp;&nbsp;考试时长：<span id="tim" th:text="${examMap.EXAM_TIME}"></span>分钟</div>
+    <div class="ts">卷面总分：<span th:text="${examMap.EXAM_TOTLESCORE}"></span>&nbsp;&nbsp;&nbsp;&nbsp;及格分数：<span th:text="${examMap.EXAM_TOTLESCORE}*0.6"></span></div>
+
+    <div>
+        <form id="save" method="post">
+            <h4>单项选择</h4>
+            <div id="single">
+                <input type="text" class="dis" name="examId" th:value="${examMap.EXAM_ID}">
+                <ul th:each="singleQuestion,singleQuestionStart:${singleQuestion}" class="ul-select">
+                    <input class="dis" name="singleId" type="text" th:value="${singleQuestion.SINGLE_ID}">
+                    <span class="fs bc" th:text="${singleQuestionStart.count}"></span>、<li class="fs" th:text="${singleQuestion.SINGLE_MAIN}"></li><input type="text" class="dis" th:name="'singleScore'+${singleQuestion.SINGLE_ID}" th:value="${singleQuestion.EXQU_SCORE}"><br>
+                    <input type="radio" th:name="'single'+${singleQuestion.SINGLE_ID}" value="A">A、<li class="space" th:text="${singleQuestion.SINGLE_A}"></li><br>
+                    <input type="radio" th:name="'single'+${singleQuestion.SINGLE_ID}" value="B">B、<li class="space" th:text="${singleQuestion.SINGLE_B}"></li><br>
+                    <input type="radio" th:name="'single'+${singleQuestion.SINGLE_ID}" value="C">C、<li class="space" th:text="${singleQuestion.SINGLE_C}"></li><br>
+                    <input type="radio" th:name="'single'+${singleQuestion.SINGLE_ID}" value="D">D、<li class="space" th:text="${singleQuestion.SINGLE_D}"></li><br>
+                </ul>
+            </div>
+            <h4>多项选择</h4>
+            <div id="mul">
+                <ul th:each="mulQuestion,mulQuestionStart:${mulQuestion}" class="ul-select">
+                    <input class="dis" name="mulId" type="text" th:value="${mulQuestion.MUL_ID}">
+                    <span class="fs bc" th:text="${mulQuestionStart.count}"></span>、<li class="fs" th:text="${mulQuestion.MUL_MAIN}"></li><input type="text" class="dis" th:name="'mulScore'+${mulQuestion.MUL_ID}" th:value="${mulQuestion.EXQU_SCORE}"><br>
+                    <input type="checkbox" th:name="'mul'+${mulQuestion.MUL_ID}" value="A">A、<li class="space" th:text="${mulQuestion.MUL_A}"></li><br>
+                    <input type="checkbox" th:name="'mul'+${mulQuestion.MUL_ID}" value="B">B、<li class="space" th:text="${mulQuestion.MUL_B}"></li><br>
+                    <input type="checkbox" th:name="'mul'+${mulQuestion.MUL_ID}" value="C">C、<li class="space" th:text="${mulQuestion.MUL_C}"></li><br>
+                    <input type="checkbox" th:name="'mul'+${mulQuestion.MUL_ID}" value="D">D、<li class="space" th:text="${mulQuestion.MUL_D}"></li><br>
+                </ul>
+            </div>
+            <h4>判断题</h4>
+            <div id="judge">
+                <ul th:each="judgeQuestion,judgeQuestionStart:${judgeQuestion}" class="ul-select">
+                    <input class="dis" name="judgeId" type="text" th:value="${judgeQuestion.JUDGE_ID}">
+                    <span class="fs bc" th:text="${judgeQuestionStart.count}"></span>、<li class="fs" th:text="${judgeQuestion.JUDGE_MAIN}"></li><input type="text" class="dis" th:name="'judgeScore'+${judgeQuestion.JUDGE_ID}" th:value="${judgeQuestion.EXQU_SCORE}"><br>
+                    <input type="radio" th:name="'judge'+${judgeQuestion.JUDGE_ID}" value="Y"><div class="space">正确</div><br>
+                    <input class="space" type="radio" th:name="'judge'+${judgeQuestion.JUDGE_ID}" value="N"><div class="space">错误</div><br>
+                </ul>
+            </div>
+            <div align="center"><input type="button" id="saveAnswer"  value="提交"></div>
+        </form>
+    </div>
+    <div align="center" style="position: fixed;top: 205px;right: 10px;">
+        <div id="remainingTime">倒计时开始</div>
+        <div style="background-color: silver">
+            <div>单项选择</div>
+            <table>
+                <tr>
+                    <td style="border:1px solid #000;border-collapse:collapse;" th:each="singleQuestion,singleQuestionStart:${singleQuestion}" th:id="'single'+${singleQuestion.SINGLE_ID}" th:text="${singleQuestionStart.count}"></td>
+                </tr>
+            </table>
+            <div>多项选择</div>
+            <table>
+                <tr>
+                    <td style="border:1px solid #000;" th:each="mulQuestion,mulQuestionStart:${mulQuestion}" th:id="'mul'+${mulQuestion.MUL_ID}" th:text="${mulQuestionStart.count}"></td>
+                </tr>
+            </table>
+            <div>判断题</div>
+            <table>
+                <tr>
+                    <td style="border:1px solid #000;" th:each="judgeQuestion,judgeQuestionStart:${judgeQuestion}" th:id="'judge'+${judgeQuestion.JUDGE_ID}" th:text="${judgeQuestionStart.count}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

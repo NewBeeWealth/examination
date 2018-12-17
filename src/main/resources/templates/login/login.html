@@ -154,9 +154,11 @@
                 var time = new Date();
                 return time.getTime();
             }
-            $("#changeVerifImageRegister").click(function() {
+            //换一张
+            $("#changeVerifImageRegister").click(function () {
+                //console.log("ffff");
                 $('#verifyCodeImage').attr('src',  '/login/getVerifyCode?timestamp=' + genTimestamp());
-            })
+            });
             //提交
             $("#subm").click(function () {
                 $("#subform").submit();
@@ -190,10 +192,10 @@
             <span class="v_logo" ></span>
             <input class="ipt" type="text" style="width: 110px" name="VerifyCode" placeholder="请输入验证码">
             <span class="code_img" style="position: relative;top: 10px;left: 3px;">
-                <img  src="/login/getVerifyCode"  width="90px" height="30px">
+                <img id="verifyCodeImage"  src="/login/getVerifyCode"  width="90px" height="30px">
             </span>
             <span>
-                <a id="changeVerifImageRegister" style="cursor: pointer">看不清，换一张</a>
+                <a id="changeVerifImageRegister" style="cursor: pointer;color: #195f91;" >看不清，换一张</a>
             </span>
         </p>
         <span th:text="${error}"></span>
