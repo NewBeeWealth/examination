@@ -1,6 +1,6 @@
 package com.aaa.examination.dao.teacher;
 
-import com.aaa.examination.entity.user;
+import com.aaa.examination.entity.userAdmin;
 import com.aaa.examination.entity.userOccupation;
 import com.aaa.examination.entity.userStudent;
 import com.aaa.examination.entity.userTeacher;
@@ -13,7 +13,7 @@ import com.aaa.examination.entity.userTeacher;
  */
 public interface UserDao {
 
-    user getUser(String uname);
+    userAdmin getUser(String uname);
 
     userOccupation findByid(Integer id);
 

@@ -1,7 +1,7 @@
 package com.aaa.examination.service.teacher;
 
 import com.aaa.examination.dao.teacher.UserDao;
-import com.aaa.examination.entity.user;
+import com.aaa.examination.entity.userAdmin;
 import com.aaa.examination.entity.userOccupation;
 import com.aaa.examination.entity.userStudent;
 import com.aaa.examination.entity.userTeacher;
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService{
     private UserDao userDao;
 
     @Override
-    public user getUser(String uname) {
+    public userAdmin getUser(String uname) {
         return userDao.getUser(uname);
     }
 

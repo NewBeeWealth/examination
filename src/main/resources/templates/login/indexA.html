@@ -70,7 +70,39 @@
         </shiro:hasPermission>
         <shiro:hasPermission name="user:teacher">
 
-        <dl id="menu-picture">
+           <!-- <dl id="menu-picture" th:each="prod: ${powerList}">
+                <dt><i class="Hui-iconfont">&#xe613;</i> <cite th:text="${prod.FUNCTION_NAME}" ></cite><i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                <dd>
+                    <ul  th:each="cpower: ${prod.childList}">
+                        <li><a data-href="${cpower.FUNCTION_URL}" data-title="${cpower.FUNCTION_NAME}" href="javascript:void(0)"><cite th:text="${cpower.FUNCTION_NAME}" ></cite></a></li>
+                    </ul>
+                </dd>
+            </dl>-->
+
+           <!-- <div class="left-nav">
+                <div id="side-nav" >
+                    <ul id="nav"  th:each="prod: ${powerList}">
+                        <li>
+                            <a href="javascript:;">
+                                <i class="iconfont" th:text="${prod.FUNCTION_NAME}" ></i>
+                               &lt;!&ndash; <cite th:text="${prod.text}" ></cite>&ndash;&gt;
+                                <i class="iconfont nav_right">&#xe6a7;</i>
+                            </a>
+                            <ul class="sub-menu" th:each="cpower: ${prod.childList}">
+                                <li>
+                                    <a th:_href="${cpower.FUNCTION_URL}" th:target="ifrmain">
+                                        <i class="iconfont">&#xe6a7;</i>
+                                        &lt;!&ndash;<cite th:text="${cpower.text}"></cite>&ndash;&gt;
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>-->
+
+
+        <!--<dl id="menu-picture">
             <dt><i class="Hui-iconfont">&#xe613;</i>试卷管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
@@ -78,7 +110,7 @@
                     <li><a data-href="/exam/messageexamination" data-title="管理试卷" href="javascript:void(0)">管理试卷</a></li>
                 </ul>
             </dd>
-        </dl>
+        </dl>-->
 
         <dl id="menu-student">
             <dt><i class="Hui-iconfont">&#xe616;</i>学员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>

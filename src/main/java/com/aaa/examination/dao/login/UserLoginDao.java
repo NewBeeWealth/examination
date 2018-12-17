@@ -33,4 +33,5 @@ public interface UserLoginDao {
     List<Map> selectAdminList(String username);
     List<Map> selectTeacherList(String username);
     List<Map> selectStudentList(String username);
+    List<Map> getChildrensByPid(int id);
 }

@@ -38,7 +38,10 @@
               select student_state from tbl_student where student_username=#{userName}
           )
         )
+    </select>
 
+    <select id="getChildrensByPid" parameterType="int" resultType="map">
+        select * from tbl_function where FUNCTION_CODING=#{functionid}
     </select>
 
 </mapper>
