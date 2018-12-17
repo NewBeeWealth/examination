@@ -1,6 +1,11 @@
 package com.aaa.examination.controller.login;
 
 import com.aaa.examination.service.login.UserLoginService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,7 +60,10 @@ public class LoginController {
      * @return
      */
     @RequestMapping("toIndex")
-    public String toIndex(){
+    public String toIndex(HttpSession session,Model model) {
+        String userName = (String) session.getAttribute("userName");
+        List<Map> maps = userLoginService.selectIndexList(userName);
+        model.addAttribute("maps",maps);
         return "login/indexA";
     }
 
@@ -144,28 +152,51 @@ public class LoginController {
      * 登录
      */
     @RequestMapping("/login")
-    public String login(HttpSession session, @RequestParam Map map,Model model) {
-        String inputVerifyCode = map.get("VerifyCode")+"";
-        //System.out.println("用户输入的验证码值------>"+ inputVerifyCode);
-        String verifyCodeValue=(String) session.getAttribute("verifyCodeValue");
-        //System.out.println("Session中的验证码值------>"+verifyCodeValue);
-        if(verifyCodeValue.equals(inputVerifyCode.toUpperCase())){
-            //System.out.println("用户输入的验证码和图片生成的验证码相等，登陆成功");
-            //System.out.println("------------"+map.get("userName"));
-            //System.out.println("------------"+map.get("role"));
-            List<Map> userList = userLoginService.userLogin(map);
-            if (userList!=null&&userList.size()>0){
-                session.setAttribute("userName", map.get("userName"));
-                session.setAttribute("passWord", map.get("passWord"));
-                session.setAttribute("studentId", userList.get(0).get("studentId"));
-                session.setMaxInactiveInterval(600000);
-                return "login/indexA";
-            }else {
-                model.addAttribute("error", "用户名或密码错误!");
+    public String login(HttpSession session, @RequestParam Map map, Model model) {
+        //String inputVerifyCode=request.getParameter("verifyCode");
+        String inputVerifyCode = map.get("VerifyCode") + "";
+        System.out.println("用户输入的验证码值------>"
+            + inputVerifyCode);
+        String verifyCodeValue = (String) session.getAttribute("verifyCodeValue");
+        System.out.println("Session中的验证码值------>"
+            + verifyCodeValue);
+
+        //使用shiro编写认证
+        Subject subject = SecurityUtils.getSubject();
+        //封装用户数据
+        UsernamePasswordToken token = new UsernamePasswordToken((String) map.get("userName"), (String) map.get("passWord"));
+        //执行登录方法
+        try {
+            subject.login(token);
+
+            if (verifyCodeValue.equals(inputVerifyCode.toUpperCase())) {
+                System.out.println("用户输入的验证码和图片生成的验证码相等，登陆成功");
+                System.out.println("------------" + map.get("userName"));
+                System.out.println("------------" + map.get("role"));
+                List<Map> userList = userLoginService.userLogin(map);
+                if (userList != null && userList.size() > 0) {
+                    session.setAttribute("userName", map.get("userName"));
+                    session.setAttribute("passWord", map.get("passWord"));
+                    session.setMaxInactiveInterval(600000);
+
+                    return "redirect:/login/toIndex";
+                } else {
+                    model.addAttribute("error", "用户名或密码错误!");
+                    return "login/login";
+                }
+            } else {
+                model.addAttribute("error", "验证码输入错误！");
                 return "login/login";
             }
-        }else{
-            model.addAttribute("error","验证码输入错误！");
+
+            // return "redirect:/login/indexA";
+        } catch (UnknownAccountException e) {
+//                  e.printStackTrace();
+            model.addAttribute("msg", "用户名不存在");
+            return "login/login";
+        } catch (IncorrectCredentialsException e) {
+//                  e.printStackTrace();
+            model.addAttribute("msg", "密码错误");
             return "login/login";
         }
     }
