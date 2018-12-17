@@ -53,7 +53,7 @@
 <aside class="Hui-aside">
     <div class="menu_dropdown bk_2">
         <shiro:hasPermission name="user:admin">
-        <dl id="menu-article">
+      <!--  <dl id="menu-article">
             <dt><i class="Hui-iconfont">&#xe616;</i>题库管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
@@ -66,52 +66,77 @@
                     <li><a data-href="/question/toExamManage" data-title="管理试题" href="javascript:void(0)">管理试题</a></li>
                 </ul>
             </dd>
-        </dl>
+        </dl>-->
+            <dl id="menu-picture" th:each="prod: ${powerList}">
+                <dt th:if="${prod.FUNCTION_CODING}==0" th:text="${prod.FUNCTION_NAME}"><i class="Hui-iconfont"  >&#xe613;</i> <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                <dd>
+                    <ul>
+                        <li th:each="prod1: ${powerList}"><a  th:if="${prod1.FUNCTION_CODING}==1" th:data-href="${prod1.FUNCTION_NAME}" th:data-title="${prod1.FUNCTION_NAME}" href="javascript:void(0)"><span th:text="${prod1.FUNCTION_NAME}"></span> </a></li>
+                    </ul>
+                </dd>
+            </dl>
+
+        </shiro:hasPermission>
+
+        <shiro:hasPermission name="user:userStudent">
+            <!--  <dl id="menu-article">
+                  <dt><i class="Hui-iconfont">&#xe616;</i>题库管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                  <dd>
+                      <ul>
+                          <li><a data-href="/question/toQuestion" data-title="创建题库" href="javascript:void(0)">创建题库</a></li>
+                          <li><a data-href="/question/messagetest" data-title="管理题库" href="javascript:void(0)">管理题库</a></li>
+                          <li><a data-href="/question/toAddexamination" data-title="新增试题" href="javascript:void(0)">新增试题</a></li>
+                          <li><a data-href="/question/uploadMessage" data-title="上传试题" href="javascript:void(0)">上传试题</a></li>
+                          <li><a data-href="/question/batchadd" data-title="下载试题" href="javascript:void(0)">下载试题</a></li>
+                          <li><a data-href="/question/excelbatchadd" data-title="批量添加试题" href="javascript:void(0)">批量添加试题</a></li>
+                          <li><a data-href="/question/toExamManage" data-title="管理试题" href="javascript:void(0)">管理试题</a></li>
+                      </ul>
+                  </dd>
+              </dl>-->
+            <dl id="menu-picture" th:each="prod: ${powerList}">
+                <dt th:if="${prod.FUNCTION_CODING}==0" th:text="${prod.FUNCTION_NAME}"><i class="Hui-iconfont"  >&#xe613;</i> <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+                <dd>
+                    <ul>
+                        <li th:each="prod1: ${powerList}"><a  th:if="${prod1.FUNCTION_CODING}==1" th:data-href="${prod1.FUNCTION_NAME}" th:data-title="${prod1.FUNCTION_NAME}" href="javascript:void(0)"><span th:text="${prod1.FUNCTION_NAME}"></span> </a></li>
+                    </ul>
+                </dd>
+            </dl>
+
         </shiro:hasPermission>
         <shiro:hasPermission name="user:teacher">
 
-           <!-- <dl id="menu-picture" th:each="prod: ${powerList}">
-                <dt><i class="Hui-iconfont">&#xe613;</i> <cite th:text="${prod.FUNCTION_NAME}" ></cite><i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-                <dd>
-                    <ul  th:each="cpower: ${prod.childList}">
-                        <li><a data-href="${cpower.FUNCTION_URL}" data-title="${cpower.FUNCTION_NAME}" href="javascript:void(0)"><cite th:text="${cpower.FUNCTION_NAME}" ></cite></a></li>
-                    </ul>
-                </dd>
-            </dl>-->
-
-           <!-- <div class="left-nav">
+        <!--  <div class="left-nav">
                 <div id="side-nav" >
                     <ul id="nav"  th:each="prod: ${powerList}">
                         <li>
-                            <a href="javascript:;">
+                            <a th:if="" href="javascript:;">
                                 <i class="iconfont" th:text="${prod.FUNCTION_NAME}" ></i>
                                &lt;!&ndash; <cite th:text="${prod.text}" ></cite>&ndash;&gt;
                                 <i class="iconfont nav_right">&#xe6a7;</i>
                             </a>
                             <ul class="sub-menu" th:each="cpower: ${prod.childList}">
                                 <li>
-                                    <a th:_href="${cpower.FUNCTION_URL}" th:target="ifrmain">
-                                        <i class="iconfont">&#xe6a7;</i>
-                                        &lt;!&ndash;<cite th:text="${cpower.text}"></cite>&ndash;&gt;
-                                    </a>
-                                </li>
+                                <a th:_href="${cpower.FUNCTION_URL}" th:target="ifrmain">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    &lt;!&ndash;<cite th:text="${cpower.text}"></cite>&ndash;&gt;
+                                </a>
+                            </li>
                             </ul>
                         </li>
                     </ul>
                 </div>
             </div>-->
 
-
-        <!--<dl id="menu-picture">
-            <dt><i class="Hui-iconfont">&#xe613;</i>试卷管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+        <dl id="menu-picture" th:each="prod: ${powerList}">
+            <dt th:if="${prod.FUNCTION_CODING}==0" th:text="${prod.FUNCTION_NAME}"><i class="Hui-iconfont"  >&#xe613;</i> <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li><a data-href="/question/toTempchange" data-title="创建试卷" href="javascript:void(0)">创建试卷</a></li>
-                    <li><a data-href="/exam/messageexamination" data-title="管理试卷" href="javascript:void(0)">管理试卷</a></li>
+                    <li th:each="prod1: ${powerList}"><a  th:if="${prod1.FUNCTION_CODING}==1" th:data-href="${prod1.FUNCTION_NAME}" th:data-title="${prod1.FUNCTION_NAME}" href="javascript:void(0)"><span th:text="${prod1.FUNCTION_NAME}"></span> </a></li>
                 </ul>
             </dd>
-        </dl>-->
+        </dl>
 
+       <!--
         <dl id="menu-student">
             <dt><i class="Hui-iconfont">&#xe616;</i>学员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
@@ -132,7 +157,7 @@
                     <li><a data-href="product-category.html" data-title="班级管理" href="javascript:void(0)">班级管理</a></li>
                 </ul>
             </dd>
-        </dl>
+        </dl>-->
         </shiro:hasPermission>
         <dl id="menu-system">
             <dt><i class="Hui-iconfont">&#xe616;</i>系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
