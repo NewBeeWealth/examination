@@ -38,27 +38,32 @@ import java.util.Random;
 public class LoginController {
     @Autowired
     UserLoginService userLoginService;
-
     /**
      * 跳转到登陆界面
-     *
      * @return
      */
     @RequestMapping("toLogin")
-    public String toLogin() {
+    public String toLogin(){
+        /*if (request.getParameter("error")!=null){
+            Integer error = Integer.valueOf(request.getParameter("error"));
+            if (error==1){
+                model.addAttribute("error","验证码输入错误！");
+            }else {
+                model.addAttribute("error","用户名或密码错误！");
+            }
+        }*/
         return "login/login";
     }
 
     /**
      * 跳转到导航栏主界面
-     *
      * @return
      */
     @RequestMapping("toIndex")
     public String toIndex(HttpSession session,Model model) {
         String userName = (String) session.getAttribute("userName");
         List<Map> powerList = userLoginService.selectIndexList(userName);
-        System.out.println(powerList);
+        System.out.println("+-+-+-"+powerList);
         model.addAttribute("powerList",powerList);
         return "login/indexA";
     }
@@ -66,7 +71,6 @@ public class LoginController {
 /*******************************************-验证码-******************************************************/
     /**
      * 最初的验证码
-     *
      * @return
      */
     @RequestMapping("/showLoginView")
@@ -75,7 +79,6 @@ public class LoginController {
         mv.setViewName("redirect:login/tologin");
         return mv;
     }
-
     /**
      * 获取验证码
      *
@@ -168,13 +171,14 @@ public class LoginController {
             subject.login(token);
 
             if (verifyCodeValue.equals(inputVerifyCode.toUpperCase())) {
-                System.out.println("用户输入的验证码和图片生成的验证码相等，登陆成功");
-                System.out.println("------------" + map.get("userName"));
-                System.out.println("------------" + map.get("role"));
+                //System.out.println("用户输入的验证码和图片生成的验证码相等，登陆成功");
+                //System.out.println("------------" + map.get("userName"));
+                //System.out.println("------------" + map.get("role"));
                 List<Map> userList = userLoginService.userLogin(map);
                 if (userList != null && userList.size() > 0) {
                     session.setAttribute("userName", map.get("userName"));
                     session.setAttribute("passWord", map.get("passWord"));
+                    session.setAttribute("studentId", userList.get(0).get("studentId"));
                     session.setMaxInactiveInterval(600000);
 
                     return "redirect:/login/toIndex";
@@ -197,6 +201,5 @@ public class LoginController {
             model.addAttribute("msg", "密码错误");
             return "login/login";
         }
-
     }
 }

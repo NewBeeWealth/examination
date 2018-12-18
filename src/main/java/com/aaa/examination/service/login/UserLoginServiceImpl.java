@@ -31,6 +31,8 @@ public class UserLoginServiceImpl implements UserLoginService{
                 userList = userLoginDao.teacherLogin(map);
             }else {
                 userList = userLoginDao.studentLogin(map);
+                Object student_id = userList.get(0).get("STUDENT_ID");
+                userList.get(0).put("studentId",student_id);
             }
         }
         return userList;
@@ -56,6 +58,7 @@ public class UserLoginServiceImpl implements UserLoginService{
                 }
                 tempList.add(tempmap);
             }*/
+            System.out.println("****"+maps);
             return maps;
         }
 
@@ -74,6 +77,7 @@ public class UserLoginServiceImpl implements UserLoginService{
                 }
                 tempList.add(tempmap);
             }*/
+            System.out.println("++++"+maps1);
             return maps1;
         }
 
@@ -90,6 +94,7 @@ public class UserLoginServiceImpl implements UserLoginService{
                 }
                 tempList.add(tempmap);
             }*/
+            System.out.println("----"+maps2);
             return maps2;
         }
         return null;

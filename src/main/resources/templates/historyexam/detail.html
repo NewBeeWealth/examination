@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>考试详情</title>
+    <script src="../../jquery-3.3.1.min.js"></script>
+    <style>
+        .ul-select>*{
+            display: inline-block;
+            list-style: none;
+        }
+        .space{
+            line-height: 50px;
+        }
+        .fs{
+            font-size: 20px;font-family: 黑体;
+        }
+        .rs{
+            color: green;
+        }
+        .as{
+            color: #ff8936;
+            font-family: 黑体;
+        }
+        .bc{
+            background-color: green;
+            color: #fff;
+            width: 20px;
+            text-align: center;
+        }
+        .fc{
+            color: red;
+        }
+        #goback{
+            width: 80px;height: 40px;
+            border:0px;border-radius: 8px;
+            background-color: green;
+        }
+        #goback:hover{
+            background-color: #00CC99;
+        }
+        .dis{
+            display: none;
+        }
+    </style>
+    <script>
+        $(function () {
+            $("#goback").click(function () {
+                location.href='/history/toList'
+            })
+        });
+        $("#single input[type=button]").each(function () {
+           $(this).on("click",function () {
+               alert("***");
+               let singleId = $(this).prev();
+               alert(singleId);
+           }) ;
+        });
+    </script>
+</head>
+<body>
+<h3 align="center" th:text="${detailMap.EXAM_NAME}"></h3>
+<div align="center" class="space">时间设定：<span th:text="${detailMap.EXAM_STARTTIME}"></span>--<span th:text="${detailMap.EXAM_ENDTIME}"></span>&nbsp;&nbsp;&nbsp;&nbsp;考试时长：<span th:text="${detailMap.EXAM_TIME}"></span>分钟</div>
+<div align="center" class="space">卷面总分：<span th:text="${detailMap.EXAM_TOTLESCORE}"></span>&nbsp;&nbsp;&nbsp;&nbsp;及格分数：<span th:text="${detailMap.EXAM_TOTLESCORE}*0.6"></span></div>
+<ul style="list-style: none" align="center">
+    <!--<li>是否答题</li>-->
+</ul>
+    <h4>单项选择</h4>
+    <div id="single">
+        <!--<input type="text" class="dis" name="examId" th:value="${examMap.EXAM_ID}">-->
+        <ul th:each="singleQuestion,singleQuestionStart:${singleQuestion}" class="ul-select">
+            <!--<input class="dis" name="singleId" type="text" th:value="${singleQuestion.SINGLE_ID}">-->
+            <span class="fs bc" th:text="${singleQuestionStart.count}"></span>、
+            <li class="fs" th:text="${singleQuestion.SINGLE_MAIN}"></li>&nbsp;&nbsp;&nbsp;&nbsp;
+            得：<span class="fc" th:text="${singleQuestion.ANSWER_SCORE}"></span>分&nbsp;&nbsp;&nbsp;&nbsp;<br>
+            A、<li class="space" th:text="${singleQuestion.SINGLE_A}"></li><br>
+            B、<li class="space" th:text="${singleQuestion.SINGLE_B}"></li><br>
+            C、<li class="space" th:text="${singleQuestion.SINGLE_C}"></li><br>
+            D、<li class="space" th:text="${singleQuestion.SINGLE_D}"></li><br>
+            标准答案：<li class="rs space" th:text="${singleQuestion.SINGLE_RESULT}"></li>&nbsp;&nbsp;&nbsp;&nbsp;
+            <!--答题者答案：<li th:text="${singleQuestion.ANSWER}"></li>-->
+            答题者答案：<li class="as" th:text="${singleQuestion.ANSWER}=='null'?'未作答':${singleQuestion.ANSWER}"></li>
+        </ul>
+    </div>
+    <h4>多项选择</h4>
+    <ul th:each="mulQuestion,mulQuestionStart:${mulQuestion}" class="ul-select">
+       <!-- <input class="dis" name="mulId" type="text" th:value="${mulQuestion.MUL_ID}">-->
+        <span class="fs bc" th:text="${mulQuestionStart.count}"></span>、
+        <li class="fs" th:text="${mulQuestion.MUL_MAIN}"></li>&nbsp;&nbsp;&nbsp;&nbsp;
+        得：<span class="fc" th:text="${mulQuestion.ANSWER_SCORE}"></span>分&nbsp;&nbsp;&nbsp;&nbsp;<br>
+        A、<li class="space" th:text="${mulQuestion.MUL_A}"></li><br>
+        B、<li class="space" th:text="${mulQuestion.MUL_B}"></li><br>
+        C、<li class="space" th:text="${mulQuestion.MUL_C}"></li><br>
+        D、<li class="space" th:text="${mulQuestion.MUL_D}"></li><br>
+        标准答案：<li class="rs space" th:text="${mulQuestion.MUL_RESULT}"></li>&nbsp;&nbsp;&nbsp;&nbsp;
+        <!--答题者答案：<li th:text="${mulQuestion.ANSWER}"></li>-->
+        答题者答案：<li class="as" th:text="${mulQuestion.ANSWER}=='null'?'未作答':${mulQuestion.ANSWER}"></li>
+    </ul>
+    <h4>判断题</h4>
+    <ul th:each="judgeQuestion,judgeQuestionStart:${judgeQuestion}" class="ul-select">
+        <!--<input class="dis" name="judgeId" type="text" th:value="${judgeQuestion.JUDGE_ID}">-->
+        <span class="fs bc" th:text="${judgeQuestionStart.count}"></span>、
+        <li class="fs" th:text="${judgeQuestion.JUDGE_MAIN}"></li>&nbsp;&nbsp;&nbsp;&nbsp;
+        得：<span class="fc" th:text="${judgeQuestion.ANSWER_SCORE}"></span>分&nbsp;&nbsp;&nbsp;&nbsp;<br>
+        <li class="space" >正确</li><br>
+        <li class="space" >错误</li><br>
+        标准答案：<li class="rs space" th:text="${judgeQuestion.JUDGE_RESULT}=='Y'?'正确':'错误'"></li>&nbsp;&nbsp;&nbsp;&nbsp;
+        <!--答题者答案：<li th:text="${judgeQuestion.ANSWER}=='Y'?'正确':'错误'"></li>-->
+        答题者答案：<li class="as" th:text="(${judgeQuestion.ANSWER}=='null'?'未作答':${judgeQuestion.ANSWER})=='Y'?'正确':'错误'"></li>
+    </ul>
+<div align="center"><input type="button" id="goback" value="返回"></div>
+</body>
+</html>
