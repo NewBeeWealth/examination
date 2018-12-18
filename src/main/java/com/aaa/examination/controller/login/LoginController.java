@@ -63,7 +63,7 @@ public class LoginController {
     public String toIndex(HttpSession session,Model model) {
         String userName = (String) session.getAttribute("userName");
         List<Map> powerList = userLoginService.selectIndexList(userName);
-        System.out.println(powerList);
+        System.out.println("+-+-+-"+powerList);
         model.addAttribute("powerList",powerList);
         return "login/indexA";
     }
@@ -171,13 +171,14 @@ public class LoginController {
             subject.login(token);
 
             if (verifyCodeValue.equals(inputVerifyCode.toUpperCase())) {
-                System.out.println("用户输入的验证码和图片生成的验证码相等，登陆成功");
-                System.out.println("------------" + map.get("userName"));
-                System.out.println("------------" + map.get("role"));
+                //System.out.println("用户输入的验证码和图片生成的验证码相等，登陆成功");
+                //System.out.println("------------" + map.get("userName"));
+                //System.out.println("------------" + map.get("role"));
                 List<Map> userList = userLoginService.userLogin(map);
                 if (userList != null && userList.size() > 0) {
                     session.setAttribute("userName", map.get("userName"));
                     session.setAttribute("passWord", map.get("passWord"));
+                    session.setAttribute("studentId", userList.get(0).get("studentId"));
                     session.setMaxInactiveInterval(600000);
 
                     return "redirect:/login/toIndex";

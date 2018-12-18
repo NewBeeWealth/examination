@@ -71,7 +71,7 @@
                 <dt th:if="${prod.FUNCTION_CODING}==0" th:text="${prod.FUNCTION_NAME}"><i class="Hui-iconfont"  >&#xe613;</i> <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
                 <dd>
                     <ul>
-                        <li th:each="prod1: ${powerList}"><a  th:if="${prod1.FUNCTION_CODING}==1" th:data-href="${prod1.FUNCTION_NAME}" th:data-title="${prod1.FUNCTION_NAME}" href="javascript:void(0)"><span th:text="${prod1.FUNCTION_NAME}"></span> </a></li>
+                        <li th:each="prod1: ${powerList}"><a  th:if="${prod1.FUNCTION_CODING}==${prod.FUNCTION_ID}" th:data-href="${prod1.FUNCTION_URL}" th:data-title="${prod1.FUNCTION_NAME}" href="javascript:void(0)"><span th:text="${prod1.FUNCTION_NAME}"></span> </a></li>
                     </ul>
                 </dd>
             </dl>
@@ -97,7 +97,7 @@
                 <dt th:if="${prod.FUNCTION_CODING}==0" th:text="${prod.FUNCTION_NAME}"><i class="Hui-iconfont"  >&#xe613;</i> <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
                 <dd>
                     <ul>
-                        <li th:each="prod1: ${powerList}"><a  th:if="${prod1.FUNCTION_CODING}==1" th:data-href="${prod1.FUNCTION_NAME}" th:data-title="${prod1.FUNCTION_NAME}" href="javascript:void(0)"><span th:text="${prod1.FUNCTION_NAME}"></span> </a></li>
+                        <li th:each="prod1: ${powerList}"><a  th:if="${prod1.FUNCTION_CODING}==${prod.FUNCTION_ID}" th:data-href="${prod1.FUNCTION_URL}" th:data-title="${prod1.FUNCTION_NAME}" href="javascript:void(0)"><span th:text="${prod1.FUNCTION_NAME}"></span> </a></li>
                     </ul>
                 </dd>
             </dl>
@@ -131,7 +131,7 @@
             <dt th:if="${prod.FUNCTION_CODING}==0" th:text="${prod.FUNCTION_NAME}"><i class="Hui-iconfont"  >&#xe613;</i> <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
-                    <li th:each="prod1: ${powerList}"><a  th:if="${prod1.FUNCTION_CODING}==1" th:data-href="${prod1.FUNCTION_NAME}" th:data-title="${prod1.FUNCTION_NAME}" href="javascript:void(0)"><span th:text="${prod1.FUNCTION_NAME}"></span> </a></li>
+                    <li th:each="prod1: ${powerList}"><a  th:if="${prod1.FUNCTION_CODING}==${prod.FUNCTION_ID}" th:data-href="${prod1.FUNCTION_URL}" th:data-title="${prod1.FUNCTION_NAME}" href="javascript:void(0)"><span th:text="${prod1.FUNCTION_NAME}"></span> </a></li>
                 </ul>
             </dd>
         </dl>

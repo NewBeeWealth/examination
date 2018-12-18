@@ -58,6 +58,7 @@ public class UserLoginServiceImpl implements UserLoginService{
                 }
                 tempList.add(tempmap);
             }*/
+            System.out.println("****"+maps);
             return maps;
         }
 
@@ -76,6 +77,7 @@ public class UserLoginServiceImpl implements UserLoginService{
                 }
                 tempList.add(tempmap);
             }*/
+            System.out.println("++++"+maps1);
             return maps1;
         }
 
@@ -92,6 +94,7 @@ public class UserLoginServiceImpl implements UserLoginService{
                 }
                 tempList.add(tempmap);
             }*/
+            System.out.println("----"+maps2);
             return maps2;
         }
         return null;
