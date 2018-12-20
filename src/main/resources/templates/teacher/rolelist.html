@@ -64,7 +64,7 @@
     <!--编辑界面-->
     <el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">
         <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-            <el-form-item label="雇员ID" prop="functionid">
+            <el-form-item label="雇员ID" prop="functionid" style="display: none">
                 <el-input v-model="editForm.OCCUPATION_ID" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="权限列表">

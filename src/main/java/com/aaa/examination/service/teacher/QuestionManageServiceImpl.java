@@ -138,7 +138,8 @@ public class QuestionManageServiceImpl implements QuestionManageService{
         }
 
         questionManageDao.addexam(userMap);
-        int examid =Integer.valueOf(userMap.get("EXAM_ID")+"");//返回添加后主键
+        int examid =Integer.valueOf(userMap.get("EXAM_ID")+"")+1;//返回添加后主键
+        System.out.println("试卷id是"+examid);
         //添加班级
         if(selectclname!=null&&selectclname.size()>0){
             for(int i=0;i<selectclname.size();i++){

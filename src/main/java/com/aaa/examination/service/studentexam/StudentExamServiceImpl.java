@@ -29,7 +29,7 @@ public class StudentExamServiceImpl implements StudentExamService {
         if (person!=null){
             for (Map persons : person) {
                 map.put("examId",persons.get("STUDENTEXAM_EXAM"));
-                //System.out.println(map);
+                System.out.println("-*-*-///"+map);
                 List<Map> maps = studentExamDao.chooseExam(map);
                 //System.out.println("*-*-"+maps);
                 if (maps!=null&&maps.size()>0){

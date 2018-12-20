@@ -20,20 +20,20 @@
 <body>
 <header class="navbar-wrapper">
     <div class="navbar navbar-fixed-top">
-        <div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">NewBee</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a>
-            <span class="logo navbar-slogan f-l mr-10 hidden-xs">v1.0</span>
+        <div class="container-fluid cl"> <a class="logo navbar-logo f-l mr-10 hidden-xs" href="/aboutHui.shtml">在线考试系统</a> <a class="logo navbar-logo-m f-l mr-10 visible-xs" href="/aboutHui.shtml">H-ui</a>
+            <!--<span class="logo navbar-slogan f-l mr-10 hidden-xs">v1.0</span>-->
             <a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
             <nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
                 <ul class="cl">
                     <li class="dropDown dropDown_hover">
-                        <a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+                        <a href="#" class="dropDown_A" th:text="${userName}"><i class="Hui-iconfont">&#xe6d5;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
-                            <li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
-                            <li><a href="#">切换账户</a></li>
-                            <li><a href="#">退出</a></li>
+                            <!--<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>-->
+                            <li><a href="/login/out">切换账户</a></li>
+                            <li><a href="/login/out">退出</a></li>
                         </ul>
                     </li>
-                    <li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger"></span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a> </li>
+                    <!--<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger"></span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a> </li>-->
                     <li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;" class="dropDown_A" title="换肤"><i class="Hui-iconfont" style="font-size:18px">&#xe62a;</i></a>
                         <ul class="dropDown-menu menu radius box-shadow">
                             <li><a href="javascript:;" data-val="default" title="默认（黑色）">默认（黑色）</a></li>
@@ -159,14 +159,14 @@
             </dd>
         </dl>-->
         </shiro:hasPermission>
-        <dl id="menu-system">
+        <!--<dl id="menu-system">
             <dt><i class="Hui-iconfont">&#xe616;</i>系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
             <dd>
                 <ul>
                     <li><a data-href="/exammanage/toUserPower" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
                 </ul>
             </dd>
-        </dl>
+        </dl>-->
 
     </div>
 </aside>

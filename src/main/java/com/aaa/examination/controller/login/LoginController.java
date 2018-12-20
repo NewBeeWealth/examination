@@ -63,8 +63,9 @@ public class LoginController {
     public String toIndex(HttpSession session,Model model) {
         String userName = (String) session.getAttribute("userName");
         List<Map> powerList = userLoginService.selectIndexList(userName);
-        System.out.println("+-+-+-"+powerList);
+        //System.out.println("+-+-+-"+powerList);
         model.addAttribute("powerList",powerList);
+        model.addAttribute("userName",userName);
         return "login/indexA";
     }
 
@@ -201,5 +202,16 @@ public class LoginController {
             model.addAttribute("msg", "密码错误");
             return "login/login";
         }
+    }
+
+    /**
+     * 退出登录
+     * @param session
+     * @return
+     */
+    @RequestMapping("out")
+    public String out(HttpSession session){
+        session.invalidate();
+        return "login/login";
     }
 }

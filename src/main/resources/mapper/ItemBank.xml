@@ -53,10 +53,11 @@
 
     <!--添加试卷返回主键-->
     <insert id="addexam"  parameterType="map">
+        insert into tbl_exam(EXAM_ID,EXAM_NAME,EXAM_CLASSIFY,EXAM_STATE,EXAM_STARTTIME,EXAM_ENDTIME,EXAM_SCORETIME,EXAM_TIME,EXAM_SCORE_RESULT,EXAM_OTHER,EXAM_DESCROBE) values(exam_exam.nextval,#{examinatename},#{examinatetype},#{examinatestate},to_date(#{examinatestart},'yyyy-mm-dd hh24:mi:ss'),to_date(#{examinateend},'yyyy-mm-dd hh24:mi:ss'),to_date(#{examinateopen},'yyyy-mm-dd hh24:mi:ss'),#{examinatetime},#{examinateisopen},#{examinateother},#{examinatemain})
         <selectKey keyProperty="EXAM_ID" order="BEFORE" resultType="int">
             select exam_exam.nextval as exam_id from DUAL
         </selectKey>
-       insert into tbl_exam(EXAM_ID,EXAM_NAME,EXAM_CLASSIFY,EXAM_STATE,EXAM_STARTTIME,EXAM_ENDTIME,EXAM_SCORETIME,EXAM_TIME,EXAM_SCORE_RESULT,EXAM_OTHER,EXAM_DESCROBE) values(exam_exam.nextval,#{examinatename},#{examinatetype},#{examinatestate},to_date(#{examinatestart},'yyyy-mm-dd hh24:mi:ss'),to_date(#{examinateend},'yyyy-mm-dd hh24:mi:ss'),to_date(#{examinateopen},'yyyy-mm-dd hh24:mi:ss'),#{examinatetime},#{examinateisopen},#{examinateother},#{examinatemain})
+
     </insert>
     <!--添加试卷班级-->
     <insert id="insertexam" parameterType="map" >
