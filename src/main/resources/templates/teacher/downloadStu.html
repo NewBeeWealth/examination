@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>ftp学生信息列表</h3>
+<table border="1">
+    <tr><td>文件名称</td><td>文件位置</td><td>操作</td></tr>
+    <tr th:each="dept : ${ftpList}">
+        <td th:text="${dept.FILE_NAME}"></td>
+        <td th:text="${dept.FILE_PATH}"></td>
+        <td>
+            <a th:href="'/question/downFtpFile?fileName='+${dept.FILE_PATH}" >下载</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
