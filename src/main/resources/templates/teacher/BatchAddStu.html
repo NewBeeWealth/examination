@@ -1,10 +1,89 @@
-<!DOCTYPE html>
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>批量添加</title>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+
+    <style>
+        .formControls input{
+            width: 300px;
+        }
+    </style>
+
+    <title>基本设置</title>
 </head>
 <body>
+<div>
+    <h3>上传学生信息</h3>
+    <form action="/exammanage/addUseFtp" method="post" enctype="multipart/form-data">
+        <table border="1">
+            <!--<tr><td>名称</td><td><input type="text" name="dname"> </td> </tr>
+            <tr><td>位置</td><td><input type="text" name="loc"></td> </tr>-->
+            <tr><td>EXCEL文件</td><td><input type="file" name="pic"></td> </tr>
+            <tr><td colspan="2"> <input type="submit" value="添加"> </td> </tr>
+        </table>
+    </form>
+</div>
+<div>
+    <h3>ftp学生信息列表</h3>
+    <table border="1">
+        <tr><td>文件名称</td><td>文件位置</td><td>操作</td></tr>
+        <tr th:each="dept : ${ftpList}">
+            <td th:text="${dept.FILE_NAME}"></td>
+            <td th:text="${dept.FILE_PATH}"></td>
+            <td>
+                <a th:href="'/question/downFtpFile?fileName='+${dept.FILE_PATH}" >下载</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div style="margin-left: 20px;">
+    <h3>用EXCEL方式导入</h3>
+    <p style="color: gray">使用EXCEL做为模板文件，请注意格式要求，一种题型一个文件，多余的单元格可留空。</p>
+    <p style="color: gray">请确保EXCEL文件版本为97-2003，并请勿删除（或新增）模板文件中的列，确保文件能顺利解析。</p>
+    <p style="color: gray">请核对EXCEL文件中的填写日期单元格，其属性为“文本”。</p>
+    <div class="page-container">
+        <form class="form form-horizontal" id="form-article-add">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">所属班级: </label>
+                <div class="formControls col-xs-8 col-sm-9" style="width: 150px;">
+                    <select name="" class="select" style="width: 150px;">
+                        <option value="0">java</option>
+                        <option value="1">php</option>
+                    </select>
+                </div>
+            </div>
 
+            <div class="row cl" style="margin-top: 30px;">
+                <label class="form-label col-xs-4 col-sm-2">数据文件 : </label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <form action="demo_form.asp">
+                        <input type="file" name="pic" accept="image/*">
+                        <input type="submit" style="width: 100px;">
+                    </form>
+                </div>
+            </div>
+
+            <div class="row cl" style="margin-top: 30px;">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                    <button onClick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                    <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>
