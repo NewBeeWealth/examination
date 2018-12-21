@@ -44,16 +44,17 @@
                                 <h4><strong>配置试卷</strong></h4>
                                 <p>试卷详情配置，您可以在当前页面创建章节，并向章节中添加试题并设置分值。</p>
                                 <div style="border:0px solid #999;width: 1050px;height: 80px;position: relative;">
+                                    <form id="totalScore" method="post" action="">
+                                        <div class="form-inline">
+                                            <label for="firstname" class="col-sm-2 control-label">卷面总分</label>
+                                            <input type="text" class="form-control" id="firstname" placeholder="0" style="width: 100px;position: relative;">
+                                        </div>
 
-                                    <div class="form-inline">
-                                        <label for="firstname" class="col-sm-2 control-label">卷面总分</label>
-                                        <input type="text" class="form-control" id="firstname" placeholder="0" style="width: 100px;position: relative;">
-                                    </div>
-
-                                    <div class="form-inline">
-                                        <label for="firstname" class="col-sm-2 control-label">及格分数</label>
-                                        <input type="text" class="form-control" id="firstname1" placeholder="0" style="width: 100px;position: relative;">
-                                    </div>
+                                        <div class="form-inline">
+                                            <label for="firstname" class="col-sm-2 control-label">及格分数</label>
+                                            <input type="text" class="form-control" id="firstname1" placeholder="0" style="width: 100px;position: relative;">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
 

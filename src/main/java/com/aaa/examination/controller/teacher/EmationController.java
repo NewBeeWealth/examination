@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -66,8 +67,8 @@ public class EmationController {
      * @return
      */
     @RequestMapping("submitexamination")
-    public Object submitExamination(@RequestParam Map userMap){
-        emationService.addscore(userMap);
+    public Object submitExamination(@RequestParam Map userMap, HttpSession session){
+        emationService.addscore(userMap,session);
         return "redirect:/exam/messageexamination";
     }
 

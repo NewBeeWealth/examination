@@ -176,12 +176,14 @@ public class LoginController {
                 //System.out.println("------------" + map.get("userName"));
                 //System.out.println("------------" + map.get("role"));
                 List<Map> userList = userLoginService.userLogin(map);
+                //System.out.println("&&&&"+userList);
                 if (userList != null && userList.size() > 0) {
                     session.setAttribute("userName", map.get("userName"));
                     session.setAttribute("passWord", map.get("passWord"));
                     session.setAttribute("studentId", userList.get(0).get("studentId"));
+                    session.setAttribute("teacherId",userList.get(0).get("TEACHER_ID"));
                     session.setMaxInactiveInterval(600000);
-
+                    //System.out.println("|||||"+session.getAttribute("teacherId"));
                     return "redirect:/login/toIndex";
                 } else {
                     model.addAttribute("error", "用户名或密码错误!");

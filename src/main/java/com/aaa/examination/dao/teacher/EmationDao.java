@@ -73,6 +73,13 @@ public interface EmationDao {
     List<Map> findJudegeExamType(Map map);
 
     /**
+     * 添加总分
+     * @param map
+     * @return
+     */
+    int addTotalScore(Map map);
+
+    /**
      * 添加单选
      * @return
      */

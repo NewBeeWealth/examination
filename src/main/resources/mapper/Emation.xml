@@ -56,7 +56,9 @@
        select * from tbl_exam_judge where judge_id=#{s}
     </select>
 
-
+    <insert id="addTotalScore">
+        update tbl_exam set exam_teacher=#{teacherId},exam_totlescore=#{totalScores} where exam_id=${examid}
+    </insert>
     <!--批量添加单选题-->
     <insert id="addSingleExamType">
          insert into tbl_exam_question(exqu_id,exqu_exam,exqu_single,exqu_score) values(exam_single_chioce.nextval,#{tempnumid},#{s},#{value})

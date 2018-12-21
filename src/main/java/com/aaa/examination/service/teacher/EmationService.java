@@ -2,6 +2,7 @@ package com.aaa.examination.service.teacher;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +46,6 @@ public interface EmationService {
      * @param map
      * @return
      */
-    int addscore(Map map);
+    int addscore(Map map, HttpSession session);
 
 }

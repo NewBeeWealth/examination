@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -121,15 +123,18 @@ public class EmationServiceImpl implements EmationService{
     }
 
     @Override
-    public int addscore(Map map) {
+    public int addscore(Map map,HttpSession session) {
         List<Map> examType = null;//单选
         List<Map> examType1 =null;//多选
         List<Map> examType2 =null;//判断
-
+        String tempnumid = null;
+        //System.out.println("666666666666"+map);
+        int totalScore = 0;
         for(Object key : map.keySet()){
             String value = String.valueOf(map.get(key));
+            totalScore +=Integer.valueOf(value);
             String s = String.valueOf(key+"");
-            String tempnumid =  String.valueOf(map.get("examid"));//试卷id
+            tempnumid =  String.valueOf(map.get("examid"));//试卷id
             if(!"examid".equals(s)){
                 Map map1=new HashMap();
                 map1.put("tempnumid",tempnumid);
@@ -151,6 +156,15 @@ public class EmationServiceImpl implements EmationService{
                     continue;
                 }
             }
+        }
+        //int totalScores = totalScore-Integer.valueOf(tempnumid);
+        Object teacherId = session.getAttribute("teacherId");
+        //System.out.println("+++++++++"+teacherId);
+        if (teacherId!=null){
+            map.put("teacherId",teacherId);
+            map.put("totalScores", totalScore-Integer.valueOf(tempnumid));
+            //System.out.println(map);
+            emationDao.addTotalScore(map);
         }
         return 0;
     }
