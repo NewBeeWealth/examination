@@ -33,13 +33,13 @@
     <!--获取单选题详情-->
     <select id="getSingleDetail" resultType="map">
         select * from  (select single_id,EXQU_SCORE,single_main,single_A,single_B,single_C,single_D,single_result
-        from tbl_exam join (select exqu_exam,exqu_score,t.* from tbl_exam_singlechoice t join tbl_exam_question on single_id = exqu_single) b
+        from tbl_exam join (select exqu_exam,exqu_score,t.* from tbl_exam_singlechoice t join tbl_exam_question on single_id = exqu_single and exqu_exam=#{examId}) b
          on exam_id=b.exqu_exam) e left join tbl_answer f on e.single_id=f.answer_single where answer_examid =#{examId} and answer_student=#{studentId}
     </select>
     <!--获取多选题详情-->
     <select id="getMulDetail" resultType="map">
         select * from  (select mul_id,EXQU_SCORE,mul_main,mul_A,mul_B,mul_C,mul_D,mul_result
-        from tbl_exam join (select exqu_exam,exqu_score,t.* from tbl_exam_multiplechoice t join tbl_exam_question on mul_id = exqu_multiple) b
+        from tbl_exam join (select exqu_exam,exqu_score,t.* from tbl_exam_multiplechoice t join tbl_exam_question on mul_id = exqu_multiple exqu_exam=#{examId}) b
          on exam_id=b.exqu_exam) e left join tbl_answer f on e.mul_id=f.answer_multiple where answer_examid =#{examId} and answer_student=#{studentId}
     </select>
     <!--获取判断题详情-->
