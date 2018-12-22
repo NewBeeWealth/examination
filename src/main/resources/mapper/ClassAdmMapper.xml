@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.examination.dao.teacher.ClassAdmDao">
+    <!--获取班级列表-->
+    <select id="getClassList" resultType="map">
+      select CLASSID,CLASSNAME,BEGINTIME,ENDTIME,case STATE 	when 1 then '学习中' when 0 then '已毕业'  end as STATE from TBL_CLASS where rownum between #{start} and #{end}
+    </select>
+    <!--单个添加班级-->
+    <insert id="addClass" parameterType="map">
+        insert into TBL_CLASS(CLASSID,CLASSNAME,BEGINTIME,ENDTIME,STATE) VALUES (#{CLASSID},#{CLASSNAME},#{BEGINTIME},#{ENDTIME},#{STATE}})
+    </insert>
+    <!--修改班级-->
+    <update id="updateClass" parameterType="map">
+        update TBL_CLASS set CLASSID=#{CLASSID},CLASSNAME=#{CLASSNAME},BEGINTIME=#{BEGINTIME},ENDTIME=#{ENDTIME},STATE=#{STATE} where CLASSID=#{CLASSID}
+    </update>
+    <!--删除班级-->
+    <delete id="deleteClass" parameterType="int">
+        DELETE from TBL_CLASS where CLASSID=#{CLASSID}
+    </delete>
+    <!--分页总数量-->
+    <select id="getPageCount" resultType="int">
+        select count(*) from TBL_CLASS where 1=1
+        <if test="CLASSID!=null and CLASSID!=''"> and CLASSID=#{CLASSID} </if>
+        <if test="CLASSNAME!=null and CLASSNAME!=''"> and CLASSNAME like '%'||#{CLASSNAME}||'%' </if>
+        <if test="STATE!=null and STATE!=0"> and STATE=#{STATE} </if>
+    </select>
+</mapper>
