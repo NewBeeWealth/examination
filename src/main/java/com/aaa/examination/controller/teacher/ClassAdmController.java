@@ -1,7 +1,6 @@
 package com.aaa.examination.controller.teacher;
 
-import com.aaa.examination.dao.teacher.StuadmDao;
-import com.aaa.examination.service.teacher.StuadmService;
+import com.aaa.examination.service.teacher.ClassAdmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,21 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
- * className:StuadmController
+ * className:ClassAdmController
  * discriptoin:
  * author:FLZ
- * createTime:2018-12-05 16:58
+ * createTime:2018-12-21 09:59
  */
 @Controller
-@RequestMapping("/student")
-public class StuadmController {
+@RequestMapping("/classes")
+public class ClassAdmController {
     //依赖注入
     @Autowired
-    private StuadmService stuadmService;
+    private ClassAdmService classAdmService;
 
     /**
      * 跳转
@@ -32,16 +30,16 @@ public class StuadmController {
      */
     @RequestMapping("/toList")
     public String toList(){
-        return "teacher/stuList";
+        return "teacher/classAdm";
     }
     @ResponseBody
     @RequestMapping("/getList")
     public Object getList(@RequestBody Map map){
 
         Map rmap=new HashMap();
-        rmap.put("data",stuadmService.getStuList(map));
+        rmap.put("data",classAdmService.getClassList(map));
         //System.out.println(stuadmService.getStuList(map));
-        rmap.put("total",stuadmService.getPageCount(map));
+        rmap.put("total",classAdmService.getPageCount(map));
         // System.out.println(map+"......abc.....");
         // System.out.println(map.get("start")+","+map.get("end"));
         //System.out.println(rmap);
@@ -51,13 +49,13 @@ public class StuadmController {
 
     /**
      * 删除
-     * @param STUDENT_ID
+     * @param CLASSID
      * @return
      */
     @ResponseBody
-    @RequestMapping("/del/{STUDENT_ID}")
-    public Object del(@PathVariable Integer STUDENT_ID){
-        return stuadmService.deleteStu(STUDENT_ID);
+    @RequestMapping("/del/{CLASSID}")
+    public Object del(@PathVariable Integer CLASSID){
+        return classAdmService.deleteClass(CLASSID);
     }
     /**
      * 批量删除
@@ -68,7 +66,7 @@ public class StuadmController {
     @RequestMapping("/batchDel/{ids}")
     public Object batchDel(@PathVariable String ids){
         //1,2,3,
-        return stuadmService.batchDelete(ids);
+        return classAdmService.batchDelete(ids);
     }
     /**
      * 添加
@@ -80,7 +78,7 @@ public class StuadmController {
     public Object add(@RequestBody Map map){
         // System.out.println(map+"...aaa....");
         //return 1;
-        return stuadmService.addStu(map);
+        return classAdmService.addClass(map);
     }
     /**
      * 更新
@@ -90,20 +88,7 @@ public class StuadmController {
     @ResponseBody
     @RequestMapping("/update")
     public Object update(@RequestBody Map map){
-        return stuadmService.updateStu(map);
-    }
-
-    /**
-     * 班级列表（返回JSON）
-     * @return
-     */
-    @ResponseBody
-    @RequestMapping("/listJson")
-    public Object listJson(){
-
-       /* Map rmap=new HashMap();
-        rmap.put("options",stuadmService.getClassList(map));*/
-        return stuadmService.getClassList();
+        return classAdmService.updateClass(map);
     }
 
 }

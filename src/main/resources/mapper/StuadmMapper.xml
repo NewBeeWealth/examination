@@ -45,6 +45,7 @@
         <if test="STUDENT_NAME!=null and STUDENT_NAME!=''"> and STUDENT_NAME like '%'||#{STUDENT_NAME}||'%' </if>
         <if test="CLASSID!=null and CLASSID!=0"> and CLASSID=#{CLASSID} </if>
     </select>
+    <!--获取班级信息-->
     <select id="getClassList" resultType="map">
         select * from tbl_class
     </select>
