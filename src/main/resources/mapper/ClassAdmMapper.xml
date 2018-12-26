@@ -5,15 +5,21 @@
 <mapper namespace="com.aaa.examination.dao.teacher.ClassAdmDao">
     <!--获取班级列表-->
     <select id="getClassList" resultType="map">
-      select CLASSID,CLASSNAME,BEGINTIME,ENDTIME,case STATE 	when 1 then '学习中' when 0 then '已毕业'  end as STATE from TBL_CLASS where rownum between #{start} and #{end}
+        select * from (
+        select b.STATENAME ,a.CLASSID,a.CLASSNAME,to_char(BEGINTIME,'yyyy/mm/dd')as BEGINTIME ,to_char(ENDTIME,'yyyy/mm/dd')as ENDTIME ,a.STATE,rownum rn  from TBL_CLASS a
+        join tbl_classState b on a.state=b.state AND  rownum &lt; #{end}
+        <if test="CLASSID!=null and CLASSID!=''"> and CLASSID=#{CLASSID} </if>
+        <if test="CLASSNAME!=null and CLASSNAME!=''"> and CLASSNAME like '%'||#{CLASSNAME}||'%' </if>
+        <if test="STATE!=null and STATE!=0"> and a.STATE=#{STATE} </if>
+        )c where c.rn  &gt; #{start}
     </select>
     <!--单个添加班级-->
     <insert id="addClass" parameterType="map">
-        insert into TBL_CLASS(CLASSID,CLASSNAME,BEGINTIME,ENDTIME,STATE) VALUES (#{CLASSID},#{CLASSNAME},#{BEGINTIME},#{ENDTIME},#{STATE}})
+        insert into TBL_CLASS(CLASSID,CLASSNAME,BEGINTIME,ENDTIME,STATE) VALUES (#{CLASSID},#{CLASSNAME},to_date(#{BEGINTIME},'yyyy/mm/dd'),to_date(#{ENDTIME},'yyyy/mm/dd'),#{STATE})
     </insert>
     <!--修改班级-->
     <update id="updateClass" parameterType="map">
-        update TBL_CLASS set CLASSID=#{CLASSID},CLASSNAME=#{CLASSNAME},BEGINTIME=#{BEGINTIME},ENDTIME=#{ENDTIME},STATE=#{STATE} where CLASSID=#{CLASSID}
+        update TBL_CLASS set CLASSID=#{CLASSID},CLASSNAME=#{CLASSNAME},BEGINTIME=to_date(#{BEGINTIME},'yyyy/mm/dd'),ENDTIME=to_date(#{ENDTIME},'yyyy/mm/dd'),STATE=#{STATE} where CLASSID=#{CLASSID}
     </update>
     <!--删除班级-->
     <delete id="deleteClass" parameterType="int">
@@ -25,5 +31,9 @@
         <if test="CLASSID!=null and CLASSID!=''"> and CLASSID=#{CLASSID} </if>
         <if test="CLASSNAME!=null and CLASSNAME!=''"> and CLASSNAME like '%'||#{CLASSNAME}||'%' </if>
         <if test="STATE!=null and STATE!=0"> and STATE=#{STATE} </if>
+    </select>
+    <!--获取状态信息-->
+    <select id="getStateList" resultType="map">
+        select * from tbl_classState
     </select>
 </mapper>

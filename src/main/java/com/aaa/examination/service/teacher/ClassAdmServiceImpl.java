@@ -56,4 +56,9 @@ public class ClassAdmServiceImpl implements ClassAdmService{
         if(isAdd) return 1;
         else  return 0;
     }
+
+    @Override
+    public List<Map> getStateList() {
+        return classAdmDao.getStateList();
+    }
 }

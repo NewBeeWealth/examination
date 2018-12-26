@@ -33,7 +33,7 @@
                         <el-option
                                 v-for="item in options"
                                 :key="item.STATE"
-                                :label="item.SN"
+                                :label="item.STATENAME"
                                 :value="item.STATE">
                         </el-option>
                     </el-select>
@@ -81,7 +81,7 @@
                     width="120">
             </el-table-column>
             <el-table-column
-                    prop="STATE"
+                    prop="STATENAME"
                     label="班级状态"
                     width="120">
             </el-table-column>
@@ -123,11 +123,11 @@
             <el-form-item label="班级名称" prop="CLASSNAME">
                 <el-input v-model="editForm.CLASSNAME" auto-complete="off"></el-input>
             </el-form-item>
-            <el-form-item label="开班时间" prop="BEGINTIME">
-                <el-input v-model="editForm.BEGINTIME" auto-complete="off"></el-input>
+            <el-form-item label="开班时间">
+                <el-date-picker type="date" placeholder="选择日期" v-model="editForm.BEGINTIME"></el-date-picker>
             </el-form-item>
-            <el-form-item label="毕业时间" prop="ENDTIME">
-                <el-input v-model="editForm.ENDTIME" auto-complete="off"></el-input>
+            <el-form-item label="毕业时间">
+                <el-date-picker type="date" placeholder="选择日期" v-model="editForm.ENDTIME"></el-date-picker>
             </el-form-item>
             <el-form-item label="班级状态" prop="STATE">
 
@@ -136,7 +136,7 @@
                         <el-option
                                 v-for="item in options"
                                 :key="item.STATE"
-                                :label="item.CLASSNAME"
+                                :label="item.STATENAME"
                                 :value="item.STATE">
                         </el-option>
                     </el-select>
@@ -161,7 +161,7 @@
     var app = new Vue({
         el: '#app',
         data: {
-            message: '学生列表'
+            message: '班级列表'
         }
     });
 
@@ -176,14 +176,9 @@
             loading:false,
             //搜索表单
             searchForm: {
-                STUDENT_ID: '',
-                STUDENT_NAME: '',
-                /*STUDENT_USERNAME:'',
-                STUDENT_PWD:'',
-                STU_IDNO:'',
-                STU_PHONE:'',
-                CLASSNAME: '',*/
-                CLASSID:''
+                CLASSID: '',
+                CLASSNAME: '',
+                STATE:''
             },
             //多选值
             multipleSelection: [],
@@ -206,14 +201,11 @@
             },
             //编辑界面数据
             editForm: {
-                STUDENT_ID:'',
-                STUDENT_NAME: '',
-                STUDENT_USERNAME: '',
-                STUDENT_PWD: '',
-                STU_IDNO:'',
-                STU_PHONE:'',
+                CLASSID:'',
                 CLASSNAME: '',
-                CLASSID:''
+                BEGINTIME: '',
+                ENDTIME: '',
+                STATE:''
             },
         },
         created:function(){
@@ -221,28 +213,26 @@
             var self = this;
             var start =(this.currentPage-1)*this.pageSize;
             var end =this.currentPage*this.pageSize+1;
-            axios.post('/student/getList',{'start':start,'end':end}).then(function(response){
+            axios.post('/classes/getList',{'start':start,'end':end}).then(function(response){
                 // console.log(response.data);
                 //alert(response.data.total);
                 self.total=response.data.total;
                 self.tableData = response.data.data;
                 // self.multipleSelection=response.data.data;
             })
-            axios.post('/student/listJson').then(function(response){
+            axios.post('/classes/listJson').then(function(response){
                 self.options = response.data;
             })
         },
         methods:{
             toFlush:function(){
                 this.searchForm= {
-                    STUDENT_ID: '',
-                    STUDENT_NAME: '',
-                    STUDENT_USERNAME: '',
-                    STUDENT_PWD: '',
-                    STU_IDNO:'',
-                    STU_PHONE:'',
+                    CLASSID: '',
                     CLASSNAME: '',
-                    CLASSID:''
+                    STUDENT_USERNAME: '',
+                    BEGINTIME: '',
+                    ENDTIME:'',
+                    STATE:''
                 }
                 this.loadingData();
             },
@@ -253,9 +243,9 @@
                 var self = this;
                 var start =(this.currentPage-1)*this.pageSize;
                 var end =this.currentPage*this.pageSize+1;
-                var searchForm={'start':start,'end':end,'STUDENT_ID':this.searchForm.STUDENT_ID ,'STUDENT_NAME':this.searchForm.STUDENT_NAME,'CLASSID':this.searchForm.CLASSID};
+                var searchForm={'start':start,'end':end,'CLASSID':this.searchForm.CLASSID ,'CLASSNAME':this.searchForm.CLASSNAME,'STATE':this.searchForm.STATE};
                 //   alert(JSON.stringify(searchForm));
-                axios.post('/student/getList',searchForm).then(function(response){
+                axios.post('/classes/getList',searchForm).then(function(response){
                     // console.log(response.data);
                     // alert(222);
                     _self.total=response.data.total;
@@ -270,26 +260,23 @@
             },
             //表格编辑事件
             editClick:function(row) {
-                this.goUrl="/student/update";
+                this.goUrl="/classes/update";
                 this.editFormVisible = true;
                 this.editForm = Object.assign({}, row);
 
-                /* axios.post('/student/listJson').then(function(response){
-                     self.options = response.data;
-                 })*/
             },
             //表格删除事件
             deleteClick:function(row) {
                 var _self = this;
-                this.$confirm('确认删除' + row.STUDENT_ID +'吗?', '提示', {
+                this.$confirm('确认删除' + row.CLASSID +'吗?', '提示', {
                     type: 'warning'
                 }).then(function(){
-                    var  url="/student/del/"+row.STUDENT_ID;
+                    var  url="/classes/del/"+row.CLASSID;
                     axios.get(url).then(function (response) {
                         //alert(response.data);
                         if(response.data>0){
                             _self.$message({
-                                message: row.STUDENT_ID + '删除成功',
+                                message: row.CLASSID + '删除成功',
                                 type: 'success'
                             });
                             _self.loadingData();//重新加载数据
@@ -303,18 +290,15 @@
             //新建事件
             addClick:function() {
                 //alert(111);
-                this.goUrl="/student/add";
+                this.goUrl="/classes/add";
                 var _self = this;
                 //给editForm重新赋值
                 this.editForm= {
-                    STUDENT_ID: '',
-                    STUDENT_NAME: '',
-                    STUDENT_USERNAME: '',
-                    STUDENT_PWD: '',
-                    STU_IDNO:'',
-                    STU_PHONE:'',
+                    CLASSID: '',
                     CLASSNAME: '',
-                    CLASSID:''
+                    BEGINTIME: '',
+                    ENDTIME: '',
+                    STATE:''
                 }
                 /* axios.post('/student/listJson').then(function(response){
                      self.options = response.data;
@@ -329,7 +313,7 @@
                  var end =this.currentPage*this.pageSize+1;
                  //var searchForm =this.searchForm;
 
-                 var searchForm={'start':start,'end':end,'STUDENT_ID':this.STUDENT_ID,'STUDENT_NAME':this.STUDENT_NAME,'CLASSID':this.CLASSID};
+                 var searchForm={'start':start,'end':end,'CLASSID':this.CLASSID,'STUDENT_NAME':this.STUDENT_NAME,'CLASSID':this.CLASSID};
                  alert(searchForm);*/
                 //formData.push({'start':start}).push({'end':end})
                 /*axios.post('/student/getList',searchForm).then(function(response){
@@ -364,12 +348,12 @@
                 var ids = "";
                 for(var i=0;i<multipleSelection.length;i++) {
                     var row = multipleSelection[i];
-                    ids += row.STUDENT_ID + ","
+                    ids += row.CLASSID + ","
                 }
                 this.$confirm('确认删除' + ids +'吗?', '提示', {
                     type: 'warning'
                 }).then(function(){
-                    var  url="/student/batchDel/"+ids;
+                    var  url="/classes/batchDel/"+ids;
                     axios.get(url).then(function (response) {
                         //alert(response.data);
                         var temp="";

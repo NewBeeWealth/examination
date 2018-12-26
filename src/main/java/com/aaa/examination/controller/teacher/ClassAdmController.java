@@ -76,7 +76,7 @@ public class ClassAdmController {
     @ResponseBody
     @RequestMapping("/add")
     public Object add(@RequestBody Map map){
-        // System.out.println(map+"...aaa....");
+         System.out.println(map+"...aaa....");
         //return 1;
         return classAdmService.addClass(map);
     }
@@ -89,6 +89,16 @@ public class ClassAdmController {
     @RequestMapping("/update")
     public Object update(@RequestBody Map map){
         return classAdmService.updateClass(map);
+    }
+
+    /**
+     * 状态列表（返回JSON）
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/listJson")
+    public Object listJson(){
+        return classAdmService.getStateList();
     }
 
 }
