@@ -88,7 +88,14 @@ public class ClassAdmController {
     @ResponseBody
     @RequestMapping("/update")
     public Object update(@RequestBody Map map){
+        System.out.println(map);
+        String begin=map.get("BEGINTIME")+"";
+        String end=map.get("ENDTIME")+"";
+        map.put("BEGINTIME",begin.substring(0,10));
+        map.put("ENDTIME",end.substring(0,10));
+        System.out.println(map);
         return classAdmService.updateClass(map);
+
     }
 
     /**

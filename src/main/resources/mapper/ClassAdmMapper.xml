@@ -6,7 +6,7 @@
     <!--获取班级列表-->
     <select id="getClassList" resultType="map">
         select * from (
-        select b.STATENAME ,a.CLASSID,a.CLASSNAME,to_char(BEGINTIME,'yyyy/mm/dd')as BEGINTIME ,to_char(ENDTIME,'yyyy/mm/dd')as ENDTIME ,a.STATE,rownum rn  from TBL_CLASS a
+        select b.STATENAME ,a.CLASSID,a.CLASSNAME,to_char(BEGINTIME,'yyyy-mm-dd')as BEGINTIME ,to_char(ENDTIME,'yyyy-mm-dd')as ENDTIME ,a.STATE,rownum rn  from TBL_CLASS a
         join tbl_classState b on a.state=b.state AND  rownum &lt; #{end}
         <if test="CLASSID!=null and CLASSID!=''"> and CLASSID=#{CLASSID} </if>
         <if test="CLASSNAME!=null and CLASSNAME!=''"> and CLASSNAME like '%'||#{CLASSNAME}||'%' </if>
@@ -15,11 +15,11 @@
     </select>
     <!--单个添加班级-->
     <insert id="addClass" parameterType="map">
-        insert into TBL_CLASS(CLASSID,CLASSNAME,BEGINTIME,ENDTIME,STATE) VALUES (#{CLASSID},#{CLASSNAME},to_date(#{BEGINTIME},'yyyy/mm/dd'),to_date(#{ENDTIME},'yyyy/mm/dd'),#{STATE})
+        insert into TBL_CLASS(CLASSID,CLASSNAME,BEGINTIME,ENDTIME,STATE) VALUES (#{CLASSID},#{CLASSNAME},to_date(#{BEGINTIME},'yyyy-mm-dd'),to_date(#{ENDTIME},'yyyy-mm-dd'),#{STATE})
     </insert>
     <!--修改班级-->
     <update id="updateClass" parameterType="map">
-        update TBL_CLASS set CLASSID=#{CLASSID},CLASSNAME=#{CLASSNAME},BEGINTIME=to_date(#{BEGINTIME},'yyyy/mm/dd'),ENDTIME=to_date(#{ENDTIME},'yyyy/mm/dd'),STATE=#{STATE} where CLASSID=#{CLASSID}
+        update TBL_CLASS set CLASSID=#{CLASSID},CLASSNAME=#{CLASSNAME},BEGINTIME=to_date(#{BEGINTIME},'yyyy-mm-dd'),ENDTIME=to_date(#{ENDTIME},'yyyy-mm-dd'),STATE=#{STATE} where CLASSID=#{CLASSID}
     </update>
     <!--删除班级-->
     <delete id="deleteClass" parameterType="int">

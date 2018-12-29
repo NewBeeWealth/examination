@@ -124,10 +124,10 @@
                 <el-input v-model="editForm.CLASSNAME" auto-complete="off"></el-input>
             </el-form-item>
             <el-form-item label="开班时间">
-                <el-date-picker type="date" placeholder="选择日期" v-model="editForm.BEGINTIME"></el-date-picker>
+                <el-date-picker type="date" placeholder="选择日期" v-model="editForm.BEGINTIME" ><!--@on-change="getStartTime"--><!--@change="editForm.BEGINTIME=$event"--></el-date-picker>
             </el-form-item>
             <el-form-item label="毕业时间">
-                <el-date-picker type="date" placeholder="选择日期" v-model="editForm.ENDTIME"></el-date-picker>
+                <el-date-picker type="date" placeholder="选择日期" v-model="editForm.ENDTIME" ></el-date-picker>
             </el-form-item>
             <el-form-item label="班级状态" prop="STATE">
 
@@ -199,6 +199,12 @@
                     { required: true, message: '请输入姓名', trigger: 'blur' }
                 ]
             },
+            /*getStartTime: function (BEGINTIME) {
+               console.log(BEGINTIME)
+           },
+           getEndTime: function (ENDTIME) {
+               console.log(ENDTIME)
+           },*/
             //编辑界面数据
             editForm: {
                 CLASSID:'',
@@ -207,6 +213,7 @@
                 ENDTIME: '',
                 STATE:''
             },
+
         },
         created:function(){
             //在 then的内部不能使用Vue的实例化的this, 因为在内部 this 没有被绑定。
