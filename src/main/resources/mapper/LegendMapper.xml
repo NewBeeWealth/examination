@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.examination.dao.teacher.LegendDao">
+    <select id="getClassCount" resultType="map">
+
+    </select>
+    <select id="getStuCount" resultType="map">
+
+    </select>
+    <select id="getQuestionsCount" resultType="map">
+
+    </select>
+    <select id="getScoreCount" resultType="map">
+
+    </select>
+</mapper>

@@ -4,6 +4,7 @@ import com.aaa.examination.dao.teacher.BatchStuDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,5 +21,15 @@ public class BatchStuServiceImpl implements BatchStuService{
     @Override
     public int add(Map map) {
         return batchStuDao.add(map);
+    }
+
+    @Override
+    public int insertUrl(String s) {
+        return batchStuDao.insertUrl(s);
+    }
+
+    @Override
+    public List<Map> getUpload() {
+        return batchStuDao.getUpload();
     }
 }
