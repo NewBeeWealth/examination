@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
     <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
 
-    <title>角色管理</title>
+    <title>试卷列表</title>
 </head>
 <body>
 <div class="page-container">
@@ -40,9 +40,11 @@
             <td th:text="${bank.EXAM_DESCROBE}"></td>
 
             <td>
-                <a th:href="'/exam/addexamination?id='+${bank.EXAM_ID}" >配置</a>&nbsp;
-                <a th:href="'/question/questionupdate?id='+${bank.EXAM_ID}" >修改</a>&nbsp;
-                <a th:href="'/question/questiondelete?id='+${bank.EXAM_ID}" >删除</a>
+                <!--<a href="javascript:" th:onclick="checkBank('/exam/toCheckBank?id='+${bank.EXAM_ID})">配置</a>-->
+                <!--<a th:href="'/exam/addexamination?id='+${bank.EXAM_ID}" >配置</a>&nbsp;-->
+                <a th:href="'/exam/toCheckBank?id='+${bank.EXAM_ID}" >配置</a>&nbsp;
+                <a th:href="'/exam/getExamById?id='+${bank.EXAM_ID}" >修改</a>&nbsp;
+                <a th:href="'/exam/delexam?id='+${bank.EXAM_ID}" >删除</a>
             </td>
         </tr>
         </tbody>
@@ -59,8 +61,8 @@
 <script type="text/javascript">
 
     /*管理员-角色-编辑*/
-    function admin_role_edit(title,url,id,w,h){
-        layer_show(title,url,w,h);
+    function checkBank(title,url,w,h){
+        layer_show("选择题库",url,550,400);
     }
     /*管理员-角色-删除*/
     function admin_role_del(obj,id){

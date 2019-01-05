@@ -17,17 +17,27 @@ import java.util.Map;
  * createTime:2018-12-03 22:45
  */
 public interface ExamManageDao {
-
+    /**
+     * 查询所有题库
+     * @return
+     */
+    @Select({"<script>" +
+            "select * from TBL_QUESTIONBANK " +
+            "</script>"})
+    List<Map> getQuestionBank();
     /**
      * 单选试题列表
      * @return
      */
     @Select({"<script>" +
-        "select * from (select rownum rn,t.* from tbl_exam_singlechoice  t where  rownum &lt; #{end} "
-       /* +"<if test=\"id!=null and id!=''\"> and empno=#{id} </if>"
-        +"<if test=\"name!=null and name!=''\"> and ename like '%'||#{name}||'%' </if>"
-        +"<if test=\"deptNo!=null and deptNo!=0\"> and deptno=#{deptNo} </if>"*/
-        +")  a where a.rn &gt; #{start} " +
+        "select * from \n" +
+            "(select rownum rn,a.* from \n" +
+            "(select t.single_type,t.single_main,t.single_bank from  tbl_exam_singlechoice t union \n" +
+            "select t.mul_type,t.mul_main,t.mul_bank from  tbl_exam_multiplechoice t union\n" +
+            "select t.judge_type,t.judge_main,t.judge_bank from  tbl_exam_judge t) a where rownum &lt; #{end} "
+            +"<if test=\"BANK_NAME!=null and BANK_NAME!=''\"> and SINGLE_BANK like '%'||#{BANK_NAME}||'%' </if>"
+            +"<if test=\"SINGLE_TYPE!=null and SINGLE_TYPE!=''\"> and SINGLE_TYPE like '%'||#{SINGLE_TYPE}||'%' </if>"
+        +")  b where b.rn &gt; #{start} "+
         "</script>"})
     List<Map> getSingleList(Map map);
     /**
@@ -35,12 +45,13 @@ public interface ExamManageDao {
      * @param map
      * @return
      */
-    @Select({"<script>" +"select count(*) from tbl_exam_singlechoice " +
-       /* "<where>"+
-        +"<if test=\"id!=null and id!=''\"> and empno=#{id} </if>"
-        +"<if test=\"name!=null and name!=''\"> and ename like '%'||#{name}||'%' </if>"
-        +"<if test=\"deptNo!=null and deptNo!=0\"> and deptno=#{deptNo} </if>"+
-        "</where>" +*/
+    @Select({"<script>" +"select count(*) from (select t.single_type,t.single_main,t.single_bank from  tbl_exam_singlechoice t union \n" +
+            "select t.mul_type,t.mul_main,t.mul_bank from  tbl_exam_multiplechoice t union\n" +
+            "select t.judge_type,t.judge_main,t.judge_bank from  tbl_exam_judge t) " +
+        "<where>"
+            +"<if test=\"BANK_NAME!=null and BANK_NAME!=''\"> and SINGLE_BANK like '%'||#{BANK_NAME}||'%' </if>"
+            +"<if test=\"SINGLE_TYPE!=null and SINGLE_TYPE!=''\"> and SINGLE_TYPE like '%'||#{SINGLE_TYPE}||'%' </if>"+
+        "</where>" +
         "</script>"})
     int getSinglePageCount(Map map);
 

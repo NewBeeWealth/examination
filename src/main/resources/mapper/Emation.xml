@@ -28,18 +28,36 @@
     <select id="getExamList" resultType="map">
       select * from tbl_exam
     </select>
-
+    <!--获取所有题库名称-->
+    <select id="getAllBank" resultType="map">
+        select * from TBL_QUESTIONBANK
+    </select>
+    <!--删除试卷a-->
+    <!--<delete id="delexam">
+        delete from TBL_EXAM where exam_id = #{id}
+    </delete>-->
+    <select id="delexam" parameterType="Integer" statementType="CALLABLE">
+        call pro_delexam_byeid(#{id,jdbcType=INTEGER,mode=IN})
+    </select>
+    <!--根据id获取试卷信息-->
+    <select id="getExamById" resultType="map">
+        select * from tbl_exam where exam_id = #{id}
+    </select>
+    <!--修改试卷-->
+    <update id="examUpdate" parameterType="map">
+        update tbl_exam set exam_name=#{examName},exam_state=#{examState},exam_starttime=to_date(#{examStartTime},'yyyy-mm-dd hh24:mi:ss'),exam_endtime=to_date(#{examEndTime},'yyyy-mm-dd hh24:mi:ss'),exam_descrobe=#{examDescrobe} where exam_id=#{id}
+    </update>
     <!-- 获取单选题列表 -->
     <select id="getSingleExamList" resultType="map">
-      select * from tbl_exam_singlechoice
+      select * from tbl_exam_singlechoice where SINGLE_BANK like '%'||#{bankName}||'%'
     </select>
     <!-- 获取多选题列表 -->
     <select id="getMultipleExamList" resultType="map">
-      select * from tbl_exam_multiplechoice
+      select * from tbl_exam_multiplechoice where mul_bank like '%'||#{bankName}||'%'
     </select>
     <!-- 获取判断题列表 -->
     <select id="getJudgeExamList" resultType="map">
-      select * from tbl_exam_judge
+      select * from tbl_exam_judge where judge_bank like '%'||#{bankName}||'%'
     </select>
 
 

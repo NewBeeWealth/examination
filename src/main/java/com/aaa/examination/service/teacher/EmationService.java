@@ -26,20 +26,44 @@ public interface EmationService {
      */
     List<Map> getExamList();
     /**
+     * 查询所有题库名称
+     * @return
+     */
+    List<Map> getAllBank();
+    /**
+     * 删除试卷
+     * @param id
+     * @return
+     */
+    int delexam(Integer id);
+    /**
+     * 根据id获取试卷信息
+     * @param id
+     * @return
+     */
+    List<Map> getExamById(Integer id);
+
+    /**
+     * 修改试卷
+     * @param map
+     * @return
+     */
+    int examUpdate(Map map);
+    /**
      * 获取单选试题
      * @return
      */
-    List<Map>  getSingleExamList();
+    List<Map>  getSingleExamList(Map map);
     /**
      * 获取多选试题
      * @return
      */
-    List<Map>  getMultipleExamList();
+    List<Map>  getMultipleExamList(Map map);
     /**
      * 获取判断试题
      * @return
      */
-    List<Map>  getJudgeExamList();
+    List<Map>  getJudgeExamList(Map map);
 
     /**
      * 添加成绩

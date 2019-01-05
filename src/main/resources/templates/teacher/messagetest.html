@@ -12,8 +12,7 @@
     <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
     <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
     <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
-
-    <title>题库列表</title>
+    <title>题库管理</title>
 </head>
 <body>
 <div class="page-container">
@@ -25,7 +24,7 @@
             <th width="15">ID</th>
             <th width="50">题库名称</th>
             <th width="20">状态</th>
-            <th width="20">试题数量</th>
+            <!--<th width="20">试题数量</th>-->
             <th width="100">题库说明</th>
             <th width="70">操作</th>
         </tr>
@@ -36,13 +35,13 @@
             <td th:text="${bank.BANK_ID}"></td>
             <td th:text="${bank.BANK_NAME}"></td>
             <td th:text="${bank.BANK_STATE}==0?'开放':'关闭'"></td>
-            <td th:text="${bank.BANK_NUM}"></td>
+            <!--<td th:text="${bank.BANK_NUM}"></td>-->
             <td th:text="${bank.BANK_DETAIL}"></td>
-
             <td>
-                <a class="btn btn-primary" th:href="'/question/questionupdate?id='+${bank.BANK_ID}" >修改</a>&nbsp;
+                <!--<input type="text" th:value="${bank.BANK_ID}" class="upid" >-->
+                <!--<a class="btn btn-primary" onclick="system_category_add('修改','/question/questionupdate')" href="javascript:void(0);">修改</a>-->
+                <a class="btn btn-primary" th:href="'/question/questionupdate?id='+${bank.BANK_ID}">修改</a>&nbsp;
                 <a class="btn btn-primary" th:href="'/question/questiondelete?id='+${bank.BANK_ID}" >删除</a>
-               <a class="btn btn-primary" onclick="system_category_add('修改','/question/questionupdate')" href="javascript:;">修改</a>
             <!--    <a class="btn btn-primary" onclick="system_category_add('删除','/question/questiondelete?id=${bank.BANK_ID}')" href="javascript:;">删除</a>-->
             </td>
         </tr>
@@ -65,7 +64,11 @@
     }
     /*系统-栏目-添加*/
     function system_category_add(title,url,w,h){
-        layer_show(title,url,550,400);
+        console.dir($(this));
+        var id = $(this).prev().val();
+        var url1 = url+"?id="+id;
+        console.log("***"+url1);
+        layer_show(title,url1,550,400);
     }
     /*管理员-角色-删除*/
     /*function admin_role_del(obj,id){
