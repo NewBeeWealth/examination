@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>学生图例</title>
-    <script src="../echarts.min.js"></script>
-    <script src="../jquery-3.3.1.min.js"></script>
+    <script src="../echarts.js"></script>
+    <script src="../jquery.js"></script>
 </head>
 <body>
 
@@ -34,7 +34,7 @@
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'));
 
-    app.title = '折柱混合';
+    /*app.title = '折柱混合';*/
 
     option = {
         tooltip: {
@@ -110,6 +110,7 @@
 
 
     // 使用刚指定的配置项和数据显示图表。
-    myChart.setOption(option)
+    myChart.setOption(option);
+</script>
 </body>
 </html>

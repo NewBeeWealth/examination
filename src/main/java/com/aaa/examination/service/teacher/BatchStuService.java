@@ -1,5 +1,6 @@
 package com.aaa.examination.service.teacher;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,4 +15,17 @@ public interface BatchStuService {
      * @return
      */
     int add(Map map);
+
+    /**
+     * t添加路径
+     * @param s
+     * @return
+     */
+    int insertUrl(String s);
+
+    /**
+     * 查看上传
+     * @return
+     */
+    List<Map> getUpload();
 }

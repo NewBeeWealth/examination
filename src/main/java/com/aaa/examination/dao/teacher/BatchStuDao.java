@@ -1,6 +1,7 @@
 package com.aaa.examination.dao.teacher;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,6 @@ public interface BatchStuDao {
      * ftp上传
      * @return
      */
-    @Insert("insert into tbl_addexcel(FILE_ID,FILE_PATH,FILE_NAME) values(file_excel.nextval,#{filePath},#{fileName})")
     int add(Map map);
 
     /**
@@ -25,5 +25,22 @@ public interface BatchStuDao {
      * @return
      */
     List<Map> getFtpList();
+
+    /**
+     * t添加路径
+     * @param s
+     * @return
+     */
+    @Insert({"<script>insert into TBL_UPLOAD(id,name,url) values(exam_exam.nextval,exam_exam.nextval,#{s})\n</script>"})
+    int insertUrl(String s);
+
+    /**
+     * 查看上传
+     * @return
+     */
+    @Select({"<script>select name,url from TBL_UPLOAD</script>"})
+    List<Map> getUpload();
+
+
 }
 

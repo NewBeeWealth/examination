@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>试题图例</title>
-    <script src="../echarts.min.js"></script>
-    <script src="../jquery-3.3.1.min.js"></script>
+    <script src="../echarts.js"></script>
+    <script src="../jquery.js"></script>
 </head>
 <body>
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
@@ -34,7 +34,7 @@
     });
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'));
-    var myChart = echarts.init(document.getElementById('main1'));
+    var myChart1 = echarts.init(document.getElementById('main1'));
 
 
     option = {
@@ -118,6 +118,7 @@
 
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
-    myChart.setOption(option1)
+    myChart1.setOption(option1);
+    </script>
     </body>
 </html>
