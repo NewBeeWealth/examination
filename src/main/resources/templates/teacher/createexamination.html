@@ -33,7 +33,7 @@
                     </div>
                 </div>
 
-                <div class="row cl">
+                <!--<div class="row cl">
                     <label class="form-label col-xs-4 col-sm-2">试卷分类: </label>
                     <div class="formControls col-xs-8 col-sm-9" style="width: 150px;">
                         <select name="examinatetype" class="select" style="width: 150px;">
@@ -42,9 +42,14 @@
                             <option value="2">判断</option>
                         </select>
                     </div>
+                </div>-->
+                <div>
+                    <label class="form-label col-xs-4 col-sm-2">所属科目: </label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" name="examinatetype" value="" class="input-text" style="width: 500px;">
+                    </div>
                 </div>
-
-                <div class="row cl" style="margin-left: 120px;margin-top: -20px;position: relative;">
+                <div class="row cl" style="margin-left: 120px;position: relative;">
                     <label class="form-label col-xs-4 col-sm-2">试卷状态: </label>
                     <div class="formControls col-xs-8 col-sm-9" style="width: 150px;">
                         <select name="examinatestate" class="select" style="width: 150px;">
@@ -53,7 +58,7 @@
                         </select>
                     </div>
                 </div>
-
+                <br/>
                 <div style="margin-left: 90px;margin-top: 20px;position: relative;">
                     开考时间: <input type="datetime-local" name="examinatestart" id="logmin1" class="input-text Wdate" style="width:180px;">
                     &nbsp;&nbsp;&nbsp;结束时间: <input type="datetime-local" name="examinateend" id="logmax" class="input-text Wdate" style="width:180px;">
@@ -74,7 +79,7 @@
                     </div>
                 </div>
 
-                <div class="row cl"  style="margin-left: 250px;margin-top: -30px;position: relative;">
+                <div class="row cl"  style="margin-left: 250px;position: relative;">
                     <label class="form-label col-xs-4 col-sm-2">试卷类型: </label>
                     <div class="formControls col-xs-8 col-sm-9" style="width: 150px;">
                         <select name="examinateother" class="select" style="width: 150px;">
@@ -91,13 +96,13 @@
                     </div>
                 </div>
 
-                <div style="margin-top: 60px;margin-left: 150px;display: none;">
+                <!--<div style="margin-top: 60px;margin-left: 150px;display: none;">
                     <h4>答案设置</h4><br/>
                     <div style="margin-left: 100px;">
                         <input name="sex" type="radio" checked="checked"/>正确
                         <input name="sex" type="radio" />错误
                     </div>
-                </div>
+                </div>-->
 
                 <div style="margin-left: 100px;margin-top: 30px;">
                     考试班级<a class="btn btn-primary examclass" onclick="system_category_add('选择班级','/question/toSelecetClass')" data-title="选择班级" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 选择班级</a>

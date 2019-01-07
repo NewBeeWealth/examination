@@ -29,7 +29,7 @@
             }
         }
     </script>
-    <title>角色管理</title>
+    <title>新增试题</title>
 </head>
 <body>
 <div class="page-container">
@@ -40,7 +40,7 @@
         <div id="tab-system" class="HuiTab">
             <div class="tabCon">
 
-                <div class="row cl">
+                <div class="row cl" style="display: inline-block;width: 540px;margin-left: 170px;">
                     <label class="form-label col-xs-4 col-sm-2">试题类型: </label>
                     <div class="formControls col-xs-8 col-sm-9" style="width: 150px;">
                         <select name="qutype" class="select" style="width: 150px;"  onChange="javascript:test('mune_x'+this.value)">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <div class="row cl" style="margin-left: 400px;margin-top: -50px;position: relative;">
+                <div class="row cl" style="display: inline-block;width: 540px;">
                     <label class="form-label col-xs-4 col-sm-2">试题难度: </label>
                     <div class="formControls col-xs-8 col-sm-9" style="width: 150px;">
                         <select name="qudiff" class="select" style="width: 150px;">
@@ -62,18 +62,18 @@
                     </div>
                 </div>
 
-                <div class="row cl">
+                <div class="row cl"style="display: inline-block;width: 540px;margin-left: 170px;">
                     <label class="form-label col-xs-4 col-sm-2">所属题库: </label>
                     <div class="formControls col-xs-8 col-sm-9" style="width: 150px;">
                         <select name="qubank" class="select" style="width: 150px;">
-                            <option value="java">java</option>
-                            <option value="python">python</option>
-                            <option value="php">php</option>
+                            <option th:each="bankName:${bankNameList}" th:value="${bankName.BANK_NAME}" th:text="${bankName.BANK_NAME}"></option>
+                            <!--<option value="python">python</option>
+                            <option value="php">php</option>-->
                         </select>
                     </div>
                 </div>
 
-                <div class="row cl"  style="margin-left: 250px;margin-top: -30px;position: relative;">
+                <div class="row cl"  style="display: inline-block;width: 540px;">
                     <label class="form-label col-xs-4 col-sm-2">试题状态: </label>
                     <div class="formControls col-xs-8 col-sm-9" style="width: 150px;">
                         <select name="qustate" class="select" style="width: 150px;">

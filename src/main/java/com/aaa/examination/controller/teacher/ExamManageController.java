@@ -26,14 +26,27 @@ public class ExamManageController {
     private ExamManageService examManageService;
 
     /**
+     * 查询所有题库
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("getQuestionBank")
+    public Object getQuestionBank(){
+        System.out.println("\\\\"+examManageService.getQuestionBank());
+        return examManageService.getQuestionBank();
+    }
+
+    /**
      * 单选试题列表
      * @return
      */
     @ResponseBody
-    @RequestMapping("getSingleList")
-    public Object getSingleList(@RequestBody Map map){
+    @RequestMapping("getQuestionList")
+    public Object getQuestionList(@RequestBody Map map){
+        System.out.println("6666666"+map);
         Map rmap=new HashMap();
         List<Map> singleList = examManageService.getSingleList(map);
+        System.out.println("888"+singleList);
         rmap.put("data",singleList);
         rmap.put("total",examManageService.getSinglePageCount(map));
         return rmap;

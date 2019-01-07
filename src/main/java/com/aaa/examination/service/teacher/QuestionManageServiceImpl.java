@@ -42,6 +42,16 @@ public class QuestionManageServiceImpl implements QuestionManageService{
     }
 
     @Override
+    public int bankUpdate(Map map) {
+        return questionManageDao.bankUpdate(map);
+    }
+
+    @Override
+    public List<Map> selectBankName() {
+        return questionManageDao.selectBankName();
+    }
+
+    @Override
     public int addExamination(Map map) {
         if(map.get("qutype").equals("0")){//单选
             map.put("qutype","单选");

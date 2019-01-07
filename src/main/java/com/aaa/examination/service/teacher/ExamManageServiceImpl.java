@@ -24,6 +24,11 @@ public class ExamManageServiceImpl implements ExamManageService{
     private ExamManageDao examManageDao;
 
     @Override
+    public List<Map> getQuestionBank() {
+        return examManageDao.getQuestionBank();
+    }
+
+    @Override
     public List<Map> getSingleList(Map map) {
         return examManageDao.getSingleList(map);
     }
