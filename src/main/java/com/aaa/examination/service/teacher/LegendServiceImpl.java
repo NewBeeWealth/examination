@@ -19,23 +19,48 @@ public class LegendServiceImpl implements  LegendService{
     @Autowired
     private LegendDao legendDao;
 
+    /**
+     * 班级
+     * @return
+     */
     @Override
     public List<Map> getClassCount() {
-        return null;
+        return legendDao.getClassCount();
     }
 
+    /**
+     * 学生
+     * @return
+     */
     @Override
     public List<Map> getStuCount() {
-        return null;
+        return legendDao.getStuCount();
     }
 
+    /**
+     * 试题
+     * @return
+     */
     @Override
     public List<Map> getQuestionsCount() {
+        return legendDao.getQuestionsCount();
+    }
+
+    /**
+     * 题库
+     * @return
+     */
+    @Override
+    public List<Map> getBankCount() {
         return null;
     }
 
+    /**
+     * 成绩
+     * @return
+     */
     @Override
     public List<Map> getScoreCount() {
-        return null;
+        return legendDao.getScoreCount();
     }
 }

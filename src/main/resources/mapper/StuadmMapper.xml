@@ -19,16 +19,16 @@
         <if test="STUDENT_ID!=null and STUDENT_ID!=''"> and STUDENT_ID=#{STUDENT_ID} </if>
         <if test="STUDENT_NAME!=null and STUDENT_NAME!=''"> and STUDENT_NAME like '%'||#{STUDENT_NAME}||'%' </if>
         <if test="CLASSID!=null and CLASSID!=0"> and a.CLASSID=#{CLASSID} </if>
-        )c where c.rn  &gt; #{start}
+        )c where c.rn  &gt; #{start} ORDER BY STUDENT_ID
 
     </select>
     <!--单个添加学生-->
     <insert id="addStu" parameterType="map">
-     insert into TBL_STUDENT(STUDENT_ID,STUDENT_NAME,STUDENT_USERNAME,STUDENT_PWD,STU_IDNO,STU_PHONE,CLASSID) VALUES (#{STUDENT_ID},#{STUDENT_NAME},#{STUDENT_USERNAME},#{STUDENT_PWD},#{STU_IDNO},#{STU_PHONE},#{CLASSID})
+     insert into TBL_STUDENT(STUDENT_ID,STUDENT_NAME,STUDENT_USERNAME,STUDENT_PWD,STU_IDNO,STU_PHONE,CLASSID,STU_ADD,STUDENT_STATE) VALUES (#{STUDENT_ID},#{STUDENT_NAME},#{STUDENT_USERNAME},#{STUDENT_PWD},#{STU_IDNO},#{STU_PHONE},#{CLASSID},#{STU_ADD},3)
     </insert>
     <!--修改学生-->
     <update id="updateStu" parameterType="map">
-      update TBL_STUDENT set STUDENT_NAME=#{STUDENT_NAME},STUDENT_USERNAME=#{STUDENT_USERNAME},STUDENT_PWD=#{STUDENT_PWD},STU_IDNO=#{STU_IDNO},STU_PHONE=#{STU_PHONE},CLASSID=#{CLASSID} where STUDENT_ID=#{STUDENT_ID}
+      update TBL_STUDENT set STUDENT_NAME=#{STUDENT_NAME},STUDENT_USERNAME=#{STUDENT_USERNAME},STUDENT_PWD=#{STUDENT_PWD},STU_IDNO=#{STU_IDNO},STU_PHONE=#{STU_PHONE},CLASSID=#{CLASSID},STU_ADD=#{STU_ADD} where STUDENT_ID=#{STUDENT_ID}
     </update>
     <!--删除学生-->
     <delete id="deleteStu" parameterType="int">

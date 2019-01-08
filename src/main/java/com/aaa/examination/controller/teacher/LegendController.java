@@ -4,6 +4,11 @@ import com.aaa.examination.service.teacher.LegendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * className:LegendController
@@ -51,5 +56,34 @@ public class LegendController {
     @RequestMapping("/toScoreLegend")
     public String toListSC(){
         return "teacher/scoreLegend";
+    }
+
+
+
+    /**
+     * 班级统计
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/classCount")
+    public Object testcCount(){
+        List<Map> count = legendService.getClassCount();
+
+        //List<Map> modeCount = legendService.getModeCount();
+        //count.addAll(modeCount);
+        return count;
+    }
+    /**
+     * 学生统计
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/stuCount")
+    public Object testsCount(){
+        List<Map> count = legendService.getClassCount();
+
+        //List<Map> modeCount = legendService.getModeCount();
+        //count.addAll(modeCount);
+        return count;
     }
 }
