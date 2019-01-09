@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aaa.examination.dao.teacher.BatchStuDao">
-    <insert id="addStu" parameterType="map">
-      insert into TBL_STUDENT (STUDENT_ID,STUDENT_NAME,STUDENT_USERNAME,STUDENT_PWD,STU_IDNO,STU_PHONE,CLASSID,STU_ADD,STUDENT_STATE) values(#{STUDENT_ID},#{STUDENT_NAME},#{STUDENT_USERNAME},#{STUDENT_PWD},#{STU_IDNO},#{STU_PHONE},#{CLASSID},#{STU_ADD},#{STUDENT_STATE})
-  </insert>
+<insert id="addStu" parameterType="map">
+    insert into TBL_STUDENT (STUDENT_ID,STUDENT_NAME,STUDENT_USERNAME,STUDENT_PWD,STU_IDNO,STU_PHONE,CLASSID,STU_ADD,STUDENT_STATE) values(#{STUDENT_ID},#{STUDENT_NAME},#{STUDENT_USERNAME},#{STUDENT_PWD},#{STU_IDNO},#{STU_PHONE},#{CLASSID},#{STU_ADD},#{STUDENT_STATE})
+</insert>
 </mapper>

@@ -80,7 +80,7 @@ public class LegendController {
     @ResponseBody
     @RequestMapping("/stuCount")
     public Object testsCount(){
-        List<Map> count = legendService.getClassCount();
+        List<Map> count = legendService.getStuCount();
 
         //List<Map> modeCount = legendService.getModeCount();
         //count.addAll(modeCount);

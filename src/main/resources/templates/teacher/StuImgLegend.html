@@ -14,6 +14,8 @@
 <script type="text/javascript">
     var title = [];
     var data = [];
+    var test = [];
+    var gh= [];
     $.ajax({
         url : "/legend/stuCount",
         dataType : "json",
@@ -23,20 +25,27 @@
                 // alert(11111);
                 for ( var i = 0; i < result.length; i++) {
 
-                    title.push(result[i].month);//向声明的数组里面添加数据
-                    data.push(result[i].count0);//向声明的数组里面添加数据
+                    /*title.push();//向声明的数组里面添加数据
+                    data.push(result[i].name);//向声明的数组里面添加数据*/
+                    var obj = result[i];
+                    //console.log(result[i].name);
+                    test = {value:result[i].VALUE,name:result[i].NAME}
+                        gh={  name:result[i].NAME};
+                    title.push(gh);
+                    data.push(test);
                 }
+                /*alert(title);
+                alert(data);*/
             }
-        }
-    });
+
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'));
 
-
+    // 指定图表的配置项和数据
     var option = {
         title : {
-            text: '某站点用户访问来源',
-            subtext: '纯属虚构',
+            text: '员工分布',
+            subtext: '数据采集',
             x:'center'
         },
         tooltip : {
@@ -46,7 +55,7 @@
         legend: {
             orient: 'vertical',
             left: 'left',
-            data: ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+            data: data
         },
         series : [
             {
@@ -54,13 +63,7 @@
                 type: 'pie',
                 radius : '55%',
                 center: ['50%', '60%'],
-                data:[
-                    {value:335, name:'直接访问'},
-                    {value:310, name:'邮件营销'},
-                    {value:234, name:'联盟广告'},
-                    {value:135, name:'视频广告'},
-                    {value:1548, name:'搜索引擎'}
-                ],
+                data:data,
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -71,11 +74,10 @@
             }
         ]
     };
-
-
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
-
+        }
+    });
 </script>
 </body>
 </html>
