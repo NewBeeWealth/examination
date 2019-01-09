@@ -98,37 +98,43 @@ public class StudentExamController {
             if (msg==null||msg.size()==0){
                 //保存单项选择题答案
                 String[] singleIds = request.getParameterValues("singleId");
-                for (int i=0;i<singleIds.length;i++){
-                    //System.out.println(map.get("single"+singleIds[i]));
-                    int singleResult=studentExamService.saveSingleAnswer(singleIds[i],map.get("single"+singleIds[i]),studentId,map.get("examId"),map.get("singleScore"+singleIds[i]));
-                    //System.out.println("+-+-+-+-");
-                    singleTotalResult += singleResult;
+                if(singleIds!=null&&singleIds.length>0){
+                    for (int i=0;i<singleIds.length;i++){
+                        //System.out.println(map.get("single"+singleIds[i]));
+                        int singleResult=studentExamService.saveSingleAnswer(singleIds[i],map.get("single"+singleIds[i]),studentId,map.get("examId"),map.get("singleScore"+singleIds[i]));
+                        //System.out.println("+-+-+-+-");
+                        singleTotalResult += singleResult;
+                    }
                 }
                 //System.out.println("+++++"+singleTotalResult);
                 //保存多项选择题答案
                 String[] mulIds = request.getParameterValues("mulId");
-                for (int i=0;i<mulIds.length;i++){
-                    String mulAnswer = new String();
-                    String[] parameterValues = request.getParameterValues("mul" + mulIds[i]);
-                    for (int j=0;j<parameterValues.length;j++){
-                        //System.out.println("******"+parameterValues[j]);
-                        String parameterValue = parameterValues[j];
-                        mulAnswer += parameterValue;
+                if (mulIds!=null&&mulIds.length>0){
+                    for (int i=0;i<mulIds.length;i++){
+                        String mulAnswer = new String();
+                        String[] parameterValues = request.getParameterValues("mul" + mulIds[i]);
+                        for (int j=0;j<parameterValues.length;j++){
+                            //System.out.println("******"+parameterValues[j]);
+                            String parameterValue = parameterValues[j];
+                            mulAnswer += parameterValue;
+                        }
+                        //System.out.println("******"+silAnswer);
+                        int mulResult=studentExamService.saveMulAnswer(mulIds[i],mulAnswer,studentId,map.get("examId"),map.get("mulScore"+singleIds[i]));
+                        mulTotalResult += mulResult;
                     }
-                    //System.out.println("******"+silAnswer);
-                    int mulResult=studentExamService.saveMulAnswer(mulIds[i],mulAnswer,studentId,map.get("examId"),map.get("singleScore"+singleIds[i]));
-                    mulTotalResult += mulResult;
                 }
                 //System.out.println("+_+_+_+"+mulTotalResult);
                 //保存判断题答案
                 String[] judgeIds = request.getParameterValues("judgeId");
-                for (int i=0;i<judgeIds.length;i++){
-                    int judgeResult=studentExamService.saveJudgeAnswer(judgeIds[i],map.get("judge"+judgeIds[i]),studentId,map.get("examId"),map.get("singleScore"+singleIds[i]));
-                    //System.out.println("*8*8*8"+judgeResult);
-                    judgeTotalResult += judgeResult;
+                    if (judgeIds!=null&&judgeIds.length>0){
+                    for (int i=0;i<judgeIds.length;i++){
+                        int judgeResult=studentExamService.saveJudgeAnswer(judgeIds[i],map.get("judge"+judgeIds[i]),studentId,map.get("examId"),map.get("judgeScore"+singleIds[i]));
+                        //System.out.println("*8*8*8"+judgeResult);
+                        judgeTotalResult += judgeResult;
+                    }
                 }
                 //System.out.println("&**&*&*&*&*"+judgeTotalResult);
-                totalScore = singleTotalResult+mulTotalResult+judgeTotalResult;
+                totalScore = singleTotalResult+mulTotalResult+judgeTotalResult;//考试成绩
                 //System.out.println("|||||||"+totalScore);
                 result=studentExamService.saveTotalScore(studentId,map.get("examId"),totalScore);
             }else {

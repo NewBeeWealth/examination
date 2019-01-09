@@ -35,6 +35,17 @@ public interface QuestionManageService {
      */
     List<Map> SelectByidQuestion(Integer id);
     /**
+     * 修改题库
+     * @param map
+     * @return
+     */
+    int bankUpdate(Map map);
+    /**
+     * 查询题库名称
+     * @return
+     */
+    List<Map> selectBankName();
+    /**
      * 添加试题
      * @param map
      * @return

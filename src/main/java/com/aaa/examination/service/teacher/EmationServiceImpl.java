@@ -108,18 +108,38 @@ public class EmationServiceImpl implements EmationService{
     }
 
     @Override
-    public List<Map> getSingleExamList() {
-        return emationDao.getSingleExamList();
+    public List<Map> getAllBank() {
+        return emationDao.getAllBank();
     }
 
     @Override
-    public List<Map> getMultipleExamList() {
-        return emationDao.getMultipleExamList();
+    public int delexam(Integer id) {
+        return emationDao.delexam(id);
     }
 
     @Override
-    public List<Map> getJudgeExamList() {
-        return emationDao.getJudgeExamList();
+    public List<Map> getExamById(Integer id) {
+        return emationDao.getExamById(id);
+    }
+
+    @Override
+    public int examUpdate(Map map) {
+        return emationDao.examUpdate(map);
+    }
+
+    @Override
+    public List<Map> getSingleExamList(Map map) {
+        return emationDao.getSingleExamList(map);
+    }
+
+    @Override
+    public List<Map> getMultipleExamList(Map map) {
+        return emationDao.getMultipleExamList(map);
+    }
+
+    @Override
+    public List<Map> getJudgeExamList(Map map) {
+        return emationDao.getJudgeExamList(map);
     }
 
     @Override
@@ -128,7 +148,7 @@ public class EmationServiceImpl implements EmationService{
         List<Map> examType1 =null;//多选
         List<Map> examType2 =null;//判断
         String tempnumid = null;
-        //System.out.println("666666666666"+map);
+        System.out.println("666666666666"+map);
         int totalScore = 0;
         for(Object key : map.keySet()){
             String value = String.valueOf(map.get(key));
@@ -159,11 +179,11 @@ public class EmationServiceImpl implements EmationService{
         }
         //int totalScores = totalScore-Integer.valueOf(tempnumid);
         Object teacherId = session.getAttribute("teacherId");
-        //System.out.println("+++++++++"+teacherId);
+        System.out.println("+++++++++"+teacherId);
         if (teacherId!=null){
             map.put("teacherId",teacherId);
             map.put("totalScores", totalScore-Integer.valueOf(tempnumid));
-            //System.out.println(map);
+            System.out.println(map);
             emationDao.addTotalScore(map);
         }
         return 0;

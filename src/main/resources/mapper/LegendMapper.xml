@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.examination.dao.teacher.LegendDao">
+    <!--班级-->
+    <select id="getClassCount" resultType="map">
+      select classname as name,count (student_id)as value  from tbl_student a,tbl_class b where a.classid=b.classid group by classname
+    </select>
+    <!--学生-->
+    <select id="getStuCount" resultType="map">
+      select count(STUDENT_ID) as value,name  from (select substr(STU_ADD,1,2)name,STUDENT_ID from TBL_STUDENT)b GROUP BY name
+    </select>
+    <!--试题-->
+    <select id="getQuestionsCount" resultType="map">
+
+    </select>
+    <!--题库-->
+    <select id="getBankCount" resultType="map">
+
+    </select>
+    <!--成绩-->
+    <select id="getScoreCount" resultType="map">
+
+    </select>
+</mapper>

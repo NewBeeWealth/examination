@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生成绩</title>
+    <script src="../jquery-3.3.1.min.js"></script>
+</head>
+<body>
+    <h3>学生成绩</h3>
+    <div th:each="examExamList:${examClassList}">
+        <div th:text="${examExamList.EXAM_NAME}"></div>
+        <input type="hidden" th:value="${examExamList.EXAM_ID}">
+        <div th:each="examClassList:${examExamList.examClassList}">
+            <input type="hidden" th:value="${examClassList.CLASSID}">
+            <input type="button" class="getDetail" th:value="${examClassList.CLASSNAME}">
+        </div>
+    </div>
+<script>
+    $(".getDetail").click(function () {
+        var classId = $(this).prev().val();
+        var examId = $(this).parent().parent().find("input").val();
+        //console.log(classId,examId);
+        location.href="/score/getScoreDetail?classId="+classId+"&examId="+examId;
+    })
+</script>
+</body>
+</html>

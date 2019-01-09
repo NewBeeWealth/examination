@@ -87,8 +87,10 @@ public class QuestionManageController {
     @RequestMapping("questionupdate")
     public Object UpdateQuestion(Integer id,Model model){
         System.out.println(id+"------------");
-
-        return "teacher/updatequestion";
+        List<Map> maps = questionManageService.SelectByidQuestion(id);
+        System.out.println(maps);
+        model.addAttribute("bankMap",maps.get(0));
+        return "teacher/bankupdate";
     }
 
     /**
@@ -96,15 +98,24 @@ public class QuestionManageController {
      * @return
      */
     @RequestMapping("questionedit")
-    public Object questionEdit(@RequestParam Map userMap){
-        return "redirect:/question/messagetest";
+    public Object questionEdit(@RequestParam Map userMap,Model model){
+        int i = questionManageService.bankUpdate(userMap);
+        if (i>0){
+            return "redirect:/question/messagetest";
+        }else {
+            model.addAttribute("error","修改失败!");
+            return "teacher/bankupdate";
+        }
+
     }
     /**
      * 跳转到新增试题
      * @return
      */
     @RequestMapping("toAddexamination")
-    public String toAddExamination(){
+    public String toAddExamination(Model model){
+        List<Map> maps = questionManageService.selectBankName();
+        model.addAttribute("bankNameList",maps);
         return "teacher/addexamination";
     }
 
@@ -124,6 +135,9 @@ public class QuestionManageController {
     @RequestMapping("excelbatchadd")
     public String excelBatchAdd(Model model){
         return "teacher/batchadd";
+    }
+    public String selectBank(){
+        return "";
     }
     /**
      * 新增试题

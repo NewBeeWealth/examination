@@ -2,61 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>学生图例</title>
+    <script src="../echarts.js"></script>
+    <script src="../jquery.js"></script>
 </head>
 <body>
-option = {
-title : {
-text: '新峰学员入学概览',
-subtext: '2018年'
-},
-tooltip : {
-trigger: 'axis'
-},
-legend: {
-data:['降水量']
-},
-toolbox: {
-show : true,
-feature : {
-dataView : {show: true, readOnly: false},
-magicType : {show: true, type: ['line', 'bar']},
-restore : {show: true},
-saveAsImage : {show: true}
-}
-},
-calculable : true,
-xAxis : [
-{
-type : 'category',
-data : ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-}
-],
-yAxis : [
-{
-type : 'value'
-}
-],
-series : [
 
-{
-name:'降水量',
-type:'bar',
-data:[2.0, 5.0, 9.0, 26.0, 28.0, 70.0, 175.0, 182.0, 48.0, 18.0, 6.0, 2.0],
-markPoint : {
-data : [
-{name : '年最高', value : 182.0, xAxis: 7, yAxis: 183},
-{name : '年最低', value : 2.0, xAxis: 11, yAxis: 3}
-]
-},
-markLine : {
-data : [
-{type : 'average', name : '平均值'}
-]
-}
-}
-]
-};
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width: 1300px;height:888px;"></div>
 
+<script type="text/javascript">
+    var title = [];
+    var data = [];
+    var test = [];
+    var gh= [];
+    $.ajax({
+        url : "/legend/stuCount",
+        dataType : "json",
+        async : false,//默认同步，必须先拿到数据，再执行下面的图表显示
+        success : function(result) {
+            if (result != null && result != '') {
+                // alert(11111);
+                for ( var i = 0; i < result.length; i++) {
+
+                    /*title.push();//向声明的数组里面添加数据
+                    data.push(result[i].name);//向声明的数组里面添加数据*/
+                    var obj = result[i];
+                    //console.log(result[i].name);
+                    test = {value:result[i].VALUE,name:result[i].NAME}
+                        gh={  name:result[i].NAME};
+                    title.push(gh);
+                    data.push(test);
+                }
+                /*alert(title);
+                alert(data);*/
+            }
+
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title : {
+            text: '员工分布',
+            subtext: '数据采集',
+            x:'center'
+        },
+        tooltip : {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+            data: data
+        },
+        series : [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius : '55%',
+                center: ['50%', '60%'],
+                data:data,
+                itemStyle: {
+                    emphasis: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+        }
+    });
+</script>
 </body>
 </html>

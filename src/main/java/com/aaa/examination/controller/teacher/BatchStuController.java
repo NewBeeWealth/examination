@@ -1,14 +1,12 @@
 package com.aaa.examination.controller.teacher;
 
 import com.aaa.examination.service.teacher.BatchStuService;
-import com.aaa.examination.util.FtpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Map;
 
 /**
  * className:BatchStuController
@@ -21,6 +19,8 @@ import java.util.Map;
 public class BatchStuController {
     @Autowired
    private BatchStuService batchStuService;
+
+
     /**
      * 跳转
      * @return
@@ -31,19 +31,13 @@ public class BatchStuController {
     }
 
     /**
-     * 添加使用ftp 上传
-     * @param map
+     * 批量导入
      * @return
      */
-    @RequestMapping("/addUseFtp")
-    public String addUseFtp(@RequestParam Map map, @RequestParam MultipartFile pic){
-        if(pic!=null&&!pic.isEmpty()){
-            //String s = FileUtil.uploadFile(filePath, pic);
-            final String s =  FtpUtil.upLoad(pic);
-            map.put("filePath",s);
-            map.put("fileName",pic.getOriginalFilename());
-        }
-        batchStuService.add(map);
-        return "redirect:/question/batchadd";
+    @RequestMapping("/batchAdd")
+    public String batchAdd(@RequestParam MultipartFile excelFile){
+        batchStuService.batchAddStu(excelFile);
+        return "redirect:toList";
     }
+
 }

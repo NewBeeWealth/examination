@@ -14,6 +14,11 @@ import java.util.Map;
  */
 public interface ExamManageService {
     /**
+     * 查询所有题库
+     * @return
+     */
+    List<Map> getQuestionBank();
+    /**
      * 单选试题列表
      * @return
      */

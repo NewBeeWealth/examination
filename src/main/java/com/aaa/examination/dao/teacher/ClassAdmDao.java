@@ -43,4 +43,9 @@ public interface ClassAdmDao {
      * @return
      */
     int getPageCount(Map map);
+    /**
+     * 获取状态列表
+     * @return
+     */
+    List<Map> getStateList();
 }

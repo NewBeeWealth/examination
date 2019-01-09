@@ -28,36 +28,18 @@
             </el-form-item>-->
 
             <el-form-item label="所属题型">
-                <el-select v-model="searchForm.id" placeholder="所属题型">
-                    <el-option label="java" value="0"></el-option>
-                    <el-option label="php" value="10"></el-option>
-                    <el-option label="python" value="20"></el-option>
+                <el-select v-model="searchForm.BANK_NAME" placeholder="所属题型">
+                    <el-option v-for="item in options" :key="item.BANK_NAME" :label="item.BANK_NAME" :value="item.BANK_NAME"></el-option>
                 </el-select>
             </el-form-item>
 
             <el-form-item label="试题类型">
-                <el-select v-model="searchForm.name" placeholder="试题类型">
-                    <el-option label="单选" value="0"></el-option>
-                    <el-option label="多选" value="10"></el-option>
-                    <el-option label="判断" value="20"></el-option>
+                <el-select v-model="searchForm.SINGLE_TYPE" placeholder="试题类型">
+                    <el-option label="单选" value="单选"></el-option>
+                    <el-option label="多选" value="多选"></el-option>
+                    <el-option label="判断" value="判断"></el-option>
                 </el-select>
             </el-form-item>
-
-            <el-form-item label="试题难度">
-                <el-select v-model="searchForm.deptNo" placeholder="试题难度">
-                    <el-option label="简单" value="0"></el-option>
-                    <el-option label="适中" value="10"></el-option>
-                    <el-option label="难" value="20"></el-option>
-                </el-select>
-            </el-form-item>
-
-<!--            <el-form-item label="试题状态">
-                <el-select v-model="searchForm.deptNo" placeholder="试题状态">
-                    <el-option label="开放" value="0"></el-option>
-                    <el-option label="关闭" value="10"></el-option>
-                </el-select>
-            </el-form-item>-->
-
             <el-form-item>
             <el-button type="primary" icon="search" @click="searchClick">查询</el-button>
             <!--<el-button type="success" icon="plus" @click="addClick">新增</el-button>-->
@@ -95,7 +77,7 @@
             <el-table-column
                     label="操作">
                 <template scope="scope">
-                    <el-button :plain="true" type="success" size="small" icon="edit" @click="editClick(scope.row)">编辑</el-button>
+                    <!--<el-button :plain="true" type="success" size="small" icon="edit" @click="editClick(scope.row)">编辑</el-button>-->
                     <el-button :plain="true" type="danger" size="small" icon="delete" @click="deleteClick(scope.row)">删除</el-button>
                 </template>
             </el-table-column>
@@ -127,24 +109,13 @@
             <el-form-item label="试题题目" prop="SINGLE_MAIN">
                 <el-input v-model="editForm.SINGLE_MAIN" auto-complete="off"></el-input>
             </el-form-item>
-            <!-- <el-form-item label="性别">
-                 <el-radio-group v-model="editForm.sex">
-                     <el-radio class="radio" :label="1">男</el-radio>
-                     <el-radio class="radio" :label="0">女</el-radio>
-                 </el-radio-group>  EMPNO: 0,
-                 ENAME: '',
-                 JOB: '',
-                 SAL: 0,
-                 HIREDATE: ''
-             </el-form-item>-->
-    <!--        <el-form-item label="薪水">
-                <el-input-number v-model="editForm.SAL" :min="0" :max="20000"></el-input-number>
-            </el-form-item>
-            <el-form-item label="雇佣日期">
-                <el-date-picker type="date" placeholder="选择日期" v-model="editForm.HIREDATE"></el-date-picker>
-            </el-form-item>-->
-            <el-form-item label="所属题库"  prop="SINGLE_BANK">
+            <!--<el-form-item label="所属题库"  prop="SINGLE_BANK">
                 <el-input type="textarea" v-model="editForm.SINGLE_BANK"></el-input>
+            </el-form-item>-->
+            <el-form-item label="所属题型">
+                <el-select v-model="searchForm.BANK_NAME" placeholder="所属题型">
+                    <el-option v-for="item in options" :key="item.BANK_NAME" :label="item.BANK_NAME" :value="item.BANK_NAME"></el-option>
+                </el-select>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -167,13 +138,13 @@
         data: {
             //列表数据
             tableData: [],
+            options:[],
             //显示加载中样式
             loading:false,
             //搜索表单
             searchForm: {
-                id: '',
-                name: '',
-                deptNo: ''
+                BANK_NAME: ''
+                /*deptNo: ''*/
             },
             //多选值
             multipleSelection: [],
@@ -208,13 +179,17 @@
             var self = this;
             var start =(this.currentPage-1)*this.pageSize;
             var end =this.currentPage*this.pageSize+1;
-            axios.post('/exammanage/getSingleList',{'start':start,'end':end}).then(function(response){
+            axios.post('/exammanage/getQuestionList',{'start':start,'end':end}).then(function(response){
                  console.log(response.data);
                 //alert(response.data.total);
                 self.total=response.data.total;
                 self.tableData = response.data.data;
                 // self.multipleSelection=response.data.data;
-            })
+            }),
+                axios.post('/exammanage/getQuestionBank').then(function(response){
+                    self.options=response.data;
+
+                })
         },
         methods:{
             //表格重新加载数据
@@ -224,9 +199,9 @@
                 var self = this;
                 var start =(this.currentPage-1)*this.pageSize;
                 var end =this.currentPage*this.pageSize+1;
-                var searchForm={'start':start,'end':end,'id':this.searchForm.id,'name':this.searchForm.name,'deptNo':this.searchForm.deptNo};
+                var searchForm={'start':start,'end':end,'BANK_NAME':this.searchForm.BANK_NAME,'SINGLE_TYPE':this.searchForm.SINGLE_TYPE};
                 //   alert(JSON.stringify(searchForm));
-                axios.post('/exammanage/getSingleList',searchForm).then(function(response){
+                axios.post('/exammanage/getQuestionList',searchForm).then(function(response){
                     //console.log(response.data);
                     _self.total=response.data.total;
                     _self.tableData = response.data.data;
@@ -247,7 +222,7 @@
             //表格删除事件
             deleteClick:function(row) {
                 var _self = this;
-                this.$confirm('确认删除' + row.SINGLE_ID +'吗?', '提示', {
+                this.$confirm('确认删除吗?', '提示', {
                     type: 'warning'
                 }).then(function(){
                     var  url="/exammanage/del/"+row.SINGLE_ID;
@@ -255,7 +230,7 @@
                         //alert(response.data);
                         if(response.data>0){
                             _self.$message({
-                                message: row.SINGLE_ID + '删除成功',
+                                message: '删除成功',
                                 type: 'success'
                             });
                             _self.loadingData();//重新加载数据
@@ -276,20 +251,6 @@
             //表格查询事件
             searchClick:function() {
                 var self = this;
-                var start =(this.currentPage-1)*this.pageSize;
-                var end =this.currentPage*this.pageSize+1;
-                 //var searchForm =this.searchForm;
-
-                 var searchForm={'start':start,'end':end,'id':this.id,'name':this.name,'deptNo':this.deptNo};
-                 alert(searchForm);
-                 //formData.push({'start':start}).push({'end':end})
-                 axios.post('/emp/list',searchForm).then(function(response){
-                     // console.log(response.data);
-                     //alert(response.data.total);
-                     self.total=response.data.total;
-                     self.tableData = response.data.data;
-                     // self.multipleSelection=response.data.data;
-                 })
                 self.loadingData();//重新加载数据
             },
             //表格勾选事件

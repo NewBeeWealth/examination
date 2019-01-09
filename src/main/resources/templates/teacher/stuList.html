@@ -83,7 +83,7 @@
             <el-table-column
                     prop="STU_IDNO"
                     label="身份证号"
-                    width="120">
+                    width="180">
             </el-table-column>
             <el-table-column
                     prop="STU_PHONE"
@@ -93,6 +93,11 @@
             <el-table-column
                     prop="CLASSNAME"
                     label="班级名称"
+                    width="120">
+            </el-table-column>
+            <el-table-column
+                    prop="STU_ADD"
+                    label="家庭地址"
                     width="120">
             </el-table-column>
             <el-table-column
@@ -159,6 +164,10 @@
                     </template>
 
             </el-form-item>
+            <el-form-item label="家庭地址" prop="STU_ADD">
+                <el-input v-model="editForm.STU_ADD" auto-complete="off"></el-input>
+            </el-form-item>
+
             <!--<el-form-item label="雇佣日期">
                 <el-date-picker type="date" placeholder="选择日期" v-model="editForm.HIREDATE"></el-date-picker>
             </el-form-item>-->
@@ -199,7 +208,8 @@
                 STU_IDNO:'',
                 STU_PHONE:'',
                 CLASSNAME: '',*/
-                CLASSID:''
+                CLASSID:'',
+                STU_ADD:''
             },
             //多选值
             multipleSelection: [],
@@ -229,7 +239,8 @@
                 STU_IDNO:'',
                 STU_PHONE:'',
                 CLASSNAME: '',
-                CLASSID:''
+                CLASSID:'',
+                STU_ADD:''
             },
         },
         created:function(){
@@ -258,7 +269,8 @@
                     STU_IDNO:'',
                     STU_PHONE:'',
                     CLASSNAME: '',
-                    CLASSID:''
+                    CLASSID:'',
+                    STU_ADD:''
                 }
                 this.loadingData();
             },
@@ -330,7 +342,8 @@
                     STU_IDNO:'',
                     STU_PHONE:'',
                     CLASSNAME: '',
-                    CLASSID:''
+                    CLASSID:'',
+                    STU_ADD:''
                 }
                /* axios.post('/student/listJson').then(function(response){
                     self.options = response.data;

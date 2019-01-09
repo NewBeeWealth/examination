@@ -62,8 +62,9 @@ public class LoginController {
     @RequestMapping("toIndex")
     public String toIndex(HttpSession session,Model model) {
         String userName = (String) session.getAttribute("userName");
+        System.out.println("|||||"+userName);
         List<Map> powerList = userLoginService.selectIndexList(userName);
-        //System.out.println("+-+-+-"+powerList);
+        System.out.println("+-+-+-"+powerList);
         model.addAttribute("powerList",powerList);
         model.addAttribute("userName",userName);
         return "login/indexA";
@@ -197,11 +198,11 @@ public class LoginController {
             // return "redirect:/login/indexA";
         } catch (UnknownAccountException e) {
 //                  e.printStackTrace();
-            model.addAttribute("msg", "用户名不存在");
+            model.addAttribute("error", "用户名不存在");
             return "login/login";
         } catch (IncorrectCredentialsException e) {
 //                  e.printStackTrace();
-            model.addAttribute("msg", "密码错误");
+            model.addAttribute("error", "密码错误");
             return "login/login";
         }
     }

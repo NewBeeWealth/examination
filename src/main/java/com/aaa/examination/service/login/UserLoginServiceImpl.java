@@ -43,6 +43,7 @@ public class UserLoginServiceImpl implements UserLoginService{
         List<Map> maps = userLoginDao.selectAdminList(userName);
         List<Map> maps1 = userLoginDao.selectTeacherList(userName);
         List<Map> maps2 = userLoginDao.selectStudentList(userName);
+        System.out.println(maps2+"yyyy");
         List<Map> tempList=new ArrayList<Map>();
         Map tempmap=null;
         if(maps!=null&&maps.size()>0){//管理员

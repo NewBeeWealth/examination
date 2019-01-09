@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="../jquery-3.3.1.min.js"></script>
+    <title>修改试卷</title>
+    <script>
+        $(function () {
+            $("#que").on("click",function () {
+                location.href='/exam/messageexamination';
+            });
+        });
+    </script>
+</head>
+<body>
+<form action="/exam/examUpdate" method="post">
+    <table>
+
+        <tr><td colspan="2" th:text=" ${examMsg.EXAM_STARTTIME}"> </td></tr>
+        <tr><td colspan="2" th:text=" ${examMsg.EXAM_ENDTIME}"> </td></tr>
+        <tr><td colspan="2" th:text="${error}=='null'?'':${error}"> </td></tr>
+        <tr><td colspan="2"><input type="hidden" th:value="${examMsg.EXAM_ID}" name="id"></td></tr>
+        <tr><td>试卷名称</td><td><input type="text" th:value="${examMsg.EXAM_NAME}" name="examName"></td></tr>
+        <tr><td>状态</td><td><select name="examState"><option value="开放" th:selected="${examMsg.EXAM_STATE}=='开放'?'selected':'false'">开放</option><option value="关闭" th:selected="${examMsg.EXAM_STATE}=='关闭'?'selected':'false'">关闭</option></select></td></tr>
+        <tr><td>开考时间</td><td><input type="datetime-local" th:value="${examMsg.EXAM_STARTTIME}" name="examStartTime"></td></tr>
+        <tr><td>结束时间</td><td><input type="datetime-local" th:value="${examMsg.EXAM_ENDTIME}" name="examEndTime"></td></tr>
+        <tr><td>试卷说明</td><td><input type="text" th:value="${examMsg.EXAM_DESCROBE}" name="examDescrobe"></td></tr>
+        <tr><td><input type="submit" value="提交"></td><td><input type="button" id="que" value="取消"></td></tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>选择题库</title>
+</head>
+<body>
+    <h5>选择题库</h5>
+    <form action="/exam/addexamination" method="post">
+        <table>
+            <tr><td>请选择你要使用的题库</td></tr>
+            <tr><td><input type="hidden" name="examId" th:value="${id}"></td></tr>
+            <tr><td>
+                <select name="bankName">
+                    <option th:each="bank : ${allBank}" th:text="${bank.BANK_NAME}"></option>
+                </select>
+            </td></tr>
+            <tr><td><input type="submit" value="确定"></td></tr>
+        </table>
+    </form>
+</body>
+</html>

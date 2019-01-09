@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aaa.examination.dao.studentscore.StudentScoreDao">
+    <!--获取考试名称-->
+    <select id="getExamName" resultType="map">
+        select exam_id,exam_name from tbl_exam a,(select avg(totalscore_exam) totalscore_exam from TBL_TOTALSCORE t  group by totalscore_exam) b where a.exam_id=b.totalscore_exam
+    </select>
+    <!--获取每门考试的所有班级-->
+    <select id="getExamClass" resultType="map">
+        select * from TBL_CLASS a,(select distinct examclass_id from TBL_EXAM_CLASS where examclass_exam=#{EXAM_ID}) b where a.classid=b.examclass_id
+    </select>
+    <!--查询班级所有学生id-->
+    <select id="getStudentId" resultType="map">
+        select student_id from tbl_student where classid=#{classId}
+    </select>
+    <!--查询学生分数-->
+    <select id="getStudentScore" resultType="map">
+        select classname,student_name,exam_name,totalscore,exam_totlescore from tbl_exam e,(select * from tbl_class c,(select * from TBL_TOTALSCORE a,tbl_student b where a.totalscore_student=b.student_id and totalscore_exam=#{examId} and a.totalscore_student=#{STUDENT_ID}) d where c.classid=d.classid) f where e.exam_id = f.totalscore_exam
+    </select>
+</mapper>
