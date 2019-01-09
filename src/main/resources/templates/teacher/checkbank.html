@@ -9,7 +9,7 @@
     <form action="/exam/addexamination" method="post">
         <table>
             <tr><td>请选择你要使用的题库</td></tr>
-            <tr><td style="display: none"><input type="hidden" th:text="${id}"></td></tr>
+            <tr><td><input type="hidden" name="examId" th:value="${id}"></td></tr>
             <tr><td>
                 <select name="bankName">
                     <option th:each="bank : ${allBank}" th:text="${bank.BANK_NAME}"></option>

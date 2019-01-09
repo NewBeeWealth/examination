@@ -32,7 +32,7 @@ public class ExamManageController {
     @ResponseBody
     @RequestMapping("getQuestionBank")
     public Object getQuestionBank(){
-        System.out.println("\\\\"+examManageService.getQuestionBank());
+        System.out.println("||||"+examManageService.getQuestionBank());
         return examManageService.getQuestionBank();
     }
 

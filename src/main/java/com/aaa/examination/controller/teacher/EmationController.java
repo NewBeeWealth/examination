@@ -106,6 +106,7 @@ public class EmationController {
     public String toCheckBank(int id,Model model){
         List<Map> allBank = emationService.getAllBank();
         model.addAttribute("allBank",allBank);
+        System.out.println(id+"+++");
         model.addAttribute("id",id);
         return "/teacher/checkbank";
     }
@@ -114,7 +115,7 @@ public class EmationController {
      * @return
      */
     @RequestMapping("addexamination")
-    public Object addexamination(Integer id,Model model,@RequestParam Map map){
+    public Object addexamination(Model model,@RequestParam Map map){
         System.out.println(map);
         List<Map> singleList = emationService.getSingleExamList(map);//单选题
         List<Map> multipleList = emationService.getMultipleExamList(map);//多选
@@ -123,7 +124,7 @@ public class EmationController {
         model.addAttribute("singleList",singleList);
         model.addAttribute("multipleList",multipleList);
         model.addAttribute("judgeList",judgeList);
-        model.addAttribute("tempid",id);
+        model.addAttribute("tempid",map.get("examId"));
         return "addexam/addexamination";
     }
 
@@ -133,6 +134,7 @@ public class EmationController {
      */
     @RequestMapping("submitexamination")
     public Object submitExamination(@RequestParam Map userMap, HttpSession session){
+        System.out.println("$?|"+userMap);
         emationService.addscore(userMap,session);
         return "redirect:/exam/messageexamination";
     }

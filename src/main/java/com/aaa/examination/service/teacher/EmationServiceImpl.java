@@ -148,7 +148,7 @@ public class EmationServiceImpl implements EmationService{
         List<Map> examType1 =null;//多选
         List<Map> examType2 =null;//判断
         String tempnumid = null;
-        //System.out.println("666666666666"+map);
+        System.out.println("666666666666"+map);
         int totalScore = 0;
         for(Object key : map.keySet()){
             String value = String.valueOf(map.get(key));

@@ -145,6 +145,7 @@
             axios.post('/exammanage/list').then(function(response){
 
                 self.treeData = response.data;
+                console.log(self.treeData)
             })
         },
         methods:{
