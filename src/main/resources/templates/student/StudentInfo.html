@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../jquery-3.3.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#tijiao").click(function () {
+                $("#form-article-add").submit();
+            })
+        })
+    </script>
+</head>
+<body>
+<div style="margin-left: 20px;">
+    <h3>学生信息</h3>
+    <div th:text="${error}"></div>
+    <div class="page-container">
+        <table border="1">
+        <form class="form form-horizontal" id="form-article-add" method="post" action="/info/updateinfo">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">用户名: </label>
+                <span th:text="${userName}"></span>
+            </div>
+
+
+            <div class="row cl" style="margin-top: 30px;">
+                <label class="form-label col-xs-4 col-sm-2">真实姓名：</label>
+                <input type="text" class="input-text" name="realname" th:value="${maps.STUDENT_NAME}">
+            </div>
+
+            <div class="row cl" style="margin-top: 30px;">
+                <label class="form-label col-xs-4 col-sm-2">证件编号：</label>
+                <input type="text" class="input-text" name="cardId" th:value="${maps.STU_IDNO}">
+
+            </div>
+
+            <div class="row cl" style="margin-top: 30px;">
+                <label class="form-label col-xs-4 col-sm-2">联系电话：</label>
+                <input type="text" class="input-text" name="number" th:value="${maps.STU_PHONE}">
+            </div>
+
+
+
+            <div class="row cl" style="margin-top: 30px;">
+                <label class="form-label col-xs-4 col-sm-2">联系地址：</label>
+                    <input type="text" class="input-text" name="address" th:value="${maps.STU_ADD}">
+            </div>
+
+            <div class="row cl" style="margin-left: 375px;">
+                <input type="button" value="提交"  id="tijiao">
+            </div>
+        </form>
+        </table>
+    </div>
+</div>
+</body>
+</html>
