@@ -29,6 +29,12 @@ public interface LegendService {
     List<Map> getQuestionsCount();
 
     /**
+     * 获取题库信息
+     * @return
+     */
+    List<Map> getBankCount();
+
+    /**
      * 获取成绩信息
      * @return
      */
