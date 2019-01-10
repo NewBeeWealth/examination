@@ -7,7 +7,15 @@
     <script>
         $(function () {
             $("#tijiao").click(function () {
-                $("#form-article-add").submit();
+                  var realname=document.getElementById("name").value;
+                  var cardId=document.getElementById("idnum").value;
+                  var phonenumber=document.getElementById("phnoenum").value;
+                  var address=document.getElementById("add").value;
+                  if(realname==""||cardId==""||phonenumber==""||address==""){
+                      alert("数据不可为空！！！");
+                  }else {
+                      $("#form-article-add").submit();
+                  }
             })
         })
     </script>
@@ -27,25 +35,25 @@
 
             <div class="row cl" style="margin-top: 30px;">
                 <label class="form-label col-xs-4 col-sm-2">真实姓名：</label>
-                <input type="text" class="input-text" name="realname" th:value="${maps.STUDENT_NAME}">
+                <input type="text" class="input-text" name="realname" id="name" th:value="${maps.STUDENT_NAME}">
             </div>
 
             <div class="row cl" style="margin-top: 30px;">
                 <label class="form-label col-xs-4 col-sm-2">证件编号：</label>
-                <input type="text" class="input-text" name="cardId" th:value="${maps.STU_IDNO}">
+                <input type="text" class="input-text" name="cardId" id="idnum" th:value="${maps.STU_IDNO}">
 
             </div>
 
             <div class="row cl" style="margin-top: 30px;">
                 <label class="form-label col-xs-4 col-sm-2">联系电话：</label>
-                <input type="text" class="input-text" name="number" th:value="${maps.STU_PHONE}">
+                <input type="text" class="input-text" name="number" id="phnoenum" th:value="${maps.STU_PHONE}">
             </div>
 
 
 
             <div class="row cl" style="margin-top: 30px;">
                 <label class="form-label col-xs-4 col-sm-2">联系地址：</label>
-                    <input type="text" class="input-text" name="address" th:value="${maps.STU_ADD}">
+                    <input type="text" class="input-text" name="address" id="add" th:value="${maps.STU_ADD}">
             </div>
 
             <div class="row cl" style="margin-left: 375px;">
