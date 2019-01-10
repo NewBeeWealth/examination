@@ -23,22 +23,23 @@
         <thead>
         <tr class="text-c">
             <th width="50">试卷名称</th>
-            <th width="20">状态</th>
+            <!--<th width="20">状态</th>-->
             <th width="20">开考时间</th>
             <th width="20">结束时间</th>
-            <th width="100">试卷说明</th>
+            <!--<th width="100">试卷说明</th>-->
             <th width="70">操作</th>
         </tr>
         </thead>
         <tbody>
 
         <tr th:each="bank : ${maps}">
-            <td th:text="${bank.EXAM_NAME}"></td>
-            <td th:text="${bank.EXAM_STATE}"></td>
-            <td th:text="${bank.EXAM_STARTTIME}"></td>
-            <td th:text="${bank.EXAM_ENDTIME}"></td>
-            <td th:text="${bank.EXAM_DESCROBE}"></td>
-            <td>
+            <td th:text="${bank.EXAM_NAME}" style="text-align: center"></td>
+            <!--<td th:text="${bank.EXAM_STATE}"></td>-->
+            <td th:text="${bank.EXAM_STARTTIME}" style="text-align: center"></td>
+            <td th:text="${bank.EXAM_ENDTIME}" style="text-align: center"></td>
+            <!--<td th:text="${bank.EXAM_DESCROBE}"></td>-->
+            <td style="text-align: center;color: #00CC99" th:if="${bank.a}==1" th:text="试卷已配置"></td>
+            <td style="text-align: center" th:if="${bank.a}==0">
                 <!--<a href="javascript:" th:onclick="checkBank('/exam/toCheckBank?id='+${bank.EXAM_ID})">配置</a>-->
                 <!--<a th:href="'/exam/addexamination?id='+${bank.EXAM_ID}" >配置</a>&nbsp;-->
                 <a th:href="'/exam/toCheckBank?id='+${bank.EXAM_ID}" >配置</a>&nbsp;

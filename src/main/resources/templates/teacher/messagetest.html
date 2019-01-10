@@ -23,7 +23,7 @@
         <tr class="text-c">
             <th width="15">ID</th>
             <th width="50">题库名称</th>
-            <th width="20">状态</th>
+            <!--<th width="20">状态</th>-->
             <!--<th width="20">试题数量</th>-->
             <th width="100">题库说明</th>
             <th width="70">操作</th>
@@ -32,11 +32,11 @@
         <tbody>
 
        <tr th:each="bank : ${maps}">
-            <td th:text="${bank.BANK_ID}"></td>
-            <td th:text="${bank.BANK_NAME}"></td>
-            <td th:text="${bank.BANK_STATE}==0?'开放':'关闭'"></td>
+            <td th:text="${bank.BANK_ID}" style="text-align: center"></td>
+            <td th:text="${bank.BANK_NAME}" style="text-align: center"></td>
+            <!--<td th:text="${bank.BANK_STATE}==0?'开放':'关闭'"></td>-->
             <!--<td th:text="${bank.BANK_NUM}"></td>-->
-            <td th:text="${bank.BANK_DETAIL}"></td>
+            <td th:text="${bank.BANK_DETAIL}"style="text-align: center"></td>
             <td>
                 <!--<input type="text" th:value="${bank.BANK_ID}" class="upid" >-->
                 <!--<a class="btn btn-primary" onclick="system_category_add('修改','/question/questionupdate')" href="javascript:void(0);">修改</a>-->

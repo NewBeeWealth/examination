@@ -118,8 +118,12 @@ public class StudentExamController {
                             String parameterValue = parameterValues[j];
                             mulAnswer += parameterValue;
                         }
-                        //System.out.println("******"+silAnswer);
-                        int mulResult=studentExamService.saveMulAnswer(mulIds[i],mulAnswer,studentId,map.get("examId"),map.get("mulScore"+singleIds[i]));
+                        /*System.out.println("******"+mulAnswer);
+                        System.out.println(mulIds[i]);
+                        System.out.println(studentId);
+                        System.out.println(map.get("examId"));
+                        System.out.println("*-*"+map.get("mulScore"+mulIds[i]));*/
+                        int mulResult=studentExamService.saveMulAnswer(mulIds[i],mulAnswer,studentId,map.get("examId"),map.get("mulScore"+mulIds[i]));
                         mulTotalResult += mulResult;
                     }
                 }
@@ -128,7 +132,7 @@ public class StudentExamController {
                 String[] judgeIds = request.getParameterValues("judgeId");
                     if (judgeIds!=null&&judgeIds.length>0){
                     for (int i=0;i<judgeIds.length;i++){
-                        int judgeResult=studentExamService.saveJudgeAnswer(judgeIds[i],map.get("judge"+judgeIds[i]),studentId,map.get("examId"),map.get("judgeScore"+singleIds[i]));
+                        int judgeResult=studentExamService.saveJudgeAnswer(judgeIds[i],map.get("judge"+judgeIds[i]),studentId,map.get("examId"),map.get("judgeScore"+judgeIds[i]));
                         //System.out.println("*8*8*8"+judgeResult);
                         judgeTotalResult += judgeResult;
                     }

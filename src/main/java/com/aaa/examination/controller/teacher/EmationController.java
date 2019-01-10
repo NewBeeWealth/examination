@@ -42,6 +42,17 @@ public class EmationController {
     @RequestMapping("messageexamination")
     public String messageExamination(Model model){
         List<Map> examList = emationService.getExamList();
+        if (examList!=null&&examList.size()>0){
+            for (Map map : examList) {
+                Object examId = map.get("EXAM_ID");
+                List<Map> getOKExam = emationService.getOKExam(examId);//查看此试卷是否已经配置过
+                if (getOKExam.size()>0){
+                    map.put("a",1);
+                }else {
+                    map.put("a",0);
+                }
+            }
+        }
         System.out.println(examList);
         model.addAttribute("maps",examList);
         return "teacher/messageexamination";
