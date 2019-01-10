@@ -28,17 +28,21 @@
     <select id="getExamList" resultType="map">
       select * from tbl_exam
     </select>
+    <!--获取配置过的试卷-->
+    <select id="getOKExam" resultType="map">
+        select exqu_id from TBL_EXAM_QUESTION where exqu_exam=#{examId}
+    </select>
     <!--获取所有题库名称-->
     <select id="getAllBank" resultType="map">
         select * from TBL_QUESTIONBANK
     </select>
     <!--删除试卷a-->
-    <!--<delete id="delexam">
+    <delete id="delexam">
         delete from TBL_EXAM where exam_id = #{id}
-    </delete>-->
-    <select id="delexam" parameterType="Integer" statementType="CALLABLE">
+    </delete>
+    <!--<select id="delexam" parameterType="Integer" statementType="CALLABLE">
         call pro_delexam_byeid(#{id,jdbcType=INTEGER,mode=IN})
-    </select>
+    </select>-->
     <!--根据id获取试卷信息-->
     <select id="getExamById" resultType="map">
         select * from tbl_exam where exam_id = #{id}

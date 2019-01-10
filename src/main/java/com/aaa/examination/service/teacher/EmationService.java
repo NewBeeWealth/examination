@@ -26,6 +26,13 @@ public interface EmationService {
      */
     List<Map> getExamList();
     /**
+     * 获取配置过的试卷
+     * @param examId
+     * @return
+     */
+    List<Map> getOKExam(Object examId);
+
+    /**
      * 查询所有题库名称
      * @return
      */

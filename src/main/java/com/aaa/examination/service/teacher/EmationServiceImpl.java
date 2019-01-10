@@ -108,6 +108,11 @@ public class EmationServiceImpl implements EmationService{
     }
 
     @Override
+    public List<Map> getOKExam(Object examId) {
+        return emationDao.getOKExam(examId);
+    }
+
+    @Override
     public List<Map> getAllBank() {
         return emationDao.getAllBank();
     }
