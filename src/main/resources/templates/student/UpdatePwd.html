@@ -21,6 +21,7 @@
         .formControls input{
             width: 300px;
         }
+        #error{color: #cc0000;font-size:20px}
     </style>
     <script src="../jquery-3.3.1.min.js"></script>
     <script>
@@ -33,23 +34,33 @@
             console.log(newpwd1+"--------------newpwd"+newpwd)
             if(newpwd1==newpwd){
                 $("#form-article-add").submit();
-            } else{
-                alert("两次输入密码不一致！！")
+            } else if(newpwd1==""||newpwd==""){
+                alert("密码不能为空！！！");
+            }else if(newpwd1!=newpwd){
+                alert("两次输入密码不一致！！！");
             }
         });
 
-        $(".input-text").blur(function () {
-            var oldpwd=document.getElementById("oPwd").value();
-            var newpwd1 = document.getElementById("pwd1").value;
-            var newpwd=document.getElementById("pwd").value;
+        $("#oPwd").blur(function () {
+            var oldpwd=document.getElementById("oPwd").value;
             if (oldpwd==""){
                 alert("请输入原有密码")
-            } else if(newpwd1==""){
-                alert("请输入新密码")
-            }else if(newpwd==""){
-                alert("请再次输入新密码")
             }
-        })
+        });
+
+        $("#pwd1").blur(function () {
+            var pwd1=document.getElementById("pwd1").value;
+            if (pwd1==""){
+                alert("请输入新密码")
+            }
+        });
+
+        $("#pwd").blur(function () {
+            var pwd=document.getElementById("pwd").value;
+            if (pwd==""){
+                alert("请再次确认新密码")
+            }
+        });
     })
     </script>
 
@@ -57,7 +68,7 @@
 <body>
 <div style="margin-left: 20px;">
     <h3>修改密码</h3>
-    <div th:text="${error}"></div>
+    <div th:text="${error}" id="error"></div>
     <div class="page-container">
         <form class="form form-horizontal" id="form-article-add" method="post" action="/up/Update">
 
