@@ -31,7 +31,9 @@ public class EmationController {
      */
     @RequestMapping("/batchAdd")
     public String batchAdd(@RequestParam MultipartFile excelFile,@RequestParam Map userMap){
-        emationService.batchAdd(excelFile,userMap);
+        System.out.println(userMap+"********");
+        Map map = emationService.batchAdd(excelFile, userMap);
+        System.out.println(map);
         return "/teacher/exammanage1";
     }
 

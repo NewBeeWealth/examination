@@ -6,7 +6,7 @@
 
     <!--批量添加单选题-->
     <insert id="addSingle">
-       insert into tbl_exam_singlechoice(SINGLE_ID,SINGLE_MAIN,SINGLE_BANK,SINGLE_TYPE,SINGLE_A,SINGLE_B,SINGLE_C,SINGLE_D,SINGLE_RESULT) values(testban_seq.nextval,#{loc},#{qname},#{dname},#{loc1},#{loc2},#{loc3},#{loc4},#{loc5})
+       insert into tbl_exam_singlechoice(SINGLE_ID,SINGLE_TYPE,SINGLE_BANK,SINGLE_MAIN,SINGLE_A,SINGLE_B,SINGLE_C,SINGLE_D,SINGLE_RESULT) values(testban_seq.nextval,#{dname},#{qname},#{loc},#{loc1},#{loc2},#{loc3},#{loc4},#{loc5})
     </insert>
 
     <!--批量添加多选题-->

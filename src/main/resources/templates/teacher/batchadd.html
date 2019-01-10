@@ -30,10 +30,20 @@
     <p style="color: gray">请核对EXCEL文件中的填写日期单元格，其属性为“文本”。</p>
     <div class="page-container">
        <form class="form form-horizontal" id="form-article-add" action="/exam/batchAdd" method="post" enctype="multipart/form-data">
-           <div class="row cl">
+           <!--<div class="row cl">
                <label class="form-label col-xs-4 col-sm-2">题库名称: </label>
                <div class="formControls col-xs-8 col-sm-9">
                    <input type="text" name="qname" value="" class="input-text">
+               </div>
+           </div>-->
+           <div class="row cl"style="display: inline-block;width: 540px;margin-left: 170px;">
+               <label class="form-label col-xs-4 col-sm-2">所属题库: </label>
+               <div class="formControls col-xs-8 col-sm-9" style="width: 150px;">
+                   <select name="qname" class="select" style="width: 150px;">
+                       <option th:each="bankName:${bankNameList}" th:value="${bankName.BANK_NAME}" th:text="${bankName.BANK_NAME}"></option>
+                       <!--<option value="python">python</option>
+                       <option value="php">php</option>-->
+                   </select>
                </div>
            </div>
 

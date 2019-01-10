@@ -51,7 +51,9 @@ public class EmationServiceImpl implements EmationService{
 
         List list=new ArrayList();
         Map map  = null;
+        System.out.println("*-*-*"+rows);
         for(int i=1;i<rows;i++){
+            System.out.println("-/-/-/-/");
             try {
                 map = new HashMap();
                 //根据行下标获取该行数据的列集合
@@ -70,6 +72,7 @@ public class EmationServiceImpl implements EmationService{
                 }
                 if("单选".equals(row[0].getContents())||"多选".equals(row[0].getContents())){
                     //row[0].getContents()  获取单元格内容
+                    System.out.println("?????"+row[0].getContents());
                     map.put("dname",row[0].getContents());
                     map.put("loc",row[1].getContents());
                     map.put("loc1",row[2].getContents());
@@ -81,6 +84,7 @@ public class EmationServiceImpl implements EmationService{
                     list.add(map);
 
                     if("单选".equals(map.get("dname"))){
+                        System.out.println("----"+map.get("dname"));
                         emationDao.addSingle(map);
                     }else if("多选".equals(map.get("dname"))){
                         emationDao.addMultiple(map);

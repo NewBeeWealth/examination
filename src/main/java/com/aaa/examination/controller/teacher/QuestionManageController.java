@@ -134,11 +134,13 @@ public class QuestionManageController {
      */
     @RequestMapping("excelbatchadd")
     public String excelBatchAdd(Model model){
+        List<Map> maps = questionManageService.selectBankName();
+        model.addAttribute("bankNameList",maps);
         return "teacher/batchadd";
     }
-    public String selectBank(){
+    /*public String selectBank(){
         return "";
-    }
+    }*/
     /**
      * 新增试题
      * @return

@@ -37,7 +37,7 @@ public class ExamManageController {
     }
 
     /**
-     * 单选试题列表
+     * 试题列表
      * @return
      */
     @ResponseBody
@@ -60,6 +60,7 @@ public class ExamManageController {
     @ResponseBody
     @RequestMapping("/del/{SINGLE_ID}")
     public Object del(@PathVariable Integer SINGLE_ID){
+        System.out.println("kkk"+SINGLE_ID);
         return  examManageService.delete(SINGLE_ID);
     }
     /**

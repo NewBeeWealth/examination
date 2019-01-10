@@ -18,7 +18,7 @@
         <tr><td colspan="2" th:text="${error}=='null'?'':${error}"></td></tr>
         <tr><td colspan="2"><input type="hidden" th:value="${bankMap.BANK_ID}" name="bankId"></td></tr>
         <tr><td>题库名称</td><td><input type="text" th:value="${bankMap.BANK_NAME}" name="bankName"></td></tr>
-        <tr><td>状态</td><td><select name="bankState"><option value="0" th:selected="${bankMap.BANK_STATE}==0?'selected':'false'">开放</option><option value="1" th:selected="${bankMap.BANK_STATE}==1?'selected':'false'">关闭</option></select></td></tr>
+        <!--<tr><td>状态</td><td><select name="bankState"><option value="0" th:selected="${bankMap.BANK_STATE}==0?'selected':'false'">开放</option><option value="1" th:selected="${bankMap.BANK_STATE}==1?'selected':'false'">关闭</option></select></td></tr>-->
         <tr><td>题库说明</td><td><input type="text" th:value="${bankMap.BANK_DETAIL}" name="bankDetail"></td></tr>
         <tr><td><input type="submit" value="提交"></td><td><input type="button" id="que" value="取消"></td></tr>
     </table>
