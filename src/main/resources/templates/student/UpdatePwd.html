@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="Bookmark" href="/favicon.ico" >
+    <link rel="Shortcut Icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="../static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="../lib/Hui-iconfont/1.0.8/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="../static/h-ui.admin/css/style.css" />
+    <title>NewBee</title>
+
+    <style>
+        .formControls input{
+            width: 300px;
+        }
+    </style>
+    <script src="../jquery-3.3.1.min.js"></script>
+    <script>
+    $(function () {
+
+
+        $("#tijiao").click(function () {
+            var newpwd1 = document.getElementById("pwd1").value;
+            var newpwd=document.getElementById("pwd").value;
+            console.log(newpwd1+"--------------newpwd"+newpwd)
+            if(newpwd1==newpwd){
+                $("#form-article-add").submit();
+            } else{
+                alert("两次输入密码不一致！！")
+            }
+        });
+
+        $(".input-text").blur(function () {
+            var oldpwd=document.getElementById("oPwd").value();
+            var newpwd1 = document.getElementById("pwd1").value;
+            var newpwd=document.getElementById("pwd").value;
+            if (oldpwd==""){
+                alert("请输入原有密码")
+            } else if(newpwd1==""){
+                alert("请输入新密码")
+            }else if(newpwd==""){
+                alert("请再次输入新密码")
+            }
+        })
+    })
+    </script>
+
+</head>
+<body>
+<div style="margin-left: 20px;">
+    <h3>修改密码</h3>
+    <div th:text="${error}"></div>
+    <div class="page-container">
+        <form class="form form-horizontal" id="form-article-add" method="post" action="/up/Update">
+
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">用户名: </label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <span th:text="${userName}"></span>
+                </div>
+            </div>
+            <div class="row cl">
+                <!--<div class="formControls col-xs-8 col-sm-9"><p>用户名：</p></div>-->
+                <label class="form-label col-xs-4 col-sm-2">旧密码: </label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" name="oldpwd" class="input-text" id="oPwd">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2">新密码: </label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" name="newpwd" class="input-text" id="pwd1">
+                </div>
+                <!--<div class="formControls col-xs-8 col-sm-9" style="width: 150px;">
+                    <select name="qstate" class="select" style="width: 100px;">
+                        <option value="0">开放</option>
+                        <option value="1">关闭</option>
+                    </select>
+                </div>-->
+
+            </div>
+
+            <div class="row cl" style="margin-top: 30px;">
+                <label class="form-label col-xs-4 col-sm-2">确认新密码: </label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" id="pwd" name="newpwd1">
+
+                </div >
+            </div>
+
+            <div class="row cl" style="margin-left: 375px;">
+                <!--                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                                    <button onClick="new_pwd();" class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i>提交</button>
+                                   &lt;!&ndash; <button onClick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>&ndash;&gt;
+                                </div>-->
+                <input type="button" value="提交"  id="tijiao">
+            </div>
+        </form>
+    </div>
+</div>
+</body>

@@ -9,7 +9,7 @@
     </select>
     <!--学生-->
     <select id="getStuCount" resultType="map">
-
+      select count(STUDENT_ID) as value,name  from (select substr(STU_ADD,1,2)name,STUDENT_ID from TBL_STUDENT)b GROUP BY name
     </select>
     <!--试题-->
     <select id="getQuestionsCount" resultType="map">
