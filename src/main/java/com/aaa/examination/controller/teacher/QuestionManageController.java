@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -75,10 +76,25 @@ public class QuestionManageController {
      * 删除一个题库
      * @return
      */
-    @RequestMapping("questiondelete")
+    /*@RequestMapping("questiondelete")
     public Object questionDelete(Integer id){
         questionManageService.deleteQuestion(id);
         return "redirect:/question/messagetest";
+    }*/
+
+    @RequestMapping("questiondelete")
+    @ResponseBody
+    public int questionDelete(String name, Integer id){
+        System.out.println("|*-"+name);
+        System.out.println(id);
+        List<Map> bankName = questionManageService.getBankName(name);
+        if (bankName!=null&&bankName.size()>0){
+           return -2;
+        }else{
+            int i = questionManageService.deleteQuestion(id);
+            System.out.println(i);
+            return i;
+        }
     }
     /**
      * 查询指定id题库

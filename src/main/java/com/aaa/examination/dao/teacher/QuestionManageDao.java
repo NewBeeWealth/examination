@@ -25,6 +25,12 @@ public interface QuestionManageDao {
     List<Map> getQuestionList();
 
     /**
+     * 获取所有添加过题的题库
+     * @return
+     */
+    List<Map> getBankName(String name);
+
+    /**
      * 删除一个题库
      * @param id
      * @return

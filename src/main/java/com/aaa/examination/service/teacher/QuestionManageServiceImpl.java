@@ -32,6 +32,11 @@ public class QuestionManageServiceImpl implements QuestionManageService{
     }
 
     @Override
+    public List<Map> getBankName(String name) {
+        return questionManageDao.getBankName(name);
+    }
+
+    @Override
     public int deleteQuestion(Integer id) {
         return questionManageDao.deleteQuestion(id);
     }

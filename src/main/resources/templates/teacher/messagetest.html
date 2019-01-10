@@ -41,7 +41,8 @@
                 <!--<input type="text" th:value="${bank.BANK_ID}" class="upid" >-->
                 <!--<a class="btn btn-primary" onclick="system_category_add('修改','/question/questionupdate')" href="javascript:void(0);">修改</a>-->
                 <a class="btn btn-primary" th:href="'/question/questionupdate?id='+${bank.BANK_ID}">修改</a>&nbsp;
-                <a class="btn btn-primary" th:href="'/question/questiondelete?id='+${bank.BANK_ID}" >删除</a>
+                <a class="btn btn-primary">删除</a>
+                <!--<a class="btn btn-primary" th:href="'/question/questiondelete?id='+${bank.BANK_ID}" >删除</a>-->
             <!--    <a class="btn btn-primary" onclick="system_category_add('删除','/question/questiondelete?id=${bank.BANK_ID}')" href="javascript:;">删除</a>-->
             </td>
         </tr>
@@ -70,6 +71,31 @@
         console.log("***"+url1);
         layer_show(title,url1,550,400);
     }
+
+    $(document).on("click",".btn-primary",function () {
+        let aa = confirm('确定删除吗？')
+        if (aa) {
+
+        var name = $(this).parent().parent().children("td:nth-child(2)").html();
+        var id = $(this).parent().parent().children("td:nth-child(1)").html();
+        console.log(name);
+        console.log(id);
+        $.ajax({
+            type: 'POST',
+            data: {"name": name, "id": id},
+            url: '/question/questiondelete',
+            dataType: 'json',
+            success: function (data) {
+                if (data == -2) {
+                    alert("该数据库已加入试题！");
+                } else {
+                    alert("删除成功！");
+                }
+                location.href='/question/messagetest';
+            }
+        });
+    }
+    });
     /*管理员-角色-删除*/
     /*function admin_role_del(obj,id){
         layer.confirm('角色删除须谨慎，确认要删除吗？',function(index){

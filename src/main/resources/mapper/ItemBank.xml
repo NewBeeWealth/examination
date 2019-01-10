@@ -13,6 +13,13 @@
     <select id="getQuestionList" resultType="map">
       select * from tbl_questionbank
     </select>
+    <!--获取所有添加过题的题库-->
+    <select id="getBankName" resultType="map">
+      select a.* from (
+            select t.single_bank from  tbl_exam_singlechoice t union
+            select t.mul_bank from  tbl_exam_multiplechoice t union
+            select t.judge_bank from  tbl_exam_judge t) a where a.single_bank like '%'||#{name}||'%'
+    </select>
     <!--删除题库-->
     <delete id="deleteQuestion" parameterType="int">
           delete from tbl_questionbank where bank_id=#{id}

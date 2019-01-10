@@ -54,41 +54,44 @@
                 border
                 @selection-change="selectionChange"
                 style="width: 100%">
-            <el-table-column
+            <!--<el-table-column
                     type="selection"
                     width="55">
-            </el-table-column>
+            </el-table-column>-->
             <el-table-column
+                    align="center"
                     prop="SINGLE_TYPE"
                     label="试题类型"
-                    width="105">
+                    width="150">
             </el-table-column>
             <el-table-column
+                    align="center"
                     prop="SINGLE_MAIN"
                     label="试题题目"
-                    width="550">
+                    width="750">
             </el-table-column>
 
             <el-table-column
+                    align="center"
                     prop="SINGLE_BANK"
                     label="所属题库"
-                    width="120">
+                    width="220">
             </el-table-column>
-            <el-table-column
+            <!--<el-table-column
                     label="操作">
                 <template scope="scope">
-                    <!--<el-button :plain="true" type="success" size="small" icon="edit" @click="editClick(scope.row)">编辑</el-button>-->
+                    &lt;!&ndash;<el-button :plain="true" type="success" size="small" icon="edit" @click="editClick(scope.row)">编辑</el-button>&ndash;&gt;
                     <el-button :plain="true" type="danger" size="small" icon="delete" @click="deleteClick(scope.row)">删除</el-button>
                 </template>
-            </el-table-column>
+            </el-table-column>-->
         </el-table>
     </el-row>
 
     <!--列表底部工具条和分页符-->
     <el-row style="margin-top: 20px" type="flex" justify="end">
-        <el-col :span="6" >
+        <!--<el-col :span="6" >
             <el-button :plain="true" type="danger" size="small" icon="delete" @click="removeSelection">删除所选</el-button>
-        </el-col>
+        </el-col>-->
         <el-col :span="18" >
             <el-pagination
                     style="float: right"
